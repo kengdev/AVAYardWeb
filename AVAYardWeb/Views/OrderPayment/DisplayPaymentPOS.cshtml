@@ -1,0 +1,22 @@
+﻿@model PaymentViewModel
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <h2>ชำระเงินค่าบริการ</h2>
+
+        <div>
+            <b>เลขงาน:</b> @Model.RefNo
+        </div>
+
+        <div>
+            <b>ยอดชำระ:</b> @Model.Amount.ToString("#,##0.00") บาท
+        </div>
+
+        <br />
+
+        <img src="data:image/png;base64,@Model.QrBase64" style="width:250px" />
+    </div>
+</div>

@@ -1,0 +1,133 @@
+﻿@model AVAYardWeb.Models.Entities.TransTransportation
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fad fa-plus-circle"></i>
+                <span class="caption-subject bold uppercase"> เพิ่มข้อมูลบริษัทขนส่ง</span>
+            </div>
+        </div>
+        @using (Html.BeginForm("AddData", "Transportation", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
+        {
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label>
+                                            ชื่อ
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.TransportationName, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>
+                                            อักษรย่อ
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.TransportationAcronym, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>
+                                            เบอร์โทรศัพท์
+                                        </label>
+                                        @Html.TextBoxFor(m => m.Phone, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>
+                                    ที่อยู่
+                                </label>
+                                @Html.TextBoxFor(m => m.Address, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                <span class="help-block"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    หมายเหตุ
+                                </label>
+                                @Html.TextBoxFor(m => m.Remark, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <div class="tools-action">
+                                <a href="javascript:;" onclick="window.close()">ยกเลิก</a> |
+                                <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function($) {
+            $("#frmAdd").ajaxForm(function(data) {
+                killOverlayForm();
+                if (data.result == true) {
+                    $.alert.open('info', data.resultMessage, function(r) {
+                        window.close();
+                        window.opener.reloadRow();
+                    });
+                } else {
+                    $.alert.open('error', data.resultMessage);
+                }
+            });
+
+        }(jQuery));
+
+        function OnValidate() {
+            var validateRules = {
+                rules: {
+                    TransportationName: {
+                      require: { type: "", message: "กรุณาพิมพ์ชื่อบริษัทขนส่ง" },
+                      minlength: { type: "", value: 10, message: "ชื่อบรษัทขนส่งอย่างน้อย 10 ตัวอักษร" }
+                    },
+                    TransportationAcronym: {
+                      require: { type: "", message: "กรุณาพิมพ์อักษรย่อ" },
+                      minlength: { type: "", value: 3, message: "อักษรย่ออย่างน้อย 3 ตัวอักษร" }
+                    }
+                }
+            };
+
+            var ok = $("#frmAdd").validate(validateRules);
+
+            if (ok) {
+                overLayForm();
+                return true;
+            }
+            return false;
+        }
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@model AVAYardWeb.Models.Entities.TransAgent
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="col-md-12 col-lg-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fad fa-plus-circle"></i>
+                <span class="caption-subject bold uppercase"> เพิ่มข้อมูลเอเจนท์</span>
+            </div>
+        </div>
+        @using (Html.BeginForm("AddData", "Agent", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
+        {
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>
+                                    ชื่อ
+                                    <span class="required"> * </span>
+                                </label>
+                                @Html.TextBoxFor(m => m.AgentName, new { Class = "form-control", autocomplete = "Off" })
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <div class="tools-action">
+                                <a href="javascript:;" onclick="window.close()">ปิด</a> |
+                                <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function($) {
+            $("#frmAdd").ajaxForm(function(data) {
+                killOverlayForm();
+                if (data.result == true) {
+                    $.alert.open('info', data.resultMessage, function(r) {
+                        window.close();
+                        window.opener.reloadRow();
+                    });
+                } else {
+                    $.alert.open('error', data.resultMessage);
+                }
+            });
+        }(jQuery));
+
+        function OnValidate() {
+            var validateRules = {
+                rules: {
+                    AgentName: {
+                      require: { type: "", message: "กรุณาพิมพ์ชื่อเอเจนท์" }
+                    }
+                }
+            };
+
+            var ok = $("#frmAdd").validate(validateRules);
+
+            if (ok) {
+                overLayForm();
+                return true;
+            }
+            return false;
+        }
+    </script>
+}

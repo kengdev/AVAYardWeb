@@ -1,0 +1,91 @@
+﻿@model AVAYardWeb.Models.Entities.TransAgent
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="col-md-12 col-lg-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fad fa-pencil"></i>
+                <span class="caption-subject bold uppercase"> แก้ไขข้อมูลเอเจนท์</span>
+                <span class="caption-helper">[รหัส @Model.AgentCode]</span>
+            </div>
+        </div>
+        @using (Html.BeginForm("EditData", "Agent", FormMethod.Post, new { id = "frmEdit", onsubmit = "return OnValidate()" }))
+        {
+            @Html.HiddenFor(m => m.AgentCode)
+            @Html.HiddenFor(m => m.IsActived)
+            @Html.HiddenFor(m => m.IsEnabled)
+            @Html.HiddenFor(m => m.CreateDate)
+            @Html.HiddenFor(m => m.CreateBy)
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>
+                                    ชื่อ
+                                    <span class="required"> * </span>
+                                </label>
+                                @Html.TextBoxFor(m => m.AgentName, new { id = "txtName", Class = "form-control", autocomplete = "Off" })
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <div class="tools-action">
+                                <a href="/agent/">กลับหน้าหลัก</a> |
+                                <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function ($) {
+            $("#frmEdit").ajaxForm(function (data) {
+                if (data.result == true) {
+                    killOverlayForm();
+                    $.alert.open('info', data.resultMessage, function (r) {
+                        window.close();
+                        window.opener.reloadRow();
+                    });
+                } else {
+                    $.alert.open('error', data.resultMessage);
+                }
+            });
+        }(jQuery));
+
+        function OnValidate() {
+            var validateRules = {
+                rules: {
+                    AgentName: {
+                      require: { type: "", message: "กรุณาพิมพ์ชื่อเอเจนท์" }
+                    }
+                }
+            };
+
+            var ok = $("#frmAdd").validate(validateRules);
+
+            if (ok) {
+                overLayForm();
+                return true;
+            }
+            return false;
+        }
+    </script>
+}
+
+

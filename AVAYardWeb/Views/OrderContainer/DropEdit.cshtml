@@ -1,0 +1,139 @@
+﻿@model AVAYardWeb.Models.Entities.OrderContainer
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="col-md-12 col-lg-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fad fa-pencil"></i>
+                <span class="caption-subject bold uppercase"> แก้ไขรายการรับตู้สินค้า (Drop)</span>
+            </div>
+        </div>
+        <div class="scroller" style="height:335px" data-always-visible="0" data-rail-visible="1" data-rail-color="blue" data-handle-color="red">
+            @using (Html.BeginForm("DropEditData", "OrderContainer", FormMethod.Post, new { id = "frmEditDrop", onsubmit = "return OnValidate()" }))
+            {
+                @Html.HiddenFor(m => m.PaymentStageCode)
+                @Html.HiddenFor(m => m.OrderCode)
+                @Html.HiddenFor(m => m.ContainerStatus)
+                @Html.HiddenFor(m => m.IssueType)
+                @Html.HiddenFor(m => m.IssueDate)
+                @Html.HiddenFor(m => m.IsReceipt)
+                @Html.HiddenFor(m => m.IsEnabled)
+                @Html.HiddenFor(m => m.CreateDate)
+                @Html.HiddenFor(m => m.CreateBy)
+                <div class="portlet-body form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label>
+                                        Container No.
+                                        <span class="required"> * </span>
+                                    </label>
+                                    @Html.TextBoxFor(m => m.ContainerNo, new { @Class = "form-control form-eng", Autocomplete = "Off" })
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>
+                                        ขนาดตู้สินค้า
+                                        <span class="required"> * </span>
+                                    </label>
+                                    @Html.DropDownList("ContainerSizeCode", null, new { @Class = "form-control", id = "container_type" })
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        ทะเบียนรถ
+                                        <span class="required"> * </span>
+                                    </label>
+                                    @Html.TextBoxFor(m => m.TruckLicense, new { @Class = "form-control", Autocomplete = "Off" })
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>
+                                        บริษัทขนส่ง
+                                        <span class="required"> * </span>
+                                    </label>
+                                    @Html.DropDownList("TransportationCode", null, new { @Class = "form-control", id = "agent_no" })
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row pull-right">
+                            <div class="col-md-12">
+                                <div class="tools-action">
+                                    <a href="javascript:;" onclick="window.close();">ปิด</a> |
+                                    <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function($) {
+            $("#frmEditDrop").ajaxForm(function(data) {
+                killOverlayForm();
+                if (data.result == true) {
+                    $.alert.open('info', data.resultMessage, function(r) {
+                        window.close();
+                        window.opener.reloadRow();
+                    });
+                } else {
+                    $.alert.open('error', data.resultMessage);
+                }
+            });
+        }(jQuery));
+
+        function OnValidate() {
+            var validateRules = {
+                rules: {
+                    ContainerNo: {
+                      require: { type: "", message: "กรุณาพิมพ์เบอร์ตู้สินค้า" }
+                    },
+                    ContainerSizeCode: {
+                      selected: { type: "", message: "กรุณาเลือกขนาดตู้สินค้า" }
+                    },
+                    TruckLicense: {
+                      require: { type: "", message: "กรุณาพิมพ์ทะเบียนรถ" }
+                    },
+                    TransportationCode: {
+                      selected: { type: "", message: "กรุณาเลือกบริษัทขนส่ง" }
+                    },
+                }
+            };
+
+            var ok = $("#frmEditDrop").validate(validateRules);
+
+            if (ok) {
+                overLayForm();
+                return true;
+            }
+            return false;
+        }
+    </script>
+}

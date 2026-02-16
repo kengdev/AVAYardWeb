@@ -1,0 +1,45 @@
+﻿@page {
+    size: A4;
+    margin: 0.5cm;
+}
+.page{
+    padding:0.5cm;
+}
+.page-break {
+    display: block;
+    height: 1px;
+    page-break-before: always;
+}
+
+.page-break-no {
+    display: block;
+    height: 1px;
+    page-break-after: avoid;
+}
+
+@media all {
+    .page-break {
+        display: none;
+    }
+
+    .page-break-no {
+        display: none;
+    }
+}
+
+@media print {
+    .page-break {
+        height: 1px;
+        page-break-before: always;
+    }
+
+    .page-break-no {
+        height: 1px;
+        page-break-after: avoid;
+    }
+}
+
+P {
+    page-break-after: always;
+}
+

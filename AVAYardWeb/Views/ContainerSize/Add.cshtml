@@ -1,0 +1,99 @@
+﻿@model AVAYardWeb.Models.Entities.TransContainerSize
+@{
+ViewBag.TopActive = "Base";
+ViewBag.MidActive = "agent";
+ViewBag.Title = "ข้อมูลเอเจนท์";
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="javascript:;">ข้อมูลหลัก</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="javascript:;">ข้อมูลเอเจนท์</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="/agent/add">เพิ่ม</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-plus-circle"></i>
+                    <span class="caption-subject bold uppercase"> เพิ่มข้อมูลเอเจนท์</span>
+                </div>
+            </div>
+            @using (Html.BeginForm("AddData", "ContainerType", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
+            {
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>
+                                    ชื่อ
+                                    <span class="required"> * </span>
+                                </label>
+                                    @Html.TextBoxFor(m => m.ContainerSizeName, new { id = "txtName", Class = "form-control", autocomplete = "Off" })
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <div class="tools-action">
+                                <a href="/containertype/">กลับหน้าหลัก</a> |
+                                <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script type="text/javascript">
+    (function($) {
+        $("#frmAdd").ajaxForm(function(data) {
+            killOverlayForm();
+            if (data.result == true) {
+                $.alert.open('info', data.resultMessage, function(r) {
+                    window.location.reload();
+                });
+            } else {
+                $.alert.open('error', data.resultMessage);
+            }
+        });
+    }(jQuery));
+
+    function OnValidate() {
+        var fn = $('#frmAdd').myfunction({
+            rules: {
+                txtName: {
+                    require: {
+                        value: true,
+                        message: "กรุณาพิมพ์ชื่อเอเจนท์"
+                    }
+                }
+            }
+        })
+        if (fn)
+            overLayForm();
+        return fn;
+    }
+</script>
+}

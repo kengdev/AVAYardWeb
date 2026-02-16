@@ -1,0 +1,91 @@
+﻿@model PaymentViewModel
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <h2>ชำระเงินค่าบริการ</h2>
+
+        <div>
+            <b>เลขงาน:</b> @Model.RefNo
+        </div>
+
+        <div>
+            <b>ยอดชำระ:</b> @Model.Amount.ToString("#,##0.00") บาท
+        </div>
+
+        <br />
+
+        <img src="data:image/png;base64,@Model.QrBase64" style="width:300px" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+        <button class="btn red" onclick="cancelPayment('@Model.RefNo')">ยกเลิกการชำระเงิน</button>&nbsp;&nbsp;&nbsp;
+        <button class="btn blue" onclick="approvePayment('@Model.RefNo')">ยืนยันการชำระเงิน</button>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function cancelPayment(code) {
+            overLayPage();
+            $.ajax({
+                url: "/orderpayment/cancel",
+                type: "POST",
+                dataType: "json",
+                data: { PaymentCode: code },
+
+                success: function (res) {
+                    killOverlayPage();
+                    if (res.result) {
+                        // ถ้าคุณอยากสั่ง hide ที่ localhost แล้วค่อยปิดหน้าต่าง
+                        //navigator.sendBeacon("http://localhost:9001/hide");
+                        window.close();
+                    } else {
+                        alert(res.message || "ยกเลิกไม่สำเร็จ");
+                    }
+                },
+
+                error: function (xhr) {
+                    let msg = "เกิดข้อผิดพลาด";
+                    try { msg = xhr.responseJSON?.message || msg; } catch(e) {}
+                    alert(msg);
+                }
+            });
+        }
+
+        function approvePayment(code) {
+            overLayPage();
+            $.ajax({
+                url: "/orderpayment/approve",
+                type: "POST",
+                dataType: "json",
+                data: { PaymentCode: code },
+                success: function (res) {
+                    killOverlayPage();
+                    if (res.result) {
+                        $.alert.open('info', res.resultMessage, function (r) {
+                            //navigator.sendBeacon("http://localhost:9001/hide");
+                            window.opener.reloadRow();
+                            window.open("/docform/printreceiptbypayment/" + code, "_blank");
+                            window.close();
+                        });
+
+                    } else {
+                        jAlert('ผลการทำงาน', data.resultMessage);
+                    }
+                },
+
+                error: function (xhr) {
+                    let msg = "เกิดข้อผิดพลาด";
+                    try { msg = xhr.responseJSON?.message || msg; } catch(e) {}
+                    alert(msg);
+                }
+            });
+        }
+    </script>
+}

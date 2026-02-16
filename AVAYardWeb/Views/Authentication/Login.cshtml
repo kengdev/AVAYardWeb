@@ -1,0 +1,28 @@
+@model AVAYardWeb.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="form-section align-self-center">
+    <h1 style="color:#876405;">AVA Global Logistics</h1>
+    <h3>Sign Into Your Account</h3>
+    <div class="clearfix"></div>
+    <div class="login-content">
+        @using (Html.BeginForm("Login", "Authentication", FormMethod.Post, new { id = "frmLogin" }))
+        {
+            <div class="form-group form-box">
+                <label for="first_field" class="form-label">Username</label>
+                <input name="Username" type="text" class="form-control" id="first_field" placeholder="Username"
+                aria-label="Username">
+            </div>
+            <div class="form-group form-box">
+                <label for="second_field" class="form-label">Password</label>
+                <input name="Password" type="password" class="form-control" autocomplete="off" id="second_field"
+                placeholder="Password" aria-label="Password">
+            </div>
+            <div class="form-group clearfix">
+                <button type="submit" class="btn-md btn-ava w-100">Login</button>
+            </div>
+        }
+    </div>
+</div>

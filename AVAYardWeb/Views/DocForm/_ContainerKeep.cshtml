@@ -1,0 +1,470 @@
+﻿@model AVAYardWeb.Models.OrderContainerModel
+@{
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="~/css/print/printform.css" media="print">
+<style>
+    body {
+        background: #fff;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    .page {
+        padding: 0.5cm;
+        font: 10pt "Tahoma", Times, serif;
+        z-index: 1000;
+        width: 100%;
+    }
+
+    .copied {
+        margin-top:30px;
+    }
+    .cut-off{height:1px;width:98%;border-bottom:1px #ccc dashed;margin-top:30px;}
+    .doc-type{
+        font-size:18px;
+        position:relative;
+        right:-320px;
+    }
+    .form-wrap {
+        padding: 7px;
+    }
+
+    .content-detail {
+        border: 1px solid #979797;
+        width: 96.5% !important;
+        padding-bottom: 15px;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .m-2 {
+        border-top: none !important;
+    }
+
+    .mt-3 {
+        margin-left: 30px;
+    }
+
+    .form-detail {
+        border-bottom: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .header-col-1 {
+        width: 150px;
+        float: left;
+        display: inline-block;
+    }
+
+    .header-col-6 {
+        width: 400px;
+        float: left;
+        display: inline-block;
+    }
+
+    .company-name {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .company-detail {
+        font-size: 13px !important;
+    }
+
+    .topic-name {
+        margin-bottom:10px;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        display: inline-block !important;
+    }
+
+    .pull-right {
+        float: right;
+    }
+
+    div.en {
+        font-size: 11px !important;
+    }
+
+    div.th {
+        font-size: 12px
+    }
+
+    .box-topic-wrapper {
+        text-align: left;
+        margin-top: 15px;
+        color: #818182;
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .box-topic-wrapper-sm {
+        text-align: right;
+        width: 30px !important;
+        margin-top: 15px;
+        color: #818182;
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .box-topic-wrapper {
+        width: 110px;
+    }
+
+    .box-container-result {
+        display: inline-block;
+    }
+
+    .box-container-right {
+        margin-left: 20px;
+    }
+
+    .box-container-left, .box-container-right {
+        display: inline-block;
+    }
+
+    .box-content-wrapper {
+        padding-left: 20px;
+        display: inline-block;
+        font-size: 14px;
+        width: 280px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .box-content-wrapper-lg {
+        position: relative;
+        left: 40px;
+        top: 7px;
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .box-content-wrapper-sm {
+        padding-left: 20px;
+        display: inline-block;
+        font-size: 14px;
+        width: 80px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .box-container-result {
+        margin-top: 10px;
+    }
+
+    .font-dark {
+        color: black;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .item-box {
+        border: 1px solid #000;
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+        top: 7px;
+    }
+
+        .item-box span {
+            font-size: 16px;
+            position: relative;
+            top: -5px;
+        }
+
+    .item-box-detail {
+        display: inline-block;
+    }
+
+    .box-container-result{
+        margin-left:30px;
+    }
+    .wrap-box-detail {
+        position: relative;
+        top: 7px;
+        left: 3px;
+    }
+
+    .container-result {
+        display: inline-block;
+    }
+
+    .img-display{
+        margin-top:10px;
+        display:inline-block;
+    }
+
+    .sign-detail {
+        padding-top:8px;
+        font-size:14px;    
+    }
+
+    .sign-detail div.weight-topic {
+        width: 150px !important;
+        display: inline-block
+    }
+    .sign-detail div.sign-detail{ text-align:right;width:100px;display:inline-block}
+
+    .bottom-content{padding-top:15px;}
+    .bottom-content .en, .bottom-content .th{display:inline-block;}
+
+    .bottom-sign-content{margin-top:30px;}
+
+    .sign-topic-content,.wrapper-sign{display:inline-block}
+    .sign-content{width:200px;border-bottom:1px solid #979797;display:inline-block;}
+    
+    @@media all {
+        .page-break {
+            display: none;
+        }
+    }
+
+    @@media print {
+        html, body {
+            height: 99%;
+        }
+    }
+
+    @@media print {
+        .page-break {
+            display: block;
+            page-break-before: always;
+        }
+    }
+</style>
+
+<div class="page">
+    <div class="form-content origin">
+        <div class="top-header">
+            @{
+                Html.RenderPartial("HeaderPdf");
+            }
+        </div>
+        <br />
+        <div class="topic-name">
+            <div class="doc-type">ต้นฉบับ</div>
+            <div style="font-size:16px;font-weight:bold;">ใบฝากตู้</div>
+        </div>
+ 
+        <div class="content-detail">
+            <div class="box-wrapper">
+                <div class="box-container-left">
+                    <div class="box-topic-wrapper-sm">
+                        <div class="th">เลขที่</div>
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.order_code</div>
+                    </div>
+                </div>
+                <div class="box-container-right pull-right">
+                    <div class="box-topic-wrapper-sm">
+                        <div class="th">วันที่</div>
+                    </div>
+                    <div class="box-content-wrapper-sm">
+                        <div>@Model.issue_date.ToString("dd/MM/yyyy")</div>
+                    </div>
+
+                    <div class="box-topic-wrapper-sm">
+                        <div class="th">เวลา</div>
+                    </div>
+                    <div class="box-content-wrapper-sm">
+                        <div>@Model.issue_date.ToString("HH:mm:ss")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-detail m-2">
+            <div class="box-container-left">
+                <div>
+                    <div class="box-topic-wrapper">
+                        เบอร์ตู้
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.container_no  <span style="margin-left:50px;">ขนาด @Model.container_size</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        รายการ
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>ฝากตู้เปล่า</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        ทะเบียน
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.truck_license</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        บริษัท
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.transportation_name</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        หมายเหตุ
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.remark</div>
+                    </div>
+                    <div style="margin-top:15px;margin-left:20px;">*** ฝากตู้เปล่าเกิน 7 วัน คิดเพิ่ม 50 บาท/ตู้, ฝากตู้เปล่าเกิน 10 วัน คิดเพิ่ม 100 บาท/ตู้</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sign-detail">
+            <div class="bottom-sign-content">
+                <div class="wrapper-sign">
+                    <div class="sign-topic-content">
+                        <div class="th">ชื่อ/เบอร์โทร ผู้ฝาก</div>
+                    </div>
+                    <div class="sign-content"></div>
+                </div>
+                <div class="wrapper-sign pull-right" style="margin-right:20px;">
+                    <div class="sign-topic-content">
+                        <div class="th">ผู้รับ</div>
+                    </div>
+                    <div class="sign-content"></div>
+                </div>
+            </div>
+
+            <div class="bottom-sign-content">
+                <div class="th">กรุณานำใบฝากตู้ หรือรูปถ่ายใบฝากตู้ฉบับนี้มารับตู้ด้วยทุกครั้ง หากไม่มีใบฝากตู้หรือรูปถ่ายใบฝากตู้ ทางลานไม่สามารถปล่อยตู้ให้ท่านได้</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cut-off"></div>
+
+    <div class="form-content copied">
+        <div class="top-header">
+            @{
+                Html.RenderPartial("HeaderPdf");
+            }
+        </div>
+        <br />
+        <div class="topic-name">
+            <div class="doc-type">สำเนา</div>
+            <div style="font-size:16px;font-weight:bold;">ใบฝากตู้</div>
+        </div>
+
+        <div class="content-detail">
+            <div class="box-wrapper">
+                <div class="box-container-left">
+                    <div class="box-topic-wrapper-sm">
+                        <div class="th">เลขที่</div>
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.order_code</div>
+                    </div>
+                </div>
+                <div class="box-container-right pull-right">
+                    <div class="box-topic-wrapper-sm">
+                        <div class="th">วันที่</div>
+                    </div>
+                    <div class="box-content-wrapper-sm">
+                        <div>@Model.issue_date.ToString("dd/MM/yyyy")</div>
+                    </div>
+
+                    <div class="box-topic-wrapper-sm">
+                        <div class="th">เวลา</div>
+                    </div>
+                    <div class="box-content-wrapper-sm">
+                        <div>@Model.issue_date.ToString("HH:mm:ss")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-detail m-2">
+            <div class="box-container-left">
+                <div>
+                    <div class="box-topic-wrapper">
+                        เบอร์ตู้
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.container_no<span style="margin-left:50px;">ขนาด @Model.container_size</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        รายการ
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>ฝากตู้เปล่า</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        ทะเบียน
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.truck_license</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        บริษัท
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.transportation_name</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="box-topic-wrapper">
+                        หมายเหตุ
+                    </div>
+                    <div class="box-content-wrapper">
+                        <div>@Model.remark</div>
+                    </div>
+                    <div style="margin-top:15px;margin-left:20px;">*** ฝากตู้เปล่าเกิน 7 วัน คิดเพิ่ม 50 บาท/ตู้, ฝากตู้เปล่าเกิน 10 วัน คิดเพิ่ม 100 บาท/ตู้</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sign-detail">
+            <div class="bottom-sign-content">
+                <div class="wrapper-sign">
+                    <div class="sign-topic-content">
+                        <div class="th">ชื่อ/เบอร์โทร ผู้ฝาก</div>
+                    </div>
+                    <div class="sign-content"></div>
+                </div>
+                <div class="wrapper-sign pull-right" style="margin-right:20px;">
+                    <div class="sign-topic-content">
+                        <div class="th">ผู้รับ</div>
+                    </div>
+                    <div class="sign-content"></div>
+                </div>
+            </div>
+
+            <div class="bottom-sign-content">
+                <div class="th">กรุณานำใบฝากตู้ หรือรูปถ่ายใบฝากตู้ฉบับนี้มารับตู้ด้วยทุกครั้ง หากไม่มีใบฝากตู้หรือรูปถ่ายใบฝากตู้ ทางลานไม่สามารถปล่อยตู้ให้ท่านได้</div>
+            </div>
+        </div>
+    </div>
+</div>

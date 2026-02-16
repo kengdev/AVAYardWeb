@@ -1,0 +1,186 @@
+﻿@model AVAYardWeb.Models.Entities.TaxAddress
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fad fa-pencil"></i>
+                <span class="caption-subject bold uppercase"> แก้ไขข้อมูลชื่อ-ที่อยู่ใบกำกับภาษี</span>
+            </div>
+        </div>
+        @using (Html.BeginForm("EditData", "Tax", FormMethod.Post, new { id = "frmEdit", onsubmit = "return OnValidate()" }))
+        {
+            @Html.HiddenFor(m => m.TaxId)
+            @Html.HiddenFor(m => m.IsActived)
+            @Html.HiddenFor(m => m.IsEnabled)
+            @Html.HiddenFor(m => m.CreateDate)
+            @Html.HiddenFor(m => m.CreateBy)
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                    <div class="form-group">
+                                        <label>
+                                            เลขประจำตัวผู้เสียภาษี
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.TaxId, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                    <div class="form-group">
+                                        <label>
+                                            ชื่อย่อ
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.Acronym, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                    <div class="form-group">
+                                        <label>
+                                            ชื่อบริษัท
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.Name, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 col-md-3 col-lg-3">
+                                                    <div class="form-group">
+                                                        <label>
+                                                            สำนักงานใหญ่/สาขา
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        @Html.DropDownList("BranchType", null, new { @Class = "form-control input-sm" })
+                                                        <span class="help-block"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-9 col-md-9 col-lg-9">
+                                                    <label>&nbsp;</label>
+                                                    @Html.TextBoxFor(m => m.BranchName, new { Class = "form-control input-sm", autocomplete = "Off", Disabled = "Disabled" })
+                                                    <span class="help-block"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>
+                                                    เบอร์โทรศัพท์
+                                                </label>
+                                                @Html.TextBoxFor(m => m.Phone, new { Class = "form-control input-sm", autocomplete = "Off" })
+                                                <span class="help-block"></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>
+                                                    ที่อยู่
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                @Html.TextAreaFor(m => m.Address, new { Class = "form-control", autocomplete = "Off" })
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="row pull-right">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="tools-action">
+                                <a href="javascript:;" onclick="window.close()">ยกเลิก</a> |
+                                <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function($) {
+            $("#frmEdit").ajaxForm(function(data) {
+                killOverlayForm();
+                if (data.result == true) {
+                    $.alert.open('info', data.resultMessage, function(r) {
+                        window.close();
+                        window.opener.reloadRow();
+                    });
+                } else {
+                    $.alert.open('error', data.resultMessage);
+                }
+            });
+
+            $('#BranchType').change(function(){
+                var type= $(this).val();
+                if(type == '02')
+                {
+                    $('#BranchName').prop('disabled', false);
+                    $('#BranchName').focus();
+                }
+                else{
+                    $('#BranchName').prop('disabled', true);
+                }
+            });
+        }(jQuery));
+
+        function OnValidate() {
+            var validateRules = {
+                rules: {
+                    TaxId: {
+                      require: { type: "", message: "กรุณาพิมพ์เลขประจำตัวผู้เสียภาษี" }
+                    },
+                    Acronym: {
+                      require: { type: "", message: "กรุณาพิมพ์อักษรย่อ" },
+                      minlength: { type: "", value: 3, message: "อักษรย่ออย่างน้อย 3 ตัวอักษร" }
+                    },
+                    Name: {
+                      require: { type: "", message: "กรุณาพิมพ์ชื่อบริษัท" }
+                    },
+                    BranchType: {
+                      selected: { type: "", message: "กรุณาเลือกเอเจนต์" }
+                    },
+                    Address: {
+                      require: { type: "", message: "กรุณาพิมพ์ที่อยู่" }
+                    }
+                }
+            };
+
+            var ok = $("#frmEdit").validate(validateRules);
+
+            if (ok) {
+                overLayForm();
+                return true;
+            }
+
+            return false;
+        }
+    </script>
+}

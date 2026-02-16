@@ -1,0 +1,183 @@
+@model AVAYardWeb.Models.Entities.OrderReceipt
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+<style>
+    #TaxAddress {
+        resize: none;
+        height: 50px;
+    }
+
+    .form-md-line-input{
+        margin-block:7px!important
+    }
+</style>
+
+<div class="col-md-12 col-lg-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fad fa-pencil"></i>
+                <span class="caption-subject bold uppercase"> แก้ไขใบเสร็จรับเงิน</span>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("EditData", "YardReceipt", FormMethod.Post, new { id = "frmEdit", onsubmit = "return OnValidate()" }))
+        {
+            @Html.HiddenFor(m => m.ReceiptCode)
+            @Html.HiddenFor(m => m.ContainerNo)
+            @Html.HiddenFor(m => m.ContainerSizeCode)
+            @Html.HiddenFor(m => m.IssueSession)
+            @Html.HiddenFor(m => m.ReceiptDate)
+            @Html.HiddenFor(m => m.PaymentType)
+            @Html.HiddenFor(m => m.Total)
+            @Html.HiddenFor(m => m.Vat)
+            @Html.HiddenFor(m => m.NetTotal)
+            @Html.HiddenFor(m => m.BankName)
+            @Html.HiddenFor(m => m.BankBranchName)
+            @Html.HiddenFor(m => m.ChequeNo)
+            @Html.HiddenFor(m => m.ChequeDate)
+            @Html.HiddenFor(m => m.OrderCode)
+            @Html.HiddenFor(m => m.PaymentCode)
+            @Html.HiddenFor(m => m.IsTaxInvoice)
+            @Html.HiddenFor(m => m.IsEnabled)
+            @Html.HiddenFor(m => m.CreateDate)
+            @Html.HiddenFor(m => m.CreateBy)
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control font-green" value="@Model.ReceiptCode" readonly>
+                                <label >เลขที่ใบเสร็จรับเงิน</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control font-blue" value="@Model.ContainerNo" readonly>
+                                <label >Container No.</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control font-blue" value="@Model.ContainerSizeCodeNavigation.ContainerSizeName" readonly>
+                                <label >Container Size.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control font-red" value="@Model.Total.ToString("#,##0.00")" readonly>
+                                <label >ยอดเงิน</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control font-red" value="@Model.Vat.ToString("#,##0.00")" readonly>
+                                <label >ภาษี</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control font-red" value="@Model.NetTotal.ToString("#,##0.00")" readonly>
+                                <label >ยอดเงินทั้งสิ้น</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label>เลขประจำตัวผู้เสียภาษี</label>
+                                @Html.TextBoxFor(m => m.TaxId, new { @Class = "form-control input-sm", autocomplete = "off" })
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-lg-8">
+                            <div class="form-group">
+                                <label>ชื่อลูกค้า</label>
+                                @Html.TextBoxFor(m => m.TaxName, new { @Class = "form-control input-sm", autocomplete = "off" })
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ที่อยู่ออกใบเสร็จ</label>
+                        @Html.TextAreaFor(m => m.TaxAddress, new { @Class = "form-control input-sm", autocomplete = "off" })
+                        <span class="help-block"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            หมายเหตุ
+                        </label>
+                        @Html.TextBox("Remark", Model.Remark, new { @Class = "form-control input-sm" })
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <div class="tools-action">
+                                <a href="javascript:;" onclick="window.close()">ปิด</a> |
+                                <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="modal-form-content" style="display: none;">
+    <div id="form-content"></div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        (function($) {
+            $("#frmEdit").ajaxForm(function(data) {
+                killOverlayForm();
+                if (data.result == true) {
+                    $.alert.open('info', data.resultMessage, function(r) {
+                        window.opener.reloadRow();
+                        window.close();
+                    });
+                } else {
+                    $.alert.open('error', data.resultMessage);
+                }
+            });
+        }(jQuery));
+
+        function OnValidate() {
+
+            var validateRules = {
+                rules: {
+                    TaxId: {
+                      require: { type: "", message: "กรุณาพิมพ์เลขประจำตัวผู้เสียภาษี" }
+                    },
+                    TaxName: {
+                      require: { type: "", message: "กรุณาพิมพ์ชื่อผู้รับใบเสร็จ" }
+                    },
+                    TaxAddress: {
+                      require: { type: "", message: "กรุณาพิมพ์ที่อยู่" }
+                    }
+                }
+            };
+
+            var ok = $("#frmEdit").validate(validateRules);
+
+            if (ok) {
+                overLayForm();
+                return true;
+            }
+            return false;
+        }
+    </script>
+}
