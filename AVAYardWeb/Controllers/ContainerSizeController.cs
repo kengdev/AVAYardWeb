@@ -60,13 +60,13 @@ public class ContainerSizeController : Controller
         return View();
     }
 
-    public IActionResult AddData(TransContainerSize model)
+    public async Task<IActionResult> AddData(TransContainerSize model)
     {
         var serviceCode = new CodeRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
-            model.ContainerSizeCode = serviceCode.GetContainerTypeCode();
+            model.ContainerSizeCode = await serviceCode.GetContainerTypeCode();
             model.IsActived = true;
             model.IsEnabled = true;
             model.CreateDate = DateTime.Now;

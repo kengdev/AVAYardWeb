@@ -34,11 +34,11 @@ namespace AVAYardWeb.Controllers
             return View();
         }
 
-        public IActionResult Match()
+        public async Task<IActionResult> Match()
         {
             var serviceDropDown = new DropListRepository(db);
 
-            ViewData["ContainerSizeCode"] = from a in serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
             return View();
         }
 

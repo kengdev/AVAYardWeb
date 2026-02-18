@@ -1,32 +1,36 @@
 ﻿using AVAYardWeb.Models;
 using AVAYardWeb.Models.Entities;
 using AVAYardWeb.Repositories;
+using AVAYardWeb.Services;
 using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 
 namespace AVAYardWeb.Controllers;
 [Authorize]
 public class AgentController : Controller
 {
+    private ILogService log;
     private readonly DbavayardContext db;
     private string LoggedInUser => User.Identity.Name;
 
-    public AgentController(DbavayardContext context)
+    public AgentController(DbavayardContext _context, ILogService _log)
     {
-        db = context;
+        db = _context;
+        log = _log;
     }
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult GetAgentDataList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
+    public async Task<IActionResult> GetAgentDataList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
     {
-        var dataAgent = (from a in db.TransAgents
-                         where a.IsEnabled == true
-                         select a).ToList();
+        var dataAgent = await (from a in db.TransAgents
+                               where a.IsEnabled == true
+                               select a).ToListAsync();
 
         var data = dataAgent.Where(w => (iFilter.filterName == null || w.AgentName.ToUpper().Contains(iFilter.filterName.ToUpper())));
 
@@ -60,13 +64,13 @@ public class AgentController : Controller
         return View();
     }
 
-    public IActionResult AddData(TransAgent model)
+    public async Task<IActionResult> AddData(TransAgent model)
     {
         var serviceCode = new CodeRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
-            model.AgentCode = serviceCode.GetAgentCode();
+            model.AgentCode = await serviceCode.GetAgentCode();
             model.AgentName = model.AgentName.ToUpper();
             model.IsActived = true;
             model.IsEnabled = true;
@@ -74,148 +78,139 @@ public class AgentController : Controller
             model.CreateBy = this.LoggedInUser;
 
             db.TransAgents.Add(model);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
+
+            log.AddLog("Add", "Agent", model.AgentCode, null, model, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
-            db.Dispose();
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
-    public IActionResult Edit(string code)
+    public async Task<IActionResult> Edit(string code)
     {
-        var model = db.TransAgents.Where(w => w.AgentCode == code).FirstOrDefault();
+        var model = await db.TransAgents.Where(w => w.AgentCode == code).FirstOrDefaultAsync();
         return View(model);
     }
 
-    public IActionResult EditData(TransAgent dataToEdit)
+    public async Task<IActionResult> EditData(TransAgent model)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
-        using (TransactionScope tr = new TransactionScope())
+        try
         {
-            try
-            {
-                dataToEdit.AgentName = dataToEdit.AgentName.ToUpper();
-                db.TransAgents.Update(dataToEdit);
-                log.AddSystemLog(dataToEdit.AgentName, "Update agent.", this.LoggedInUser);
+            var oldTransAgent = await db.TransAgents.Where(w => w.AgentCode == model.AgentCode).AsNoTracking().FirstOrDefaultAsync();
 
-                db.SaveChanges();
-                tr.Complete();
-                response.result = true;
-                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
-            }
-            catch (Exception ex)
-            {
-                tr.Dispose();
-                db.Dispose();
-                response.result = false;
-                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
-                response.errorException = ex;
-            }
+            model.AgentName = model.AgentName.ToUpper();
+            db.TransAgents.Update(model);
+            await db.SaveChangesAsync();
+
+            log.AddLog("Edit", "Agent", model.AgentCode, oldTransAgent, model, this.LoggedInUser);
+            await log.SaveAsync();
+            response.result = true;
+            response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
-        Thread.Sleep(2000);
+        catch (Exception ex)
+        {
+            await db.DisposeAsync();
+            response.result = false;
+            response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+            response.errorException = ex;
+        }
+
         return Json(response);
     }
 
-    public IActionResult Remove(string code)
+    public async Task<IActionResult> Remove(string code)
     {
-        var log = new LogRepository(db);
+        ResponseViewModel response = new ResponseViewModel();
+        try
+        {
+            var oldAgent = await db.TransAgents.Where(w => w.AgentCode == code).AsNoTracking().FirstOrDefaultAsync();
+
+            var agent = await db.TransAgents.FirstOrDefaultAsync(w => w.AgentCode == code);
+            agent.IsActived = false;
+            agent.IsEnabled = false;
+            await db.SaveChangesAsync();
+
+            log.AddLog("Remove", "Agent", code, oldAgent, agent, this.LoggedInUser);
+            await log.SaveAsync();
+            response.result = true;
+            response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+        }
+        catch (Exception ex)
+        {
+            await db.DisposeAsync();
+            response.result = false;
+            response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+            response.errorException = ex;
+        }
+
+        return Json(response);
+    }
+
+    public async Task<IActionResult> Active(string code)
+    {
+        ResponseViewModel response = new ResponseViewModel();
+        try
+        {
+            var oldAgent = await db.TransAgents.Where(w => w.AgentCode == code).AsNoTracking().FirstOrDefaultAsync(); ;
+
+            var agent = await db.TransAgents.FirstOrDefaultAsync(w => w.AgentCode == code);
+            agent.IsActived = true;
+            await db.SaveChangesAsync();
+
+            log.AddLog("Active", "Agent", code, oldAgent, agent, this.LoggedInUser);
+            await log.SaveAsync();
+            response.result = true;
+            response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+        }
+        catch (Exception ex)
+        {
+            await db.DisposeAsync();
+            response.result = false;
+            response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+            response.errorException = ex;
+        }
+
+        return Json(response);
+    }
+
+    public async Task<IActionResult> Inactive(string code)
+    {
         ResponseViewModel response = new ResponseViewModel();
         using (TransactionScope tr = new TransactionScope())
         {
             try
             {
-                var agent = db.TransAgents.FirstOrDefault(w => w.AgentCode == code);
+                var oldAgent = await db.TransAgents.Where(w => w.AgentCode == code).AsNoTracking().FirstOrDefaultAsync(); ;
+
+                var agent = await db.TransAgents.FirstOrDefaultAsync(w => w.AgentCode == code);
                 agent.IsActived = false;
-                agent.IsEnabled = false;
+                await db.SaveChangesAsync();
 
-                log.AddSystemLog(agent.AgentName, "Remove agent.", this.LoggedInUser);
-                db.SaveChanges();
-                tr.Complete();
+                log.AddLog("Inactive", "Agent", code, oldAgent, agent, this.LoggedInUser);
+                await log.SaveAsync();
                 response.result = true;
                 response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
             }
             catch (Exception ex)
             {
-                tr.Dispose();
-                db.Dispose();
+                await db.DisposeAsync();
                 response.result = false;
                 response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
                 response.errorException = ex;
             }
         }
 
-        Thread.Sleep(2000);
-        return Json(response);
-    }
-
-    public IActionResult Active(string code)
-    {
-        var log = new LogRepository(db);
-        ResponseViewModel response = new ResponseViewModel();
-        using (TransactionScope tr = new TransactionScope())
-        {
-            try
-            {
-                var agent = db.TransAgents.FirstOrDefault(w => w.AgentCode == code);
-                agent.IsActived = true;
-
-                log.AddSystemLog(agent.AgentName, "Active agent.", this.LoggedInUser);
-                db.SaveChanges();
-                tr.Complete();
-                response.result = true;
-                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
-            }
-            catch (Exception ex)
-            {
-                tr.Dispose();
-                db.Dispose();
-                response.result = false;
-                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
-                response.errorException = ex;
-            }
-        }
-
-        Thread.Sleep(2000);
-        return Json(response);
-    }
-
-    public IActionResult Inactive(string code)
-    {
-        var log = new LogRepository(db);
-        ResponseViewModel response = new ResponseViewModel();
-        using (TransactionScope tr = new TransactionScope())
-        {
-            try
-            {
-                var agent = db.TransAgents.FirstOrDefault(w => w.AgentCode == code);
-                agent.IsActived = false;
-
-                log.AddSystemLog(agent.AgentName, "Inactive agent.", this.LoggedInUser);
-                db.SaveChanges();
-                tr.Complete();
-                response.result = true;
-                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
-            }
-            catch (Exception ex)
-            {
-                tr.Dispose();
-                db.Dispose();
-                response.result = false;
-                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
-                response.errorException = ex;
-            }
-        }
-        Thread.Sleep(2000);
         return Json(response);
     }
 }

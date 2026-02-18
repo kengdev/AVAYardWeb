@@ -108,11 +108,11 @@ public class CodeRepository
         return code;
     }
 
-    public string GetTransactionCode()
+    public async Task<string> GetTransactionCode()
     {
         string code = "";
         string prefix = DateTime.Now.ToString("yyMM") + "T";
-        var query = db.OrderTransactions.OrderByDescending(o => o.TransactionCode).FirstOrDefault();
+        var query = await db.OrderTransactions.OrderByDescending(o => o.TransactionCode).FirstOrDefaultAsync();
         if (query != null)
         {
             string id = query.TransactionCode;
@@ -137,10 +137,11 @@ public class CodeRepository
 
         return code;
     }
-    public string GetAgentCode()
+    
+    public async Task<string> GetAgentCode()
     {
         string code = "";
-        var query = db.TransAgents.OrderByDescending(o => o.AgentCode).FirstOrDefault();
+        var query = await db.TransAgents.OrderByDescending(o => o.AgentCode).FirstOrDefaultAsync();
         if (query != null)
         {
             string id = query.AgentCode;
@@ -155,10 +156,10 @@ public class CodeRepository
         return code;
     }
 
-    public string GetContainerTypeCode()
+    public async Task<string> GetContainerTypeCode()
     {
         string code = "";
-        var query = db.TransContainerSizes.OrderByDescending(o => o.ContainerSizeCode).FirstOrDefault();
+        var query = await db.TransContainerSizes.OrderByDescending(o => o.ContainerSizeCode).FirstOrDefaultAsync();
         if (query != null)
         {
             string id = query.ContainerSizeCode;
@@ -173,11 +174,11 @@ public class CodeRepository
         return code;
     }
 
-    public string GetTransportationCode()
+    public async Task<string> GetTransportationCode()
     {
         string code = "";
         string prefix = DateTime.Now.ToString("yy");
-        var query = db.TransTransportations.OrderByDescending(o => o.TransportationCode).FirstOrDefault();
+        var query = await db.TransTransportations.OrderByDescending(o => o.TransportationCode).FirstOrDefaultAsync();
         if (query != null)
         {
             string id = query.TransportationCode;
@@ -203,11 +204,11 @@ public class CodeRepository
         return code;
     }
 
-    public string GetOrderContainerCode()
+    public async Task<string> GetOrderContainerCode()
     {
         string code = "";
         string prefix = "AVA" + DateTime.Now.ToString("yyMM") + "Y";
-        var query = db.OrderContainers.OrderByDescending(o => o.OrderCode).FirstOrDefault();
+        var query = await db.OrderContainers.OrderByDescending(o => o.OrderCode).FirstOrDefaultAsync();
         if (query != null)
         {
             string id = query.OrderCode;

@@ -1,6 +1,7 @@
 ﻿using AVAYardWeb.Models;
 using AVAYardWeb.Models.Entities;
 using AVAYardWeb.Repositories;
+using AVAYardWeb.Services;
 using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,21 +13,23 @@ namespace AVAYardWeb.Controllers;
 [Authorize]
 public class TransportationController : Controller
 {
+    private ILogService log;
     private readonly DbavayardContext db;
     private string LoggedInUser => User.Identity.Name;
 
-    public TransportationController(DbavayardContext context)
+    public TransportationController(DbavayardContext _context, ILogService _log)
     {
-        db = context;
+        db = _context;
+        log = _log;
     }
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult GetTransportationByCode(string code)
+    public async Task<IActionResult> GetTransportationByCode(string code)
     {
-        var dataTransportation = db.TransTransportations.Where(w => w.TransportationCode == code).FirstOrDefault();
+        var dataTransportation = await  db.TransTransportations.Where(w => w.TransportationCode == code).FirstOrDefaultAsync();
         return Json(dataTransportation);
     }
 
@@ -77,7 +80,7 @@ public class TransportationController : Controller
         ResponseViewModel response = new ResponseViewModel();
         try
         {
-            model.TransportationCode = serviceCode.GetTransportationCode();
+            model.TransportationCode = await serviceCode.GetTransportationCode();
             model.TransportationName = model.TransportationName.ToUpper();
             model.TransportationAcronym = model.TransportationAcronym.ToUpper();
             model.IsActived = true;
@@ -87,18 +90,20 @@ public class TransportationController : Controller
 
             db.TransTransportations.Add(model);
             await db.SaveChangesAsync();
+
+            log.AddLog("Add", "Transportation", model.TransportationCode, null, model, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
-            db.Dispose();
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
@@ -113,92 +118,100 @@ public class TransportationController : Controller
 
     public async Task<IActionResult> EditData(TransTransportation model)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
+            var oldTransportation = await db.TransTransportations.Where(w => w.TransportationCode == model.TransportationCode).AsNoTracking().FirstOrDefaultAsync();
+
             model.TransportationName = model.TransportationName.ToUpper();
             model.TransportationAcronym = model.TransportationAcronym.ToUpper();
             db.TransTransportations.Update(model);
-            log.AddSystemLog(model.TransportationCode, "Update transportation.", this.LoggedInUser);
-
             await db.SaveChangesAsync();
+
+            log.AddLog("Edit", "Transportation", model.TransportationCode, oldTransportation, model, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex.InnerException;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
     public async Task<IActionResult> Remove(string code)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
-            var transTransportation = db.TransTransportations.FirstOrDefault(w => w.TransportationCode == code);
+            var oldTransTransportation = await db.TransTransportations.Where(w => w.TransportationCode == code).AsNoTracking().FirstOrDefaultAsync(); ;
+
+            var transTransportation = await db.TransTransportations.FirstOrDefaultAsync(w => w.TransportationCode == code);
             transTransportation.IsActived = false;
             transTransportation.IsEnabled = false;
-
-            log.AddSystemLog(transTransportation.TransportationName, "Remove transportation.", this.LoggedInUser);
             await db.SaveChangesAsync();
+
+            log.AddLog("Remove", "Transportation", code, oldTransTransportation, transTransportation, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
     public async Task<IActionResult> Active(string code)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
-            var transTransportation = db.TransTransportations.FirstOrDefault(w => w.TransportationCode == code);
-            transTransportation.IsActived = true;
+            var oldTransTransportation = await db.TransTransportations.Where(w => w.TransportationCode == code).AsNoTracking().FirstOrDefaultAsync(); ;
 
-            log.AddSystemLog(transTransportation.TransportationName, "Active transportation.", this.LoggedInUser);
+            var transTransportation = await db.TransTransportations.FirstOrDefaultAsync(w => w.TransportationCode == code);
+            transTransportation.IsActived = true;
             await db.SaveChangesAsync();
+
+            log.AddLog("Active", "Transportation", code, oldTransTransportation, transTransportation, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
     public async Task<IActionResult> Inactive(string code)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
-            var transTransportation = db.TransTransportations.FirstOrDefault(w => w.TransportationCode == code);
-            transTransportation.IsActived = false;
+            var oldTransTransportation = await db.TransTransportations.Where(w => w.TransportationCode == code).AsNoTracking().FirstOrDefaultAsync(); ;
 
-            log.AddSystemLog(transTransportation.TransportationName, "Inactive transportation.", this.LoggedInUser);
+            var transTransportation = await db.TransTransportations.FirstOrDefaultAsync(w => w.TransportationCode == code);
+            transTransportation.IsActived = false;
             await db.SaveChangesAsync();
+
+            log.AddLog("Inactive", "Transportation", code, oldTransTransportation, transTransportation, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
@@ -209,7 +222,6 @@ public class TransportationController : Controller
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 }

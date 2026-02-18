@@ -1,5 +1,6 @@
 using AVAYardWeb.Models;
 using AVAYardWeb.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AVAYardWeb.Repositories;
 public class DropListRepository
@@ -11,50 +12,54 @@ public class DropListRepository
         db = context;
     }
 
-    public List<DropDownViewModel> GetContainerSize()
+    public async Task<List<DropDownViewModel>> GetContainerSize()
     {
-        var query = from a in db.TransContainerSizes
+        var query = await (from a in db.TransContainerSizes
                     select new DropDownViewModel
                     {
                         key = a.ContainerSizeCode,
                         label = a.ContainerSizeName
-                    };
-        return query.ToList();
+                    }).ToListAsync();
+        
+        return query;
     }
 
-    public List<DropDownViewModel> GetAgent()
+    public async Task<List<DropDownViewModel>> GetAgent()
     {
-        var query = from a in db.TransAgents
+        var query = await (from a in db.TransAgents
                     where a.IsActived == true
                     select new DropDownViewModel
                     {
                         key = a.AgentCode,
                         label = a.AgentName
-                    };
-        return query.ToList();
+                    }).ToListAsync();
+        
+        return query;
     }
 
-    public List<DropDownViewModel> GetTransportation()
+    public async Task<List<DropDownViewModel>> GetTransportation()
     {
-        var query = from a in db.TransTransportations
+        var query = await (from a in db.TransTransportations
                     where a.IsActived == true 
                     select new DropDownViewModel
                     {
                         key = a.TransportationCode,
                         label = a.TransportationName
-                    };
-        return query.ToList();
+                    }).ToListAsync();
+
+        return query;
     }
 
-    public List<DropDownViewModel> GetBank()
+    public async Task<List<DropDownViewModel>> GetBank()
     {
-        var query = from a in db.OrderBanks
+        var query = await (from a in db.OrderBanks
                     select new DropDownViewModel
                     {
                         key = a.BankCode,
                         label = a.BankName
-                    };
-        return query.ToList();
+                    }).ToListAsync();
+        
+        return query;
     }
 
     public List<DropDownViewModel> BranchType()

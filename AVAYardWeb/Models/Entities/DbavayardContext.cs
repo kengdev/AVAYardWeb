@@ -17,6 +17,8 @@ public partial class DbavayardContext : DbContext
 
     public virtual DbSet<GenerateCode> GenerateCodes { get; set; }
 
+    public virtual DbSet<LogAction> LogActions { get; set; }
+
     public virtual DbSet<LogSystem> LogSystems { get; set; }
 
     public virtual DbSet<OrderBank> OrderBanks { get; set; }
@@ -150,6 +152,34 @@ public partial class DbavayardContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("gen_type");
+        });
+
+        modelBuilder.Entity<LogAction>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__log_acti__3213E83F8990F03D");
+
+            entity.ToTable("log_action");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Action)
+                .HasMaxLength(100)
+                .HasColumnName("action");
+            entity.Property(e => e.AfterData).HasColumnName("after_data");
+            entity.Property(e => e.BeforeData).HasColumnName("before_data");
+            entity.Property(e => e.CreateBy)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("create_by");
+            entity.Property(e => e.CreateDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("create_date");
+            entity.Property(e => e.Module)
+                .HasMaxLength(100)
+                .HasColumnName("module");
+            entity.Property(e => e.RefCode)
+                .HasMaxLength(100)
+                .HasColumnName("ref_code");
         });
 
         modelBuilder.Entity<LogSystem>(entity =>

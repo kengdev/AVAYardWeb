@@ -1,6 +1,7 @@
 ﻿using AVAYardWeb.Models;
 using AVAYardWeb.Models.Entities;
 using AVAYardWeb.Repositories;
+using AVAYardWeb.Services;
 using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,21 +13,23 @@ namespace AVAYardWeb.Controllers;
 [Authorize]
 public class TaxController : Controller
 {
+    private readonly ILogService log;
     private readonly DbavayardContext db;
     private string LoggedInUser => User.Identity.Name;
 
-    public TaxController(DbavayardContext context)
+    public TaxController(DbavayardContext context, ILogService _log)
     {
         db = context;
+        log = _log;
     }
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult GetTransportationByCode(string code)
+    public async Task<IActionResult> GetTransportationByCode(string code)
     {
-        var dataTransportation = db.TransTransportations.Where(w => w.TransportationCode == code).FirstOrDefault();
+        var dataTransportation = await db.TransTransportations.Where(w => w.TransportationCode == code).FirstOrDefaultAsync();
         return Json(dataTransportation);
     }
 
@@ -86,18 +89,20 @@ public class TaxController : Controller
 
             db.TaxAddresses.Add(model);
             await db.SaveChangesAsync();
+
+            log.AddLog("Add", "TaxAddress", model.TaxId, null, model, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
-            db.Dispose();
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
@@ -112,102 +117,110 @@ public class TaxController : Controller
 
     public async Task<IActionResult> EditData(TaxAddress model)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
+            var oldTax = await db.TaxAddresses.Where(w => w.TaxId == model.TaxId).AsNoTracking().FirstOrDefaultAsync();
+
             model.Name = model.Name.ToUpper();
             db.TaxAddresses.Update(model);
-            log.AddSystemLog(model.TaxId, "Update tax address.", this.LoggedInUser);
-
             await db.SaveChangesAsync();
+
+            log.AddLog("Edit", "TaxAddress", model.TaxId, oldTax, model, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex.InnerException;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
     public async Task<IActionResult> Remove(string code)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
+            var oldTax = await db.TaxAddresses.Where(w => w.TaxId == code).AsNoTracking().FirstOrDefaultAsync();
+
             var tax = db.TaxAddresses.FirstOrDefault(w => w.TaxId == code);
             tax.IsActived = false;
             tax.IsEnabled = false;
-
-            log.AddSystemLog(tax.TaxId, "Remove transportation.", this.LoggedInUser);
             await db.SaveChangesAsync();
+
+            log.AddLog("Remove", "TaxAddress", code, oldTax, tax, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
     public async Task<IActionResult> Active(string code)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
+            var oldTax = await db.TaxAddresses.Where(w => w.TaxId == code).AsNoTracking().FirstOrDefaultAsync();
+
             var tax = db.TaxAddresses.FirstOrDefault(w => w.TaxId == code);
             tax.IsActived = true;
-
-            log.AddSystemLog(tax.TaxId, "Active transportation.", this.LoggedInUser);
             await db.SaveChangesAsync();
+
+            log.AddLog("Active", "TaxAddress", code, oldTax, tax, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 
     public async Task<IActionResult> Inactive(string code)
     {
-        var log = new LogRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         try
         {
+            var oldTax = await db.TaxAddresses.Where(w => w.TaxId == code).AsNoTracking().FirstOrDefaultAsync();
+
             var tax = db.TaxAddresses.FirstOrDefault(w => w.TaxId == code);
             tax.IsActived = false;
-
-            log.AddSystemLog(tax.TaxId, "Inactive transportation.", this.LoggedInUser);
             await db.SaveChangesAsync();
+
+            log.AddLog("Inactive", "TaxAddress", code, oldTax, tax, this.LoggedInUser);
+            await log.SaveAsync();
             response.result = true;
             response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
         }
         catch (Exception ex)
         {
+            await db.DisposeAsync();
             response.result = false;
             response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             response.errorException = ex;
         }
 
-        Thread.Sleep(2000);
         return Json(response);
     }
 }
