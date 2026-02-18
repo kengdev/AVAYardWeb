@@ -1,6 +1,7 @@
 ﻿using AVAYardWeb.Models;
 using AVAYardWeb.Models.Entities;
 using AVAYardWeb.Repositories;
+using AVAYardWeb.Services;
 using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,16 @@ namespace AVAYardWeb.Controllers
     public class ContainerYardController : Controller
     {
         private string connStr;
+        private readonly ILogService log;
         private readonly DbavayardContext db;
         private string LoggedInUser => User.Identity.Name;
         private const string KSHOP_TEMPLATE = "0002010102110216478772000245472004155303920002454991531343007640052044640122067749700130810016A00000067701011201150107536000315080214KB0000018904640320KPS004KB00000189046431690016A00000067701011301030040214KB0000018904640420KPS004KB00000189046451430014A0000000041010010641697102111234567890152045631530376454041.005802TH5910NOKKY SHOP6004CITY62240508854304870708420677496304E809";
 
 
-        public ContainerYardController(DbavayardContext context)
+        public ContainerYardController(DbavayardContext _context, ILogService _log)
         {
-            db = context;
+            db = _context;
+            log = _log;
             connStr = db.Database.GetConnectionString();
         }
 
@@ -47,10 +50,14 @@ namespace AVAYardWeb.Controllers
             var response = new ResponseViewModel();
             try
             {
-                var stageData = db.OrderContainerRepairs.FirstOrDefault(w => w.OrderCode == order_code);
-                stageData.RepairStatusCode = "D";
+                var oldData = await db.OrderContainerRepairs.Where(w => w.OrderCode == order_code).AsNoTracking().FirstOrDefaultAsync();
 
+                var stageData = await db.OrderContainerRepairs.FirstOrDefaultAsync(w => w.OrderCode == order_code);
+                stageData.RepairStatusCode = "D";
                 await db.SaveChangesAsync();
+
+                log.AddLog("ChangeStage", "ContainerYard", order_code, oldData, stageData, this.LoggedInUser);
+                await log.SaveAsync();
                 response.result = true;
                 response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
             }
@@ -60,7 +67,6 @@ namespace AVAYardWeb.Controllers
                 response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
             }
 
-            Thread.Sleep(2000);
             return Json(response);
         }
 
