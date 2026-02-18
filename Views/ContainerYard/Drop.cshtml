@@ -1,0 +1,241 @@
+﻿@{
+    ViewData["YardContainer"] = "active";
+    ViewData["OpenYardContainer"] = "open";
+    ViewData["listDropInyard"] = "active";
+}
+@section Styles {
+    <style>
+        table.dataTable td, table.dataTable th {
+            font-size: 13px !important;
+        }
+
+        .form-control {
+            height: 30px !important;
+            padding: 5px;
+            font-size: 13px !important;
+            font-weight: normal;
+        }
+
+        .status-td {
+            width: 50px;
+            text-align: right;
+        }
+
+        .days-td {
+            width: 50px;
+            text-align: right;
+        }
+
+        .table tr td.normal {
+            font-weight: bold;
+            color: #fff;
+            background-color: #81c74e !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.normal {
+            background: #81c74e !important;
+            pointer-events: none !important
+        }
+
+        .table tr td.late {
+            font-weight: bold;
+            color: #fff;
+            background-color: #d8db6a !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.late {
+            background: #d8db6a !important;
+            pointer-events: none !important
+        }
+
+        .table tr td.hurry {
+            font-weight: bold;
+            color: #fff;
+            background-color: #d0742f !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.hurry {
+            background: #d0742f !important;
+            pointer-events: none !important
+        }
+
+        .table tr td.impact {
+            font-weight: bold;
+            color: #fff;
+            background-color: #e30c00 !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.impact {
+            background: #e30c00 !important;
+            pointer-events: none !important
+        }
+    </style>
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="javascript:;">ข้อมูลตู้สินค้าในลาน</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="/containeryard/drop">Drop Container</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-list"></i>
+                    <span class="caption-subject bold uppercase"> รายการตู้สินค้าในลาน</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-inline pull-right">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-drop">
+                            <thead>
+                                <tr>
+                                    <th style="color:#403f3f!important;padding-left:10px;"> Container</th>
+                                    <th> Size</th>
+                                    <th> Type</th>
+                                    <th> Receive Date</th>
+                                    <th> Transport Company</th>
+                                    <th> Age</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr role="row" class="heading">
+                                    <th class="filter"></th>
+                                    <th class="filter"></th>
+                                    <th class="filter"></th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameEN" /></th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                                    <th class="filter"></th>
+                                    <th class="filter"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function ($) {
+            var oTableDrop = $('#table-drop').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "iDisplayLength": 10,
+                "scrollCollapse": false,
+                "order": [[3, "asc"]],
+                "sAjaxSource": "/ContainerYard/GetDropContainerList",
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "filterNameTH", "value": $("#filterNameTH").val() });
+                    aoData.push({ "name": "filterNameEN", "value": $("#filterNameEN").val() });
+                },
+                "fnRowCallback": function (row, aData, index) {
+                    $('td', row).eq(2).html('<span class="label label-sm label-info"> DROP </span>');
+                    $('td', row).eq(5).html(aData.days_ago + ' วัน');
+                },
+                "oLanguage": {
+                    "sInfoFiltered": " ",
+                    "sInfo": "แสดงจำนวน _START_ to _END_ รายการ (ทั้งหมด _TOTAL_ รายการ)",
+                    "sSearch": "ค้นหา : ",
+                    "sLengthMenu": 'แสดงจำนวน <select class="form-control">' +
+                            '<option value="10" selected>10</option>' +
+                            '<option value="20">20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '<option value="100">100</option>' +
+                            '</select> รายการ'
+                },
+                "columnDefs": [
+
+                      { className: "code-td font-blue bold", targets: 0 },
+                      { className: "code-td", targets: 1 },
+                      { className: "code-td", targets: 2 },
+                      { className: "code-td", targets: 3 },
+                      { className: "name-td", targets: 4 },
+                      { className: "currency-td", targets: 5 },
+                      { className: "action-3-td text-center", targets: 6 }
+                ],
+                "columns":
+                [
+                      { "data": "container_no" },
+                      { "data": "container_type" },
+                      { "data": "issue_type" },
+                      { "data": "issue_date_str" },
+                      { "data": "transportation_name" },
+                      { "data": "days_ago" },
+                      {
+                           "data": "order_code", "orderable": false, "render": function (data, type, row) {
+                                var receipt = '<a class="btn btn-outline btn-xs purple" href="javascript:;" onclick=setToDrop("' + data + '")>ใบเสร็จ</a>';
+                                var payment = '<a class="btn btn-outline btn-xs blue" href="javascript:;" onclick=setPayment("' + data + '")>ชำระเงิน</a>';
+
+                                if(!row.is_receipt)
+                                {
+                                    return '<div class="row-actions">' + payment + '</div>';
+                                }
+                                else{
+                                    return '<div class="row-actions">' + payment + receipt + '</div>';
+                                }
+                          }
+                      }
+                ],
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).find('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+
+            $('#table-drop tfoot tr').appendTo('#table-drop thead');
+
+            $('.filterText').keyup(function () {
+                $('#table-drop').dataTable()._fnAjaxUpdate();
+            });
+        }(jQuery));
+
+        function reloadRow() {
+            $("#table-drop").DataTable().ajax.reload();
+        }
+
+        function setReceipt(code){
+            var url = '/yardreceipt/adddropreceipt/' + code;
+            var setting = 'width=1180,height=648';
+
+            window.open(url, 'drop receipt', setting);
+        }
+
+        function setPayment(code){
+            //fetch("http://localhost:9001/show?code=" + code).catch(()=>{});
+
+            var url = '/orderpayment/issuedrop/' + code;
+            var setting = 'width=1180,height=648';
+
+            window.open(url, 'drop receipt', setting);
+        }
+    </script>
+}

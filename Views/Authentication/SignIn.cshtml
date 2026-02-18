@@ -1,0 +1,18 @@
+@model AVAYardWeb.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_AuthenLayout.cshtml";
+}
+
+<h3>AVA GLOBAL LOGISTICS</h3>
+@using (Html.BeginForm("SignIn", "Authentication", FormMethod.Post, new { id = "frmLogin" }))
+{
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Username, new { @Class = "input-text", required = "required", placeholder = "Username", AutoComplete="Off" })
+    </div>
+    <div class="form-group">
+        @Html.PasswordFor(m => m.Password, new { @Class = "input-text", required = "required", placeholder = "Password", AutoComplete="Off" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn-md btn-theme btn-block">Login</button>
+    </div>
+}

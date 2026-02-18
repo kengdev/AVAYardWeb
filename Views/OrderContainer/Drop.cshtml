@@ -1,0 +1,251 @@
+﻿@{
+    ViewData["TruckContainer"] = "active open";
+    ViewData["OpenTruckContainer"] = "open";
+    ViewData["listJob"] = "active";
+    ViewData["listDropJob"] = "active";
+}
+@section Styles {
+    <style>
+        table.dataTable td, table.dataTable th {
+            font-size: 13px !important;
+        }
+
+        .form-control {
+            height: 30px !important;
+            padding: 5px;
+            font-size: 13px !important;
+            font-weight: normal;
+        }
+
+        .status-td {
+            width: 50px;
+            text-align: right;
+        }
+
+        .days-td {
+            width: 50px;
+            text-align: right;
+        }
+
+        .table tr td.normal {
+            font-weight: bold;
+            color: #fff;
+            background-color: #81c74e !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.normal {
+            background: #81c74e !important;
+            pointer-events: none !important
+        }
+
+        .table tr td.late {
+            font-weight: bold;
+            color: #fff;
+            background-color: #d8db6a !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.late {
+            background: #d8db6a !important;
+            pointer-events: none !important
+        }
+
+        .table tr td.hurry {
+            font-weight: bold;
+            color: #fff;
+            background-color: #d0742f !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.hurry {
+            background: #d0742f !important;
+            pointer-events: none !important
+        }
+
+        .table tr td.impact {
+            font-weight: bold;
+            color: #fff;
+            background-color: #e30c00 !important;
+            text-align: center;
+        }
+
+        .table tr:hover td.impact {
+            background: #e30c00 !important;
+            pointer-events: none !important
+        }
+    </style>
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="javascript:;">ข้อมูลการรับ/คืนตู้สินค้า</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="/ordercontainer/drop">Drop Container</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-list"></i>
+                    <span class="caption-subject bold uppercase"> ข้อมูลการรับตู้สินค้า [DROP]</span>
+                </div>
+                <div class="actions">
+                    <div class="form-inline pull-right">
+                        <button type="button" class="btn btn-sm red" onclick="setAdd()">ทำรายการ</button>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-drop">
+                            <thead>
+                                <tr>
+                                    <th style="padding-left:15px;color:#2f353b!important;"> Container No.</th>
+                                    <th> Size</th>
+                                    <th> License</th>
+                                    <th> Transportation</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr role="row" class="heading">
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameEN" /></th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                                    <th class="filter"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function ($) {
+            var oTableDrop = $('#table-drop').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "iDisplayLength": 20,
+                "scrollCollapse": false,
+                "order": [[2, "desc"]],
+                "sAjaxSource": "/OrderContainer/GetDropContainerList",
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "filterNameTH", "value": $("#filterNameTH").val() });
+                    aoData.push({ "name": "filterNameEN", "value": $("#filterNameEN").val() });
+                },
+                "fnRowCallback": function (row, aData, index) {
+
+                },
+                "oLanguage": {
+                    "sInfoFiltered": " ",
+                    "sInfo": "แสดงจำนวน _START_ to _END_ รายการ (ทั้งหมด _TOTAL_ รายการ)",
+                    "sSearch": "ค้นหา : ",
+                    "sLengthMenu": 'แสดงจำนวน <select class="form-control">' +
+                            '<option value="10">10</option>' +
+                            '<option value="20" selected>20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '<option value="100">100</option>' +
+                            '</select> รายการ'
+                },
+                "columnDefs": [
+                      { className: "container-td font-blue bold", targets: 0 },
+                      { className: "type-td", targets: 1 },
+                      { className: "license-td", targets: 2 },
+                      { className: "name-td", targets: 3 },
+                      { className: "action-full-td text-center", targets: 4 }
+                ],
+                "columns":
+                [
+                      { "data": "container_no" },
+                      { "data": "container_type" },
+                      { "data": "truck_license" },
+                      { "data": "transportation_name" },
+                      {
+                          "data": "order_code", "orderable": false, "render": function (data, type, row) {
+                              var approve = '<a class="btn btn-outline btn-sm dark" href="javascript:;" onclick=setApprove("' + data + '")>ยืนยัน</a>';
+                              var modify = '<a class="btn btn-outline btn-sm yellow" href="javascript:;" onclick=setEdit("'+ data + '")>แก้ไข</a>';
+                              var print = '<a class="btn btn-outline btn-sm blue"  href="/docform/containerkeep/'+ data+'" target="_blank" >ใบฝากตู้</a>';
+
+                              return '<div class="row-actions">' + approve + modify + print + '</div>';
+                          }
+                      }
+                ],
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).find('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+
+            $('#table-drop tfoot tr').appendTo('#table-drop thead');
+
+            $('.filterText').keyup(function () {
+                $('#table-drop').dataTable()._fnAjaxUpdate();
+            });
+        }(jQuery));
+
+        function reloadRow() {
+            $("#table-drop").DataTable().ajax.reload();
+        }
+
+        function setAdd(){
+            var url = '/ordercontainer/dropissue';
+            var width = 1080;
+            var height = 455;
+
+            var left = (window.screen.width / 2) - (width / 2);
+            var top  = (window.screen.height / 2) - (height / 2);
+            var setting = `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`;
+
+            window.open(url, 'AddDrop', setting);
+        }
+
+        function setEdit(code){
+            var url = '/ordercontainer/dropedit/'+ code;
+            var width = 1080;
+            var height = 455;
+
+            var left = (window.screen.width / 2) - (width / 2);
+            var top  = (window.screen.height / 2) - (height / 2);
+            var setting = `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`;
+
+            window.open(url, 'EditDrop', setting);
+        }
+
+        function setApprove(code) {
+            $.alert.open('confirm', 'คุณต้องการยืนยันผลการตรวจรับตู้สินค้าดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+                if (r) {
+                    overLayPage();
+                    $.post("/OrderContainer/Approve",
+                    {
+                        code: code
+                    }, function (data) {
+                        killOverlayPage();
+                        if (data.result == true) {
+                             $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-drop').dataTable()._fnAjaxUpdate();
+                            });
+                        } else {
+                            $.alert.open('error', data.resultMessage);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

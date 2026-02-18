@@ -1,0 +1,245 @@
+﻿@for (int pg = 0; pg < 2; pg++)
+{
+    <div class="page">
+        <div class="form-content">
+            <div class="top-header">
+                @{
+                    Html.RenderPartial("HeaderPdf");
+                }
+                <div class="header-col-3 pull-right bold">
+                    <div class="owner-doc-wrapper">
+                        <div class="doc-type">
+                            <div class="doc-type-content">
+                                @if (pg == 0)
+                                {
+                                    <div>ต้นฉบับ</div>
+                                    <div>ORIGINAL</div>
+                                }
+                                else
+                                {
+                                    <div>สำเนา</div>
+                                    <div>COPY</div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="doc-name">
+                            <div>ใบเสร็จรับเงิน / ใบกำกับภาษี</div>
+                            <div>RECEIPT / TAX INVOICE</div>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+                <div class="clear-float"></div>
+
+
+                <div class="customer-payment">
+                    <div class="topic-customer-name">
+                        @Model.tax_name
+                    </div>
+                    <div class="topic-customer-address">
+                        @Model.tax_address
+                    </div>
+                    <div class="topic-customer-tax">
+                        TAX ID : @Model.tax_id
+                    </div>
+                </div>
+
+                <div class="invoice-id-date">
+                    <div>
+                        <span class="topic-date">Date : </span>
+                        <span>@Model.receipt_date</span>
+                    </div>
+                    <div>
+                        <span class="topic-invoice">Invoice No : </span>
+                        <span>@Model.code</span>
+                    </div>
+                </div>
+                <div class="clear-float"></div>
+            </div>
+
+            <div class="payment-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="topic" colspan="6">DESCRIPTION</th>
+                        </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Container No.</th>
+                            <th>Size</th>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th class="last">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="center" style="width:40px;">1.</td>
+                            <td class="left">@Model.container_no</td>
+                            <td class="center" style="vertical-align:middle;">@Model.container_size</td>
+                            <td class="center">CONTAINER HANDLING</td>
+                            <td class="right">1 หน่วย</td>
+                            <td class="right">@Model.total.ToString("#,##0.00")</td>
+                            <td class="right last">@Model.total.ToString("#,##0.00")</td>
+                        </tr>
+                        <tr>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="right">&nbsp;</td>
+                            <td class="right">&nbsp;</td>
+                            <td class="right last">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="right">&nbsp;</td>
+                            <td class="right">&nbsp;</td>
+                            <td class="right last">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="center">&nbsp;</td>
+                            <td class="right">&nbsp;</td>
+                            <td class="right">&nbsp;</td>
+                            <td class="right last">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="right" colspan="6">Sub Total</th>
+                            <th class="right last">@Model.total.ToString("#,##0.00")</th>
+                        </tr>
+                        <tr>
+                            <th class="right" colspan="6">Vat 7%</th>
+                            <th class="right last">@Model.vat.ToString("#,##0.00")</th>
+                        </tr>
+                        <tr>
+                            <th class="right" colspan="6">Grand Total</th>
+                            <th class="right last">@Model.net_total.ToString("#,##0.00")</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="payment-footer">
+                <div class="payment-type-wrapper">
+                    <table class="table-payment-type">
+                        <tr>
+                            <td><label>ชำระโดย</label></td>
+                            <td>
+                                <div class="item-box">
+                                    @if (Model.payment_type == "01")
+                                    {
+                                        <span>&#10003;</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <label>เงินสด</label>
+                            </td>
+                            <td>
+                                <div class="item-box">
+                                    @if (Model.payment_type == "02")
+                                    {
+                                        <span>&#10003;</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                </div>
+                            </td>
+                            @if (Model.payment_type == "02")
+                            {
+                                <td>
+                                    <label>โอนเข้าบัญชี</label>
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Pay by</label>
+                            </td>
+                            <td></td>
+                            <td><label>Cash</label></td>
+                            <td></td>
+                            <td><label>Cheque Bank</label></td>
+                            <td><label>Branch</label></td>
+                            <td><label>No.</label></td>
+                            <td><label>Date</label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                <div class="sign1">
+                                    @{
+                                        Html.RenderPartial("StampChutimaPdf");
+                                    }
+                                </div>
+                                <label>ผู้รับเงิน..................................</label>
+                            </td>
+                            <td>
+                                <div style="margin-top: 30px;">
+                                    <label>วันที่</label>
+                                    <label class="bold">@Model.receipt_date</label>
+                                </div>
+                            </td>
+                            <td colspan="2" class="text-center">
+                                <div class="sign2">
+                                    @{
+                                        Html.RenderPartial("StampChutimaPdf");
+                                    }
+                                </div>
+                                <label>...........................................................</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <label>Receive by</label>
+                            </td>
+                            <td>
+                                <label>Date</label>
+                            </td>
+                            <td colspan="2" class="text-center">
+                                <label>(Authorized Signature)</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="payment-remark">
+                <div>
+                    ใบเสร็จรับเงินฉบับนี้จะสมบูรณ์ต่อเมื่อปรากฏลายเซ็นของผู้รักษาเงิน ถ้าชำระด้วยเช็ค
+                    ใบเสร็จจะสมบูรณ์เมื่อเรียกเก็บเงินตามเช็คที่ได้เรียบร้อยแล้ว
+                </div>
+                <div>
+                    บริษัทฯ กำหนดแก้ไขภายใน 3 วันหากพ้นกำหนดบริษัทฯ จะถือว่าถูกต้องสมบูรณ์ และไม่รับแก้ไขใบเสร็จทุกกรณี
+                </div>
+                <div style="margin-top: 3px;">
+                    N.B. This receipt is notvalid unless signed by Cashier, if payment by cheque, receipt shall be valid
+                    when the cheque has been honoured by the bank
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (pg == 0)
+    {
+        <div class="cutoff">
+            <span>&#9985;</span>
+            <div id="cutoff-line"></div>
+        </div>
+    }
+}

@@ -1,0 +1,779 @@
+wwwroot\css\alert\alert.css
+wwwroot\css\alert\theme.css
+wwwroot\css\autocomplete\easy-autocomplete.css
+wwwroot\css\autocomplete\jquery.typeahead.css
+wwwroot\css\bootstrap-editable\bootstrap-editable.css
+wwwroot\css\bootstrap-editable\img\clear.png
+wwwroot\css\bootstrap-editable\img\loading.gif
+wwwroot\css\bootstrap-editable\inputs-ext\address\address.css
+wwwroot\css\bootstrap-editable\inputs-ext\address\address.js
+wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.css
+wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.js
+wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.min.js
+wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.js
+wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.min.js
+wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysiwyg-color.css
+wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\wysihtml5.js
+wwwroot\css\bootstrap-wysihtml5\bootstrap-wysihtml5.css
+wwwroot\css\bootstrap-wysihtml5\wysiwyg-color.css
+wwwroot\css\bootstrap\animate.min.css
+wwwroot\css\bootstrap\bootstrap-switch.min.css
+wwwroot\css\bootstrap\bootstrap-table-fixed-columns.min.css
+wwwroot\css\bootstrap\bootstrap-table.min.css
+wwwroot\css\bootstrap\bootstrap.min.css
+wwwroot\css\customer\bootstrap.min.css
+wwwroot\css\customer\dataTables.bootstrap4.min.css
+wwwroot\css\customer\icons.css
+wwwroot\css\customer\login\bootstrap.min.css
+wwwroot\css\customer\login\default.css
+wwwroot\css\customer\login\style.css
+wwwroot\css\customer\morris.css
+wwwroot\css\customer\responsive.bootstrap4.min.css
+wwwroot\css\customer\style.css
+wwwroot\css\datatables\datatables.bootstrap.css
+wwwroot\css\datatables\datatables.min.css
+wwwroot\css\datatables\datatables.normal.css
+wwwroot\css\datatables\fixedColumns.bootstrap.min.css
+wwwroot\css\datetime\jquery.datetimepicker.css
+wwwroot\css\denied\style.css
+wwwroot\css\errorpage\style.css
+wwwroot\css\error\bootstrap.css
+wwwroot\css\error\error-page.css
+wwwroot\css\error\responsive.css
+wwwroot\css\form\pnd50form.css
+wwwroot\css\form\site.css
+wwwroot\css\login\bootstrap.min.css
+wwwroot\css\login\default.css
+wwwroot\css\login\style.css
+wwwroot\css\print\printform.css
+wwwroot\css\print\printmedia.css
+wwwroot\css\profile\profile-2.min.css
+wwwroot\css\profile\profile.min.css
+wwwroot\css\profile\todo-2.min.css
+wwwroot\css\site.css
+wwwroot\css\site\blog.min.css
+wwwroot\css\site\components.min.css
+wwwroot\css\site\croppie.css
+wwwroot\css\site\cubeportfolio.css
+wwwroot\css\site\form.css
+wwwroot\css\site\fullcalendar.min.css
+wwwroot\css\site\invoicedriver.css
+wwwroot\css\site\jquery-ui.css
+wwwroot\css\site\layout.min.css
+wwwroot\css\site\loading-spin.css
+wwwroot\css\site\plugins.min.css
+wwwroot\css\site\portfolio.min.css
+wwwroot\css\site\select2-bootstrap.min.css
+wwwroot\css\site\select2.css
+wwwroot\css\site\select2.min.css
+wwwroot\css\tabulator\tabulator.min.css
+wwwroot\css\themes\blue.min.css
+wwwroot\css\themes\darkblue.min.css
+wwwroot\css\themes\default.min.css
+wwwroot\css\themes\grey.min.css
+wwwroot\css\themes\light.min.css
+wwwroot\css\themes\light2.min.css
+wwwroot\css\themes\yellow.min.css
+wwwroot\css\toastr\toastr.min.css
+wwwroot\css\upload\blueimp-gallery.min.css
+wwwroot\css\upload\croppie.css
+wwwroot\css\upload\jquery.fileupload-ui.css
+wwwroot\css\upload\jquery.fileupload.css
+wwwroot\favicon.ico
+wwwroot\fonts\fontawesome\css\all.css
+wwwroot\fonts\fontawesome\css\all.min.css
+wwwroot\fonts\fontawesome\css\brands.css
+wwwroot\fonts\fontawesome\css\brands.min.css
+wwwroot\fonts\fontawesome\css\duotone.css
+wwwroot\fonts\fontawesome\css\duotone.min.css
+wwwroot\fonts\fontawesome\css\fontawesome.css
+wwwroot\fonts\fontawesome\css\fontawesome.min.css
+wwwroot\fonts\fontawesome\css\light.css
+wwwroot\fonts\fontawesome\css\light.min.css
+wwwroot\fonts\fontawesome\css\regular.css
+wwwroot\fonts\fontawesome\css\regular.min.css
+wwwroot\fonts\fontawesome\css\solid.css
+wwwroot\fonts\fontawesome\css\solid.min.css
+wwwroot\fonts\fontawesome\css\svg-with-js.css
+wwwroot\fonts\fontawesome\css\svg-with-js.min.css
+wwwroot\fonts\fontawesome\css\v4-shims.css
+wwwroot\fonts\fontawesome\css\v4-shims.min.css
+wwwroot\fonts\fontawesome\webfonts\fa-brands-400.eot
+wwwroot\fonts\fontawesome\webfonts\fa-brands-400.svg
+wwwroot\fonts\fontawesome\webfonts\fa-brands-400.ttf
+wwwroot\fonts\fontawesome\webfonts\fa-brands-400.woff
+wwwroot\fonts\fontawesome\webfonts\fa-brands-400.woff2
+wwwroot\fonts\fontawesome\webfonts\fa-duotone-900.eot
+wwwroot\fonts\fontawesome\webfonts\fa-duotone-900.svg
+wwwroot\fonts\fontawesome\webfonts\fa-duotone-900.ttf
+wwwroot\fonts\fontawesome\webfonts\fa-duotone-900.woff
+wwwroot\fonts\fontawesome\webfonts\fa-duotone-900.woff2
+wwwroot\fonts\fontawesome\webfonts\fa-light-300.eot
+wwwroot\fonts\fontawesome\webfonts\fa-light-300.svg
+wwwroot\fonts\fontawesome\webfonts\fa-light-300.ttf
+wwwroot\fonts\fontawesome\webfonts\fa-light-300.woff
+wwwroot\fonts\fontawesome\webfonts\fa-light-300.woff2
+wwwroot\fonts\fontawesome\webfonts\fa-regular-400.eot
+wwwroot\fonts\fontawesome\webfonts\fa-regular-400.svg
+wwwroot\fonts\fontawesome\webfonts\fa-regular-400.ttf
+wwwroot\fonts\fontawesome\webfonts\fa-regular-400.woff
+wwwroot\fonts\fontawesome\webfonts\fa-regular-400.woff2
+wwwroot\fonts\fontawesome\webfonts\fa-solid-900.eot
+wwwroot\fonts\fontawesome\webfonts\fa-solid-900.svg
+wwwroot\fonts\fontawesome\webfonts\fa-solid-900.ttf
+wwwroot\fonts\fontawesome\webfonts\fa-solid-900.woff
+wwwroot\fonts\fontawesome\webfonts\fa-solid-900.woff2
+wwwroot\fonts\glyphicons-halflings-regular.eot
+wwwroot\fonts\glyphicons-halflings-regular.svg
+wwwroot\fonts\glyphicons-halflings-regular.ttf
+wwwroot\fonts\glyphicons-halflings-regular.woff
+wwwroot\fonts\glyphicons-halflings-regular.woff2
+wwwroot\fonts\icomoon\icomoon.css
+wwwroot\fonts\icomoon\icomoon.eot
+wwwroot\fonts\icomoon\icomoon.svg
+wwwroot\fonts\icomoon\icomoon.ttf
+wwwroot\fonts\icomoon\icomoon.woff
+wwwroot\fonts\simple-line-icon\fonts\Simple-Line-Icons.eot
+wwwroot\fonts\simple-line-icon\fonts\Simple-Line-Icons.ttf
+wwwroot\fonts\simple-line-icon\fonts\Simple-Line-Icons.woff
+wwwroot\fonts\simple-line-icon\simple-line-icons.min.css
+wwwroot\icons\daypilot.svg
+wwwroot\images\ava-01.png
+wwwroot\images\ava-02.png
+wwwroot\images\ava-login-customer.png
+wwwroot\images\ava-logistics.jpg
+wwwroot\images\ava-logo.png
+wwwroot\images\avatars\dfavatar.jpg.jpg
+wwwroot\images\background-1.png
+wwwroot\images\bg-image-4.jpg
+wwwroot\images\bg1.jpg
+wwwroot\images\bg2.jpg
+wwwroot\images\bg3.jpg
+wwwroot\images\big-logo.jpg
+wwwroot\images\chutima-s.png
+wwwroot\images\confirm.png
+wwwroot\images\confirmation.png
+wwwroot\images\container-bottom.jpg
+wwwroot\images\container-inside.jpg
+wwwroot\images\container-top.jpg
+wwwroot\images\content-loader.gif
+wwwroot\images\datatable-row-openclose.png
+wwwroot\images\deca-360.jpg
+wwwroot\images\default_avatar.jpg
+wwwroot\images\details_close.png
+wwwroot\images\details_open.png
+wwwroot\images\dfimage.jpg
+wwwroot\images\document-vector.png
+wwwroot\images\error.png
+wwwroot\images\graphic2.svg
+wwwroot\images\help.gif
+wwwroot\images\icon-color-close.png
+wwwroot\images\icon-color.png
+wwwroot\images\iconfinished_marker.png
+wwwroot\images\iconmission_marker.png
+wwwroot\images\icons30\icon-default-30.png
+wwwroot\images\icons30\icon-print-30.png
+wwwroot\images\icons30\icon-reload-30.png
+wwwroot\images\icons30\icon-save-30.png
+wwwroot\images\icons30\icon-zoomin-30.png
+wwwroot\images\icons30\icon-zoomout-30.png
+wwwroot\images\iconstarted_marker.png
+wwwroot\images\icons\icon-down.png
+wwwroot\images\icons\icon-download.png
+wwwroot\images\icons\icon-excel.png
+wwwroot\images\icons\icon-file.png
+wwwroot\images\icons\icon-floder.png
+wwwroot\images\icons\icon-list.png
+wwwroot\images\icons\icon-pdf.png
+wwwroot\images\icons\icon-pencil.png
+wwwroot\images\icons\icon-pic.png
+wwwroot\images\icons\icon-print.png
+wwwroot\images\icons\icon-refloder.png
+wwwroot\images\icons\icon-remove.png
+wwwroot\images\icons\icon-save.png
+wwwroot\images\icons\icon-setting.png
+wwwroot\images\icons\icon-truck.png
+wwwroot\images\icons\icon-word.png
+wwwroot\images\important.gif
+wwwroot\images\info.gif
+wwwroot\images\info.png
+wwwroot\images\information.png
+wwwroot\images\jutarat-sign.png
+wwwroot\images\line-button.png
+wwwroot\images\line-icon.png
+wwwroot\images\line-logo.jpg
+wwwroot\images\loading-spinner-grey.gif
+wwwroot\images\logo-icon.png
+wwwroot\images\logo-invert.png
+wwwroot\images\logo.png
+wwwroot\images\normal-logo.jpg
+wwwroot\images\office-paperwork.jpg
+wwwroot\images\prompt.png
+wwwroot\images\question.png
+wwwroot\images\sort_asc.png
+wwwroot\images\sort_both.png
+wwwroot\images\sort_desc.png
+wwwroot\images\stamp.png
+wwwroot\images\success.png
+wwwroot\images\warning.png
+wwwroot\images\wrong_avatar.png
+wwwroot\images\x.png
+wwwroot\js\alert\alert.js
+wwwroot\js\autocomplete\bootstrap3-typeahead.min.js
+wwwroot\js\autocomplete\jquery.easy-autocomplete.js
+wwwroot\js\autocomplete\jquery.typeahead.js
+wwwroot\js\autocomplete\jquery.typeahead.min.js
+wwwroot\js\bootstrap\bootstrap-switch.min.js
+wwwroot\js\bootstrap\bootstrap-table-fixed-columns.min.js
+wwwroot\js\bootstrap\bootstrap-table.min.js
+wwwroot\js\bootstrap\bootstrap.min.js
+wwwroot\js\customer\app.js
+wwwroot\js\customer\bootstrap.min.js
+wwwroot\js\customer\dashborad.js
+wwwroot\js\customer\dataTables.bootstrap4.min.js
+wwwroot\js\customer\jquery.dataTables.min.js
+wwwroot\js\customer\jquery.min.js
+wwwroot\js\customer\jquery.nicescroll.js
+wwwroot\js\customer\jquery.scrollTo.min.js
+wwwroot\js\customer\jquery.slimscroll.js
+wwwroot\js\customer\modernizr.min.js
+wwwroot\js\customer\morris.min.js
+wwwroot\js\customer\popper.min.js
+wwwroot\js\customer\raphael-min.js
+wwwroot\js\customer\skycons.min.js
+wwwroot\js\customer\waves.js
+wwwroot\js\datatables\datatables.bootstrap.js
+wwwroot\js\datatables\datatables.min.js
+wwwroot\js\datatables\table-datatables-scroller.min.js
+wwwroot\js\error\script.js
+wwwroot\js\fusioncharts\charts\Area2D.swf
+wwwroot\js\fusioncharts\charts\Bar2D.swf
+wwwroot\js\fusioncharts\charts\Bubble.swf
+wwwroot\js\fusioncharts\charts\Column2D.swf
+wwwroot\js\fusioncharts\charts\Column3D.swf
+wwwroot\js\fusioncharts\charts\Doughnut2D.swf
+wwwroot\js\fusioncharts\charts\Doughnut3D.swf
+wwwroot\js\fusioncharts\charts\Line.swf
+wwwroot\js\fusioncharts\charts\MSArea.swf
+wwwroot\js\fusioncharts\charts\MSBar2D.swf
+wwwroot\js\fusioncharts\charts\MSColumn2D.swf
+wwwroot\js\fusioncharts\charts\MSColumn3D.swf
+wwwroot\js\fusioncharts\charts\MSColumn3DLineDY.swf
+wwwroot\js\fusioncharts\charts\MSColumnLine3D.swf
+wwwroot\js\fusioncharts\charts\MSCombi2D.swf
+wwwroot\js\fusioncharts\charts\MSCombiDY2D.swf
+wwwroot\js\fusioncharts\charts\MSLine.swf
+wwwroot\js\fusioncharts\charts\MSStackedColumn2D.swf
+wwwroot\js\fusioncharts\charts\MSStackedColumn2DLineDY.swf
+wwwroot\js\fusioncharts\charts\Pie2D.swf
+wwwroot\js\fusioncharts\charts\Pie3D.swf
+wwwroot\js\fusioncharts\charts\Scatter.swf
+wwwroot\js\fusioncharts\charts\ScrollArea2D.swf
+wwwroot\js\fusioncharts\charts\ScrollColumn2D.swf
+wwwroot\js\fusioncharts\charts\ScrollLine2D.swf
+wwwroot\js\fusioncharts\charts\SSGrid.swf
+wwwroot\js\fusioncharts\charts\StackedArea2D.swf
+wwwroot\js\fusioncharts\charts\StackedBar2D.swf
+wwwroot\js\fusioncharts\charts\StackedColumn2D.swf
+wwwroot\js\fusioncharts\charts\StackedColumn3D.swf
+wwwroot\js\fusioncharts\charts\StackedColumn3DLineDY.swf
+wwwroot\js\fusioncharts\FusionCharts.js
+wwwroot\js\fusioncharts\jfusioncharts.js
+wwwroot\js\fusioncharts\js\fusioncharts.charts.js
+wwwroot\js\fusioncharts\js\fusioncharts.gantt.js
+wwwroot\js\fusioncharts\js\fusioncharts.js
+wwwroot\js\fusioncharts\js\fusioncharts.maps.js
+wwwroot\js\fusioncharts\js\fusioncharts.powercharts.js
+wwwroot\js\fusioncharts\js\fusioncharts.ssgrid.js
+wwwroot\js\fusioncharts\js\fusioncharts.treemap.js
+wwwroot\js\fusioncharts\js\fusioncharts.widgets.js
+wwwroot\js\fusioncharts\js\fusioncharts.zoomscatter.js
+wwwroot\js\fusioncharts\js\maps\fusioncharts.usa.js
+wwwroot\js\fusioncharts\js\maps\fusioncharts.world.js
+wwwroot\js\fusioncharts\js\maps\readme.txt
+wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.carbon.js
+wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.fint.js
+wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.ocean.js
+wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.zune.js
+wwwroot\js\fusioncharts\Line2D.xml
+wwwroot\js\fusioncharts\monthlyRevenue.json
+wwwroot\js\jquery\fullcalendar.min.js
+wwwroot\js\jquery\jquery-1.10.2.min.js
+wwwroot\js\jquery\jquery-ui.js
+wwwroot\js\jquery\jquery.animateNumber.js
+wwwroot\js\jquery\jquery.blockUI.js
+wwwroot\js\jquery\jquery.blockui.min.js
+wwwroot\js\jquery\jquery.cubeportfolio.min.js
+wwwroot\js\jquery\jquery.datetimepicker.js
+wwwroot\js\jquery\jquery.form.js
+wwwroot\js\jquery\jquery.min.js
+wwwroot\js\jquery\jQuery.print.js
+wwwroot\js\jquery\jquery.simplemodal.js
+wwwroot\js\jquery\jquery.slimscroll.min.js
+wwwroot\js\jquery\moment.min.js
+wwwroot\js\jquery\portfolio-1.min.js
+wwwroot\js\login\app.min.js
+wwwroot\js\login\bootstrap.min.js
+wwwroot\js\login\jquery.min.js
+wwwroot\js\login\login-5.min.js
+wwwroot\js\login\popper.min.js
+wwwroot\js\modal\jquery.simplemodal.js
+wwwroot\js\site.js
+wwwroot\js\site\additional-methods.min.js
+wwwroot\js\site\app-scripts.js
+wwwroot\js\site\app.min.js
+wwwroot\js\site\calendar.min.js
+wwwroot\js\site\components-select2.min.js
+wwwroot\js\site\croppie.js
+wwwroot\js\site\demo.min.js
+wwwroot\js\site\index.global.min.js
+wwwroot\js\site\jquery.backstretch.min.js
+wwwroot\js\site\js.cookie.min.js
+wwwroot\js\site\layout.min.js
+wwwroot\js\site\partial-scripts.js
+wwwroot\js\site\quick-nav.min.js
+wwwroot\js\site\quick-sidebar.min.js
+wwwroot\js\site\select2.full.min.js
+wwwroot\js\site\select2.js
+wwwroot\js\site\th.js
+wwwroot\js\site\validations.script.js
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+wwwroot\lib\bootstrap\LICENSE
+wwwroot\lib\daypilot\daypilot-all.min.d.ts
+wwwroot\lib\daypilot\daypilot-all.min.js
+wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\lib\jquery-validation\dist\additional-methods.js
+wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+wwwroot\lib\jquery-validation\LICENSE.md
+wwwroot\lib\jquery\dist\jquery.js
+wwwroot\lib\jquery\dist\jquery.min.js
+wwwroot\lib\jquery\dist\jquery.min.map
+wwwroot\lib\jquery\dist\jquery.slim.js
+wwwroot\lib\jquery\dist\jquery.slim.min.js
+wwwroot\lib\jquery\dist\jquery.slim.min.map
+wwwroot\lib\jquery\LICENSE.txt
+wwwroot\pics\employee\avatars\D19AVA02.png
+wwwroot\pics\employee\avatars\D19AVA03.png
+wwwroot\pics\employee\avatars\D19AVA04.png
+wwwroot\pics\employee\avatars\D19AVA05.png
+wwwroot\pics\employee\avatars\D19AVA06.png
+wwwroot\pics\employee\avatars\D19AVA07.png
+wwwroot\pics\employee\avatars\D19AVA08.png
+wwwroot\pics\employee\avatars\D19AVA09.png
+wwwroot\pics\employee\avatars\D19AVA10.png
+wwwroot\pics\employee\avatars\D19AVA11.png
+wwwroot\pics\employee\avatars\D19AVA12.png
+wwwroot\pics\employee\avatars\D19AVA13.png
+wwwroot\pics\employee\avatars\D19AVA14.png
+wwwroot\pics\employee\avatars\D19AVA15.png
+wwwroot\pics\employee\avatars\D19AVA18.jpg
+wwwroot\pics\employee\avatars\dfimage.jpg
+wwwroot\pics\employee\avatars\dfimage.png
+wwwroot\pics\employee\D19AVA02.jpg
+wwwroot\pics\employee\D19AVA03.jpg
+wwwroot\pics\employee\D19AVA04.jpg
+wwwroot\pics\employee\D19AVA05.jpg
+wwwroot\pics\employee\D19AVA06.jpg
+wwwroot\pics\employee\D19AVA07.jpg
+wwwroot\pics\employee\D19AVA08.jpg
+wwwroot\pics\employee\D19AVA09.jpg
+wwwroot\pics\employee\D19AVA10.jpg
+wwwroot\pics\employee\D19AVA11.jpg
+wwwroot\pics\employee\D19AVA12.jpg
+wwwroot\pics\employee\D19AVA13.jpg
+wwwroot\pics\employee\D19AVA14.jpg
+wwwroot\pics\employee\D19AVA15.jpg
+wwwroot\pics\employee\D22AVA016.jpg
+wwwroot\pics\employee\D22AVA017.jpg
+wwwroot\pics\employee\D22AVA018.jpg
+wwwroot\pics\employee\D22AVA019.jpg
+wwwroot\pics\employee\D22AVA020.jpg
+wwwroot\pics\employee\D22AVA021.jpg
+wwwroot\pics\employee\D22AVA022.jpg
+wwwroot\pics\employee\D22AVA023.jpg
+wwwroot\pics\employee\D23AVA001.jpg
+wwwroot\pics\employee\D23AVA002.jpg
+wwwroot\pics\employee\D23AVA003.jpg
+wwwroot\pics\employee\D23AVA004.jpg
+wwwroot\pics\employee\D23AVA005.jpg
+wwwroot\pics\employee\D23AVA006.jpg
+wwwroot\pics\employee\D23AVA007.jpg
+wwwroot\pics\employee\D23AVA008.jpg
+wwwroot\pics\employee\D23AVA009.jpg
+wwwroot\pics\employee\D23AVA010.jpg
+wwwroot\pics\employee\D23AVA011.jpg
+wwwroot\pics\employee\D23AVA012.jpg
+wwwroot\pics\employee\D23AVA013.jpg
+wwwroot\pics\employee\D23AVA014.jpg
+wwwroot\pics\employee\D23AVA015.jpg
+wwwroot\pics\employee\D23AVA016.jpg
+wwwroot\pics\employee\D23AVA017.jpg
+wwwroot\pics\employee\D23AVA019.jpg
+wwwroot\pics\employee\D23AVA023.jpg
+wwwroot\pics\employee\D23AVA025.jpg
+wwwroot\pics\employee\D23AVA026.jpg
+wwwroot\pics\employee\D23AVA029.jpg
+wwwroot\pics\employee\D23AVA030.jpg
+wwwroot\pics\employee\D23AVA033.jpg
+wwwroot\pics\employee\D23AVA034.jpg
+wwwroot\pics\employee\D23AVA035.jpg
+wwwroot\pics\employee\D23AVA037.jpg
+wwwroot\pics\employee\D23AVA038.jpg
+wwwroot\pics\employee\D23AVA040.jpg
+wwwroot\pics\employee\dfimage.jpg
+wwwroot\pics\employee\O23AVA001.jpg
+wwwroot\pics\employee\O23AVA002.JPG
+wwwroot\pics\employee\O23AVA003.jpg
+wwwroot\pics\employee\O23AVA004.jpg
+wwwroot\pics\employee\O23AVA005.jpg
+wwwroot\pics\employee\O23AVA006.jpg
+wwwroot\pics\employee\O23AVA007.jpg
+wwwroot\pics\employee\O23AVA008.jpg
+wwwroot\pics\employee\O23AVA012.jpg
+wwwroot\pics\trucks\dfimage.jpg
+wwwroot\pics\trucks\T200001.jpg
+wwwroot\pics\trucks\T220001.jpg
+wwwroot\pics\trucks\T220002.jpg
+wwwroot\pics\trucks\T220003.jpg
+wwwroot\pics\userpic\avatars\D19AVA02.png
+wwwroot\pics\userpic\avatars\D19AVA03.png
+wwwroot\pics\userpic\avatars\D19AVA04.png
+wwwroot\pics\userpic\avatars\D19AVA05.png
+wwwroot\pics\userpic\avatars\D19AVA06.png
+wwwroot\pics\userpic\avatars\D19AVA07.png
+wwwroot\pics\userpic\avatars\D19AVA08.png
+wwwroot\pics\userpic\avatars\D19AVA09.png
+wwwroot\pics\userpic\avatars\D19AVA10.png
+wwwroot\pics\userpic\avatars\D19AVA11.png
+wwwroot\pics\userpic\avatars\D19AVA12.png
+wwwroot\pics\userpic\avatars\D19AVA13.png
+wwwroot\pics\userpic\avatars\D19AVA14.png
+wwwroot\pics\userpic\avatars\D19AVA15.png
+wwwroot\pics\userpic\avatars\D19AVA18.jpg
+wwwroot\pics\userpic\avatars\dfimage.jpg
+wwwroot\pics\userpic\avatars\dfimage.png
+wwwroot\pics\userpic\D19AVA02.jpg
+wwwroot\pics\userpic\D19AVA03.jpg
+wwwroot\pics\userpic\D19AVA04.jpg
+wwwroot\pics\userpic\D19AVA05.jpg
+wwwroot\pics\userpic\D19AVA06.jpg
+wwwroot\pics\userpic\D19AVA07.jpg
+wwwroot\pics\userpic\D19AVA08.jpg
+wwwroot\pics\userpic\D19AVA09.jpg
+wwwroot\pics\userpic\D19AVA10.jpg
+wwwroot\pics\userpic\D19AVA11.jpg
+wwwroot\pics\userpic\D19AVA12.jpg
+wwwroot\pics\userpic\D19AVA13.jpg
+wwwroot\pics\userpic\D19AVA14.jpg
+wwwroot\pics\userpic\D19AVA15.jpg
+wwwroot\pics\userpic\dfimage.jpg
+wwwroot\Rotativa\wkhtmltoimage.exe
+wwwroot\Rotativa\wkhtmltopdf.exe
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\alert\alert.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\alert\theme.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\autocomplete\easy-autocomplete.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\autocomplete\jquery.typeahead.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\bootstrap-editable.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\address\address.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\address\address.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysiwyg-color.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-editable\inputs-ext\wysihtml5\wysihtml5.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-wysihtml5\bootstrap-wysihtml5.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap-wysihtml5\wysiwyg-color.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap\animate.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap\bootstrap-switch.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap\bootstrap-table-fixed-columns.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap\bootstrap-table.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\bootstrap\bootstrap.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\bootstrap.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\dataTables.bootstrap4.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\icons.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\login\bootstrap.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\login\default.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\login\style.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\morris.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\responsive.bootstrap4.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\customer\style.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\datatables\datatables.bootstrap.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\datatables\datatables.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\datatables\datatables.normal.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\datatables\fixedColumns.bootstrap.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\datetime\jquery.datetimepicker.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\denied\style.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\errorpage\style.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\error\bootstrap.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\error\error-page.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\error\responsive.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\form\pnd50form.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\form\site.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\login\bootstrap.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\login\default.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\login\style.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\print\printform.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\print\printmedia.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\profile\profile-2.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\profile\profile.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\profile\todo-2.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\blog.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\components.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\croppie.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\cubeportfolio.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\form.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\fullcalendar.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\invoicedriver.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\jquery-ui.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\layout.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\loading-spin.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\plugins.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\portfolio.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\select2-bootstrap.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\select2.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\site\select2.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\tabulator\tabulator.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\themes\blue.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\themes\darkblue.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\themes\default.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\themes\grey.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\themes\light.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\themes\light2.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\themes\yellow.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\toastr\toastr.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\upload\blueimp-gallery.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\upload\croppie.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\upload\jquery.fileupload-ui.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\css\upload\jquery.fileupload.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\favicon.ico
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\all.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\all.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\brands.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\brands.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\duotone.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\duotone.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\fontawesome.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\fontawesome.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\light.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\light.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\regular.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\regular.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\solid.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\solid.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\svg-with-js.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\svg-with-js.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\v4-shims.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\css\v4-shims.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\webfonts\fa-brands-400.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\webfonts\fa-duotone-900.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\webfonts\fa-light-300.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\webfonts\fa-regular-400.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\fontawesome\webfonts\fa-solid-900.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\glyphicons-halflings-regular.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\icomoon\icomoon.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\icomoon\icomoon.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\fonts\simple-line-icon\simple-line-icons.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\icons\daypilot.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\images\graphic2.svg
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\alert\alert.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\autocomplete\bootstrap3-typeahead.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\autocomplete\jquery.easy-autocomplete.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\autocomplete\jquery.typeahead.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\autocomplete\jquery.typeahead.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap\bootstrap-switch.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap\bootstrap-table-fixed-columns.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap\bootstrap-table.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap\bootstrap.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\app.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\bootstrap.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\dashborad.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\dataTables.bootstrap4.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\jquery.dataTables.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\jquery.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\jquery.nicescroll.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\jquery.scrollTo.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\jquery.slimscroll.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\modernizr.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\morris.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\popper.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\raphael-min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\skycons.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\customer\waves.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\datatables\datatables.bootstrap.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\datatables\datatables.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\datatables\table-datatables-scroller.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\error\script.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\FusionCharts.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\jfusioncharts.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.charts.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.gantt.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.maps.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.powercharts.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.ssgrid.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.treemap.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.widgets.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\fusioncharts.zoomscatter.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\maps\fusioncharts.usa.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\maps\fusioncharts.world.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\maps\readme.txt
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.carbon.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.fint.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.ocean.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\js\themes\fusioncharts.theme.zune.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\Line2D.xml
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\fusioncharts\monthlyRevenue.json
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\fullcalendar.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery-1.10.2.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery-ui.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.animateNumber.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.blockUI.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.blockui.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.cubeportfolio.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.datetimepicker.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.form.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jQuery.print.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.simplemodal.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.slimscroll.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\moment.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\portfolio-1.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\login\app.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\login\bootstrap.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\login\jquery.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\login\login-5.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\login\popper.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\modal\jquery.simplemodal.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\additional-methods.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\app-scripts.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\app.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\calendar.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\components-select2.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\croppie.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\demo.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\index.global.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\jquery.backstretch.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\js.cookie.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\layout.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\partial-scripts.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\quick-nav.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\quick-sidebar.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\select2.full.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\select2.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\th.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\validations.script.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\daypilot\daypilot-all.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation\dist\additional-methods.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery-validation\LICENSE.md
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.min.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.slim.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.slim.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.slim.min.map
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\LICENSE.txt

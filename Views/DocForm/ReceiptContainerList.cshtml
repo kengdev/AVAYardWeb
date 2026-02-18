@@ -1,0 +1,280 @@
+﻿@model AVAYardWeb.Models.ContainerHandlingViewModel
+@{
+    Layout = null;
+    int ipg = 0;
+}
+
+<link href="../../fonts/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
+<link href="~/css/site/form.css" rel="stylesheet" type="text/css" media="print">
+<style>
+    .page {
+        font: 10pt "Tahoma", Times, serif;
+        z-index: 1000;
+        width: 100%;
+    }
+
+    .header-col-1 {
+        width: 150px;
+        float: left;
+        display: inline-block;
+    }
+
+    .header-col-6 {
+        width: 400px;
+        float: left;
+        display: inline-block;
+    }
+
+    .header-col-3 {
+        float: right;
+        text-align: center;
+        display: inline-block
+    }
+
+    .company-detail {
+        font-size: 11px !important;
+    }
+
+    .company-name {
+        font-size: 13px !important;
+    }
+
+    .owner {
+        text-align: center;
+        font-size: 11px !important;
+    }
+
+    .owner-doc-wrapper {
+        display: inline-block;
+        text-align: center;
+        font-size: 11px !important;
+    }
+
+    .doc-type {
+        text-align: center !important;
+        width: 100%;
+    }
+
+    .doc-type-content {
+        margin-top: 5px;
+        padding: 3px;
+        border: 1px solid black;
+        border-radius: 7px !important;
+        width: 120px;
+        display: inline-block;
+    }
+
+    .doc-name {
+        text-align: center;
+        margin-top: 7px;
+    }
+
+    .customer-payment {
+        margin-top: 10px;
+        border: 2px solid black;
+        padding: 3px;
+        display: inline-block;
+        float: left;
+    }
+
+    .invoice-id-date {
+        font-size: 11px;
+        margin-top: 20px;
+        display: inline-block;
+        vertical-align: top;
+        text-align: left;
+        float: right;
+        margin-right: 40px;
+    }
+
+        .invoice-id-date div {
+            text-align: left !important;
+        }
+
+    .payment-content {
+        margin-top: 3px !important;
+    }
+
+        .payment-content table.table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+
+
+            .payment-content table.table th.topic {
+                border: 1px solid black;
+                text-align: center;
+                font-size: 9px;
+                font-style: normal;
+                line-height: 20px !important;
+            }
+
+            .payment-content table.table th {
+                border: 1px solid black;
+                text-align: center;
+                font-size: 9px;
+                font-style: italic;
+                line-height: 15px !important;
+            }
+
+
+            .payment-content table.table td {
+                font-size: 9px;
+                border: 1px solid black;
+                line-height: 15px !important;
+                padding-right: 3px;
+            }
+
+                .payment-content table.table td.right,
+                th.right {
+                    text-align: right !important;
+                    padding-right: 3px;
+                    font-size: 9px;
+                }
+
+                .payment-content table.table td.center {
+                    text-align: center;
+                }
+
+                .payment-content table.table td.left {
+                    text-align: left;
+                    padding-left: 3px;
+                }
+
+    .payment-footer {
+        border: 2px solid black;
+        margin-top: 3px !important;
+        padding-bottom: 7px;
+    }
+
+    .item-box {
+        border: 1px solid #000;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        display: inline-block;
+    }
+
+        .item-box span {
+            font-size: 20px;
+            position: relative;
+            top: -5px;
+        }
+
+    .payment-type-wrapper {
+        padding-top: 7px;
+        font-size: 11px !important;
+    }
+
+    .payment-type {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .table-payment-type td label {
+        margin-left: 7px;
+        font-size: 11px;
+    }
+
+    .table-payment-type td div.item-box {
+        margin-left: 20px;
+    }
+
+    .payment-remark {
+        border: 2px solid black;
+        margin-top: 3px;
+        font-size: 11px;
+        font-style: italic;
+        text-align: center;
+        padding: 7px;
+    }
+
+    .topic-customer-name {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .topic-customer-address, .topic-customer-tax {
+        width: 530px !important;
+        font-size: 9px !important;
+    }
+
+    .last {
+        border-right: 2px solid black !important;
+    }
+
+    .cutoff {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+        font-size: 20px;
+    }
+
+    #cutoff-line {
+        width: 98%;
+        border-top: 1px dashed grey;
+        position: relative;
+        top: -8px;
+        left: 15px;
+    }
+
+    .sign1 {
+        margin-left: 70px;
+        padding: 0;
+    }
+
+    .sign2 {
+        text-align: center;
+    }
+
+    div.stamp-sign-img img {
+        width: 90px;
+        position: relative;
+        top: 15px;
+        z-index: -1;
+    }
+
+    div.clear-float {
+        clear: both;
+    }
+
+    @@media all {
+        .page-break {
+            display: block;
+            page-break-after: always !important;
+        }
+    }
+
+    @@media print {
+        html, body {
+            height: 99%;
+        }
+    }
+
+    @@media print {
+        .page-break {
+            display: block;
+            page-break-after: always !important;
+        }
+    }
+</style>
+
+<div class="page">
+    @if (Model.doc_type == "DROP")
+    {
+        Html.RenderPartial("_ReceiptDrop");
+    }
+    @if (Model.doc_type == "OTHER")
+    {
+        Html.RenderPartial("_ReceiptOther");
+    }
+    @if (Model.doc_type == "GATE")
+    {
+        Html.RenderPartial("_ReceiptGate");
+    }
+    @if (Model.doc_type == "LIFT")
+    {
+        Html.RenderPartial("_ReceiptLift");
+    }
+</div>

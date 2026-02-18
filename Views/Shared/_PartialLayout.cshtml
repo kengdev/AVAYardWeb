@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVA Global Logistics</title>
+    <link rel="icon" href="~/images/logo-icon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="~/fonts/simple-line-icon/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/fonts/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap/animate.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/css/site/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/site/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/css/site/components.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/site/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/site/layout.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/css/autocomplete/easy-autocomplete.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/alert/alert.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/alert/theme.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/datatables/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/datetime/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/profile/todo-2.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/profile/profile.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/site/loading-spin.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/Site.css" rel="stylesheet" type="text/css" />
+    @RenderSection("Styles", required: false)
+
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        .table-wrapper {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="partial-body-container">
+        @RenderBody()
+    </div>
+    <script src="~/js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery/jquery-ui.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/js/autocomplete/jquery.easy-autocomplete.js" type="text/javascript"></script>
+    <script src="~/js/jquery/jquery.animateNumber.js" type="text/javascript"></script>
+    <script src="~/js/jquery/jquery.simplemodal.js" type="text/javascript"></script>
+    <script src="~/js/jquery/jquery.form.js"></script>
+    <script src="~/js/alert/alert.js"></script>
+    <script src="~/js/site/js.cookie.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery/jquery.blockui.js" type="text/javascript"></script>
+    <script src="~/js/bootstrap/bootstrap-switch.min.js" type="text/javascript"></script>
+
+    <script src="~/js/site/select2.full.min.js" type="text/javascript"></script>
+
+    <script src="~/js/site/app.min.js" type="text/javascript"></script>
+
+    <script src="~/js/site/components-select2.min.js" type="text/javascript"></script>
+
+    <script src="~/js/site/layout.min.js" type="text/javascript"></script>
+    <script src="~/js/site/demo.min.js" type="text/javascript"></script>
+    <script src="~/js/site/quick-sidebar.min.js" type="text/javascript"></script>
+    <script src="~/js/site/quick-nav.min.js" type="text/javascript"></script>
+    <script src="~/js/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="~/js/datatables/datatables.bootstrap.js" type="text/javascript"></script>
+    <script src="~/js/datatables/table-datatables-scroller.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery/jquery.datetimepicker.js" type="text/javascript"></script>
+    <script src="~/js/site/validations.script.js" type="text/javascript"></script>
+    <script src="~/js/site/partial-scripts.js" type="text/javascript"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

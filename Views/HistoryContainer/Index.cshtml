@@ -1,0 +1,236 @@
+﻿@{
+    ViewData["YardContainer"] = "active";
+    ViewData["OpenYardContainer"] = "open";
+    ViewData["listHistory"] = "active";
+}
+@section Styles {
+    <style>
+        table.dataTable td, table.dataTable th {
+            font-size: 13px !important;
+        }
+
+        .form-control {
+            height: 30px !important;
+            padding: 5px;
+            font-size: 13px !important;
+            font-weight: normal;
+        }
+        .status-td{
+            width:50px;
+            text-align:center;
+        }
+    </style>
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="javascript:;">ข้อมูลตู้สินค้าในลาน</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="/history/">ประวัติการทำรายการ</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-list"></i>
+                    <span class="caption-subject bold uppercase"> ประวัติการรับตู้สินค้า</span>
+                </div>
+                <div class="actions">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-order">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th> ตู้สินค้า</th>
+                            <th> ประเภท</th>
+                            <th> ทะเบียนรถ</th>
+                            <th> บริษัทขนส่ง</th>
+                            <th> สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr role="row" class="heading">
+                            <th class="filter"></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameEN" /></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function ($) {
+            var oTable = $('#table-order').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "iDisplayLength": 10,
+                "scrollCollapse": false,
+                "order": [[1, "desc"]],
+                "sAjaxSource": "/HistoryContainer/GetContainerList",
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "filterNameTH", "value": $("#filterNameTH").val() });
+                    aoData.push({ "name": "filterNameEN", "value": $("#filterNameEN").val() });
+                },
+                "fnRowCallback": function (row, aData, index) {
+                    if(aData.container_status = 'A'){
+                        $('td', row).eq(5).addClass('approved');
+                        $('td', row).eq(5).html('ACCEPT');
+                    }
+                    else if(aData.container_status = 'REJECT'){
+                        $('td', row).eq(5).addClass('reject');
+                        $('td', row).eq(5).html(days);
+                    }
+
+                    if(aData.issue_type == 'DROP')
+                    {
+                        $('td', row).eq(2).html('<span class="label label-sm label-info"> DROP </span>');
+                    }
+                    else{
+                        $('td', row).eq(2).html('<span class="label label-sm label-danger"> MATCH </span>');
+                    }
+                },
+                "oLanguage": {
+                    "sInfoFiltered": " ",
+                    "sInfo": "แสดงจำนวน _START_ to _END_ รายการ (ทั้งหมด _TOTAL_ รายการ)",
+                    "sSearch": "ค้นหา : ",
+                    "sLengthMenu": 'แสดงจำนวน <select class="form-control">' +
+                            '<option value="10" selected>10</option>' +
+                            '<option value="20">20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '<option value="100">100</option>' +
+                            '</select> รายการ'
+                },
+                "columnDefs": [
+                      { className: "action-3-td text-center", targets: 0 },
+                      { className: "code-td", targets: 1 },
+                      { className: "type-td", targets: 2 },
+                      { className: "license-td", targets: 3 },
+                      { className: "name-td", targets: 4 },
+                      { className: "status-td", targets: 5 }
+                ],
+                "columns":
+                [
+                      { "data": "order_code" },
+                      { "data": "container_no" },
+                      { "data": "container_type" },
+                      { "data": "truck_license" },
+                      { "data": "transportation_name" },
+                      { "data": "days_ago" }
+                ],
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).find('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+
+            $('#table-order tfoot tr').appendTo('#table-order thead');
+
+            $('.filterText').keyup(function () {
+                $('#table-order').dataTable()._fnAjaxUpdate();
+            });
+        }(jQuery));
+
+        function reloadRow() {
+            $("#table-order").DataTable().ajax.reload();
+        }
+
+        function setEdit(code) {
+            var url = '/customer/edit?code=' + code;
+            window.location = url;
+        }
+
+        function setDisabled(code) {
+            $.alert.open('confirm', 'คุณต้องการลบข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+                if (r) {
+                    overLayPage();
+                    $.post("/Customer/Remove",
+                    {
+                        customer_code: code
+                    }, function (data) {
+                        killOverlayPage();
+                        if (data.result == true) {
+                             $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-customer').dataTable()._fnAjaxUpdate();
+                            });
+                        } else {
+                            $.alert.open('error', data.resultMessage);
+                        }
+                    });
+                }
+            });
+        }
+
+        function setActive(code) {
+            $.alert.open('confirm', 'คุณต้องการเปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+                if (r) {
+                    overLayPage();
+                    $.post("/Customer/Active",
+                    {
+                        customer_code: code
+                    }, function (data) {
+                        killOverlayPage();
+                        if (data.result == true) {
+                             $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-customer').dataTable()._fnAjaxUpdate();
+                            });
+                        } else {
+                            $.alert.open('error', data.resultMessage);
+                        }
+                    });
+                }
+            });
+        }
+
+        function setInactive(code) {
+            $.alert.open('confirm', 'คุณต้องการปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+                if (r) {
+                    overLayPage();
+                    $.post("/Customer/Inactive",
+                    {
+                        customer_code: code
+                    }, function (data) {
+                        killOverlayPage();
+                        if (data.result == true) {
+                             $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-customer').dataTable()._fnAjaxUpdate();
+                            });
+                        } else {
+                            $.alert.open('error', data.resultMessage);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

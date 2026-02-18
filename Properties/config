@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Server=Alice\SQLEXPRESS; Database=dbavayard; Integrated Security=True;Persist Security Info=False;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -o Models/Entities -f -v --no-onconfiguring
