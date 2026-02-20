@@ -504,7 +504,6 @@ namespace AVAYardWeb.Controllers
 
         public async Task<IActionResult> Approve(string code)
         {
-            var log = new LogRepository(db);
             var serviceCode = new CodeRepository(db);
 
             ResponseViewModel response = new ResponseViewModel();
@@ -573,6 +572,9 @@ namespace AVAYardWeb.Controllers
                 }
 
                 await db.SaveChangesAsync();
+
+                log.AddLog("Approve", "OrderContainer", code, null, null, this.LoggedInUser);
+                await log.SaveAsync();
                 await tr.CommitAsync();
                 response.result = true;
                 response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
@@ -580,7 +582,7 @@ namespace AVAYardWeb.Controllers
             catch (Exception ex)
             {
                 await tr.RollbackAsync();
-                await tr.DisposeAsync();
+                await db.DisposeAsync();
                 response.result = false;
                 response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
                 response.errorException = ex.InnerException;

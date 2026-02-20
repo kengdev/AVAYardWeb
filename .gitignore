@@ -1,0 +1,28 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Secrets / configs
+#appsettings.Development.json
+#appsettings.Production.json
+
+# Packages (ถ้าไม่อยาก push)
+#packages/
+
+# Publish output
+Publish/

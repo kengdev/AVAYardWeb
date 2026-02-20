@@ -440,5 +440,4 @@ D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\bin\De
 D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\bin\Debug\net9.0\Publish\AVAYardWeb.runtimeconfig.json
 D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\bin\Debug\net9.0\Publish\AVAYardWeb.staticwebassets.endpoints.json
 D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\bin\Debug\net9.0\Publish\wwwroot\js\fusioncharts\monthlyRevenue.json
-D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\obj\Debug\net9.0\AVAYardWeb.sourcelink.json
 D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
