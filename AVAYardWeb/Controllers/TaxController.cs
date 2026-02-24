@@ -111,7 +111,6 @@ public class TaxController : Controller
         var serviceDropDown = new DropListRepository(db);
         var model = await db.TaxAddresses.Where(w => w.TaxId == code).FirstOrDefaultAsync();
 
-        ViewData["BranchType"] = from a in serviceDropDown.BranchType() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == model.BranchName };
         return View(model);
     }
 

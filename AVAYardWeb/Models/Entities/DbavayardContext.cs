@@ -89,6 +89,10 @@ public partial class DbavayardContext : DbContext
                 .IsUnicode(false)
                 .UseCollation("Thai_CI_AS")
                 .HasColumnName("acc_fullname");
+            entity.Property(e => e.AccGroup)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("acc_group");
             entity.Property(e => e.AccPassword)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -213,7 +217,7 @@ public partial class DbavayardContext : DbContext
             entity.ToTable("order_bank");
 
             entity.Property(e => e.BankCode)
-                .HasMaxLength(3)
+                .HasMaxLength(2)
                 .IsUnicode(false)
                 .IsFixedLength()
                 .UseCollation("Thai_CI_AS")
@@ -223,6 +227,10 @@ public partial class DbavayardContext : DbContext
                 .IsUnicode(false)
                 .UseCollation("Thai_CI_AS")
                 .HasColumnName("bank_name");
+            entity.Property(e => e.CreateDate)
+                .HasColumnType("datetime")
+                .HasColumnName("create_date");
+            entity.Property(e => e.IsActive).HasColumnName("is_active");
         });
 
         modelBuilder.Entity<OrderContainer>(entity =>
@@ -439,6 +447,11 @@ public partial class DbavayardContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("payment_code");
+            entity.Property(e => e.BankCode)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("bank_code");
             entity.Property(e => e.ContainerNo)
                 .HasMaxLength(13)
                 .IsUnicode(false)
@@ -492,6 +505,15 @@ public partial class DbavayardContext : DbContext
             entity.Property(e => e.Total)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("total");
+            entity.Property(e => e.TransportationCode)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("transportation_code");
+            entity.Property(e => e.TruckLicense)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("truck_license");
             entity.Property(e => e.Vat)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("vat");
@@ -510,6 +532,11 @@ public partial class DbavayardContext : DbContext
                 .HasForeignKey(d => d.PaymentTypeCode)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_order_payment_order_payment_type");
+
+            entity.HasOne(d => d.TransportationCodeNavigation).WithMany(p => p.OrderPayments)
+                .HasForeignKey(d => d.TransportationCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_order_payment_trans_transportation");
         });
 
         modelBuilder.Entity<OrderPaymentDetail>(entity =>
@@ -907,15 +934,6 @@ public partial class DbavayardContext : DbContext
             entity.Property(e => e.Address)
                 .HasColumnType("text")
                 .HasColumnName("address");
-            entity.Property(e => e.BranchName)
-                .HasMaxLength(150)
-                .IsUnicode(false)
-                .HasColumnName("branch_name");
-            entity.Property(e => e.BranchType)
-                .HasMaxLength(2)
-                .IsUnicode(false)
-                .IsFixedLength()
-                .HasColumnName("branch_type");
             entity.Property(e => e.CreateBy)
                 .HasMaxLength(20)
                 .HasColumnName("create_by");
@@ -925,7 +943,7 @@ public partial class DbavayardContext : DbContext
             entity.Property(e => e.IsActived).HasColumnName("is_actived");
             entity.Property(e => e.IsEnabled).HasColumnName("is_enabled");
             entity.Property(e => e.Name)
-                .HasMaxLength(150)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("name");
             entity.Property(e => e.Phone)

@@ -89,8 +89,6 @@ public class AutoCompleteRepository
                          name = a.Name + " ",
                          address = a.Address,
                          title = a.TaxId + " (" + a.Name + ")",
-                         attr1 = a.BranchType,
-                         attr2 = a.BranchName
                      }).Take(30).ToListAsync();
 
         return query;

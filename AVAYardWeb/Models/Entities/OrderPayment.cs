@@ -15,7 +15,13 @@ public partial class OrderPayment
 
     public string ContainerSizeCode { get; set; } = null!;
 
+    public string TruckLicense { get; set; } = null!;
+
+    public string TransportationCode { get; set; } = null!;
+
     public string PaymentTypeCode { get; set; } = null!;
+
+    public string BankCode { get; set; } = null!;
 
     public string TaxId { get; set; } = null!;
 
@@ -46,4 +52,6 @@ public partial class OrderPayment
     public virtual ICollection<OrderReceipt> OrderReceipts { get; set; } = new List<OrderReceipt>();
 
     public virtual OrderPaymentType PaymentTypeCodeNavigation { get; set; } = null!;
+
+    public virtual TransTransportation TransportationCodeNavigation { get; set; } = null!;
 }

@@ -11,6 +11,8 @@ public partial class AccAccount
 
     public string AccFullname { get; set; } = null!;
 
+    public string AccGroup { get; set; } = null!;
+
     public string? Remark { get; set; }
 
     public bool IsActived { get; set; }

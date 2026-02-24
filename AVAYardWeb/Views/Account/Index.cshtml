@@ -1,0 +1,213 @@
+﻿@{
+    ViewData["Account"] = "active";
+}
+@section Styles{
+<style>
+    table.dataTable td,
+    table.dataTable th {
+        font-size: 13px !important;
+    }
+
+    .cancelItem {
+        text-decoration: line-through;
+        text-decoration-color: red;
+        color: #b4b4b4;
+    }
+
+    .form-control {
+        height: 30px !important;
+        padding: 5px;
+        font-size: 13px !important;
+        font-weight: normal;
+    }
+</style>
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/account/">ข้อมูลผู้ใช้งาน</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-list"></i>
+                    <span class="caption-subject bold uppercase"> รายชื่อผู้ใช้งาน</span>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn btn-sm red" onclick="setAdd()">เพิ่มข้อมูล</button>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column"
+                    id="table-agent">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th> รายการ</th>
+                            <th> กลุ่ม</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr role="row" class="heading">
+                            <th class="filter"></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" />
+                            </th>
+                            <th class="filter">
+                                <input type="text" class="form-control filterText" id="filterNameTH" />
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script type="text/javascript">
+    (function ($) {
+        var oTable = $('#table-agent').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "iDisplayLength": 10,
+            "scrollCollapse": false,
+            "order": [[1, "desc"]],
+                "sAjaxSource": "/Account/GetAccountDataList",
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "filterNameTH", "value": $("#filterNameTH").val() });
+            },
+            "fnRowCallback": function (row, aData, index) {
+
+            },
+            "oLanguage": {
+                "sInfoFiltered": " ",
+                "sInfo": "แสดงจำนวน _START_ to _END_ รายการ (ทั้งหมด _TOTAL_ รายการ)",
+                "sSearch": "ค้นหา : ",
+                "sLengthMenu": 'แสดงจำนวน <select class="form-control">' +
+                    '<option value="10">10</option>' +
+                    '<option value="20" selected>20</option>' +
+                    '<option value="30">30</option>' +
+                    '<option value="40">40</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="100">100</option>' +
+                    '</select> รายการ'
+            },
+            "columnDefs": [
+                { className: "action-3-td text-center", targets: 0 },
+                { className: "name-td", targets: 1 },
+                { className: "code-td", targets: 2 }
+            ],
+            "columns":
+                [
+                    {
+                        "data": "accUsername", "orderable": false, "render": function (data, type, row) {
+                            var remove =
+                                '<a class="btn btn-xs red" href="javascript:;" data-title="ลบข้อมูล"  data-toggle="tooltip" data-trigger="hover" onclick=setDisabled("' +
+                                data + '")><i class="fad fa-trash-alt"></i></a>';
+                           
+                                return remove;
+                        }
+                    },
+                    { "data": "accUsername" },
+                    { "data": "accGroup" }
+                ],
+            "createdRow": function (row, data, dataIndex) {
+                $(row).find('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+
+        $('#table-agent tfoot tr').appendTo('#table-agent thead');
+
+        $('.filterText').keyup(function () {
+            $('#table-agent').dataTable()._fnAjaxUpdate();
+        });
+    }(jQuery));
+
+    function reloadRow() {
+        $("#table-agent").DataTable().ajax.reload();
+    }
+
+    function setAdd(code) {
+        var url = '/account/add';
+        window.location = url;
+    }
+
+    function setEdit(code) {
+        var url = '/account/edit/' + code;
+        window.location = url;
+    }
+
+    function setDisabled(code) {
+        $.alert.open('confirm', 'คุณต้องการลบข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+            if (r) {
+                overLayPage();
+                $.post("/Account/Remove", {
+                    code: code
+                }, function (data) {
+                    killOverlayPage();
+                    if (data.result == true) {
+                        $.alert.open('info', data.resultMessage, function (r) {
+                            $('#table-agent').dataTable()._fnAjaxUpdate();
+                        });
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
+            }
+        });
+    }
+
+    function setActive(code) {
+        $.alert.open('confirm', 'คุณต้องการเปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+            if (r) {
+                overLayPage();
+                    $.post("/Account/Active", {
+                    code: code
+                }, function (data) {
+                    killOverlayPage();
+                    if (data.result == true) {
+                        $.alert.open('info', data.resultMessage, function (r) {
+                            $('#table-agent').dataTable()._fnAjaxUpdate();
+                        });
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
+            }
+        });
+    }
+
+    function setInactive(code) {
+        $.alert.open('confirm', 'คุณต้องการปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+            if (r) {
+                overLayPage();
+                    $.post("/Account/Inactive", {
+                    code: code
+                }, function (data) {
+                    killOverlayPage();
+                    if (data.result == true) {
+                        $.alert.open('info', data.resultMessage, function (r) {
+                            $('#table-agent').dataTable()._fnAjaxUpdate();
+                        });
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
+            }
+        });
+    }
+</script>
+}

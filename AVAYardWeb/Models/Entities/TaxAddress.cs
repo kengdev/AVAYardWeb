@@ -15,10 +15,6 @@ public partial class TaxAddress
 
     public string Address { get; set; } = null!;
 
-    public string BranchType { get; set; } = null!;
-
-    public string? BranchName { get; set; }
-
     public bool IsActived { get; set; }
 
     public bool IsEnabled { get; set; }

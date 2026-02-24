@@ -1,0 +1,129 @@
+﻿@model AVAYardWeb.Models.Entities.AccAccount
+@{
+    ViewData["Account"] = "active";
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/account/">ข้อมูลผู้ใช้งาน</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="/account/add">เพิ่ม</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-plus-circle"></i>
+                    <span class="caption-subject bold uppercase"> เพิ่มข้อมูลเอเจนท์</span>
+                </div>
+            </div>
+            @using (Html.BeginForm("AddData", "Account", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
+            {
+                <div class="portlet-body form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>
+                                        Username
+                                        <span class="required"> * </span>
+                                    </label>
+                                    @Html.TextBoxFor(m => m.AccUsername, new { Class = "form-control", autocomplete = "Off" })
+                                    <span class="help-block"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        Password
+                                        <span class="required"> * </span>
+                                    </label>
+                                    @Html.TextBoxFor(m => m.AccPassword, new { Class = "form-control", autocomplete = "Off" })
+                                    <span class="help-block"></span>
+                                </div>
+
+                                <hr/>
+
+                                <div class="form-group">
+                                    <label>
+                                        ชื่อ-นามสกุล
+                                        <span class="required"> * </span>
+                                    </label>
+                                    @Html.TextBoxFor(m => m.AccFullname, new { Class = "form-control", autocomplete = "Off" })
+                                    <span class="help-block"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label font-sm">กลุ่มการใช้งาน</label>
+                                    @Html.DropDownList("AccGroup", null, "-----เลือก-----", new
+                                        {
+                                            @Class = "form-control input-sm"
+                                        })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row pull-right">
+                            <div class="col-md-12">
+                                <div class="tools-action">
+                                    <a href="/account/">กลับหน้าหลัก</a> |
+                                    <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function($) {
+            $("#frmAdd").ajaxForm(function(data) {
+                killOverlayForm();
+                if (data.result == true) {
+                    $.alert.open('info', data.resultMessage, function(r) {
+                        window.location.reload();
+                    });
+                } else {
+                    $.alert.open('error', data.resultMessage);
+                }
+            });
+        }(jQuery));
+
+        function OnValidate() {
+            var validateRules = {
+                rules: {
+                    AccUsername: {
+                      require: { type: "", message: "กรุณาพิมพ์ Username" }
+                    },
+                    AccPassword: {
+                      require: { type: "", message: "กรุณาพิมพ์รหัสผ่าน" }
+                    },
+                    AccFullname: {
+                      require: { type: "", message: "กรุณาพิมพ์ชื่อ-นามสกุล" }
+                    }
+                }
+            };
+
+            var ok = $("#frmAdd").validate(validateRules);
+
+            if (ok) {
+                overLayForm();
+                return true;
+            }
+            return false;
+        }
+    </script>
+}
