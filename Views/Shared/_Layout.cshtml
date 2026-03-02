@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบรับฝากตู้สินค้า | AVA Global Logistics</title>
-    <link rel="icon" href="~/images/logo-icon.png" type="image/x-icon">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="~/fonts/simple-line-icon/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <link href="~/fonts/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -159,6 +159,14 @@
                             <a href="/yardreceipt/" class="nav-link nav-toggle">
                                 <i class="fad fa-file-invoice"></i>
                                 <span class="title">ใบเสร็จรับเงิน</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item start @ViewData["Account"]">
+                            <a href="/account/" class="nav-link nav-toggle">
+                                <i class="fad fa-users-class"></i>
+                                <span class="title">ผู้ใช้งาน</span>
                                 <span class="selected"></span>
                             </a>
                         </li>

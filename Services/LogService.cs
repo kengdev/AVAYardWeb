@@ -1,6 +1,7 @@
 ﻿using AVAYardWeb.Models.Entities;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Unicode;
 
 namespace AVAYardWeb.Services;
@@ -10,8 +11,9 @@ public class LogService : ILogService
     private readonly DbavayardContext db;
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
-        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), // ✅ ไม่ escape ภาษาไทย
-        WriteIndented = false
+        Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+        WriteIndented = false,
+        ReferenceHandler = ReferenceHandler.IgnoreCycles
     };
 
     public LogService(DbavayardContext _db)

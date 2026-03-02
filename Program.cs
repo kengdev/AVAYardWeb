@@ -51,6 +51,10 @@ builder.Services.Configure<FormOptions>(options =>
 
 builder.Services.AddScoped<ILogService, LogService>();
 
+builder.Services.AddSingleton<TerminalTokenStore>();
+builder.Services.AddSignalR();
+builder.Services.AddScoped<IDisplayService, DisplayService>();
+
 var app = builder.Build();
 app.UseAuthentication();
 
@@ -85,6 +89,10 @@ app.UseEndpoints(endpoints =>
 });
 
 RotativaConfiguration.Setup(app.Environment.ContentRootPath, "wwwroot/Rotativa");
+
+
+
+app.MapHub<DisplayHub>("/hubs/display");
 
 app.Run();
 

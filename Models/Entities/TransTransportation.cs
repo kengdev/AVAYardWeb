@@ -27,5 +27,7 @@ public partial class TransTransportation
 
     public virtual ICollection<OrderContainer> OrderContainers { get; set; } = new List<OrderContainer>();
 
+    public virtual ICollection<OrderPayment> OrderPayments { get; set; } = new List<OrderPayment>();
+
     public virtual ICollection<TaxTransportation> TaxTransportations { get; set; } = new List<TaxTransportation>();
 }

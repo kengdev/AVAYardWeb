@@ -102,6 +102,8 @@ public class PaymentRepository
                                    cs.ContainerSizeName,
                                    r.ContainerTypeCode,
                                    r.RateServiceCharge,
+                                   oc.TransportationCode,
+                                   oc.TruckLicense,
                                    oc.IssueDate
                                }).FirstOrDefaultAsync();
 
@@ -113,6 +115,8 @@ public class PaymentRepository
         paymentData.PaymentTypeCode = "02";
         paymentData.OrderCode = orderData.OrderCode;
         paymentData.CreateDate = orderData.IssueDate;
+        paymentData.TransportationCode = orderData.TransportationCode;
+        paymentData.TruckLicense = orderData.TruckLicense;
         paymentData.ContainerSizeCodeNavigation = await db.TransContainerSizes.Where(w => w.ContainerSizeCode == orderData.ContainerSizeCode).FirstOrDefaultAsync();
 
         paymentDetail.StayDays = (DateTime.Now.Date - orderData.IssueDate.Date).Days;
@@ -162,7 +166,7 @@ public class PaymentRepository
 
     public async Task<OrderPayment> GetPaymentByCode(string code)
     {
-        var paymentData = await db.OrderPayments.Where(w => w.PaymentCode == code).FirstOrDefaultAsync();
+        var paymentData = await db.OrderPayments.Where(w => w.PaymentCode == code).Include(i => i.ContainerSizeCodeNavigation).FirstOrDefaultAsync();
         return paymentData;
     }
 
@@ -277,7 +281,6 @@ public class PaymentRepository
                 receiptEntity.Vat = (receiptEntity.Total * 7m) / 100m;
                 receiptEntity.NetTotal = receiptEntity.Total + receiptEntity.Vat;
 
-                receiptEntity.NetTotal = paymentData.NetTotal + paymentData.Vat;
                 receiptEntity.ReceiptDate = DateOnly.FromDateTime(DateTime.Now);
                 receiptEntity.PaymentType = "02";
                 receiptEntity.PaymentCode = paymentData.PaymentCode;

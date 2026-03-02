@@ -13,5 +13,10 @@
         // เลขงาน/เลขบิลของลานตู้
         public string RefNo { get; set; }
         public string Payload { get; set; }
+        public string ContainerNo { get; set; }
+        public string ContainerSize { get; set; }
+        public string TaxId { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
     }
 }

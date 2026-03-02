@@ -199,6 +199,7 @@ wwwroot\images\info.gif
 wwwroot\images\info.png
 wwwroot\images\information.png
 wwwroot\images\jutarat-sign.png
+wwwroot\images\kbank-02.jpg
 wwwroot\images\line-button.png
 wwwroot\images\line-icon.png
 wwwroot\images\line-logo.jpg
@@ -210,6 +211,7 @@ wwwroot\images\normal-logo.jpg
 wwwroot\images\office-paperwork.jpg
 wwwroot\images\prompt.png
 wwwroot\images\question.png
+wwwroot\images\scb-01.jpg
 wwwroot\images\sort_asc.png
 wwwroot\images\sort_both.png
 wwwroot\images\sort_desc.png

@@ -28,6 +28,14 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Account/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Account/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Agent/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWdlbnRcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -112,8 +120,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxfUmVjZWlwdERyb3AuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/HistoryContainer/Drop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yeUNvbnRhaW5lclxEcm9wLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/HistoryContainer/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yeUNvbnRhaW5lclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/HistoryContainer/Match.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yeUNvbnRhaW5lclxNYXRjaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Home/Index.cshtml]

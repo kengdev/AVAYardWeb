@@ -26,4 +26,8 @@ Thumbs.db
 
 # Publish output
 Publish/
+<<<<<<< HEAD
 Properties/config
+=======
+Properties/config.*
+>>>>>>> e842ed428dc35d73ec892e3eeeb10c928e237f83

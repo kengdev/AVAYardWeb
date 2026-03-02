@@ -1,22 +1,89 @@
-﻿@model PaymentViewModel
+﻿@* Views/OrderPayment/DisplayPaymentPOS.cshtml *@
+@model PaymentViewModel
+
 @{
     Layout = "~/Views/Shared/_PartialLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-        <h2>ชำระเงินค่าบริการ</h2>
+@section Styles {
+    <style>
+        .topic {
+            font-size: 60px;
+        }
 
-        <div>
-            <b>เลขงาน:</b> @Model.RefNo
+        .sign {
+            font-size: 30px;
+            margin-top: 25px;
+        }
+
+        .item-value {
+            font-size: 60px;
+        }
+
+        .item-value-sm {
+            font-size: 50px;
+        }
+    </style>
+}
+
+<div class="row" style="margin-top:100px;">
+    <div class="col-sm-4 col-md-4 col-lg-4 text-center">
+
+        <div class="row" style="margin-top:30px;">
+            <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                <img src="~/images/scb-01.jpg" width="150" />
+                <img src="~/images/kbank-02.jpg" width="150" />
+            </div>
         </div>
 
-        <div>
-            <b>ยอดชำระ:</b> @Model.Amount.ToString("#,##0.00") บาท
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                <img src="data:image/png;base64,@Model.QrBase64" style="width:350px" />
+            </div>
         </div>
 
-        <br />
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                <span style="font-size:75px;color:red;font-weight:bold;">
+                    @Model.Amount.ToString("#,##0.00")
+                </span>
+            </div>
+        </div>
+    </div>
 
-        <img src="data:image/png;base64,@Model.QrBase64" style="width:250px" />
+    <div class="col-sm-8 col-md-8 col-lg-8" style="margin-top:50px;">
+        <div class="row">
+            <div class="col-sm-2 col-lg-2">
+                <div class="topic font-blue-steel">เบอร์ตู้</div>
+            </div>
+            <div class="col-sm-1 col-lg-1">
+                <div class="sign font-yellow-gold"><i class="fad fa-circle"></i></div>
+            </div>
+            <div class="col-md-9">
+                <div class="item-value font-blue">@Model.ContainerNo</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 col-lg-2">
+                <div class="topic font-blue-steel">ขนาด</div>
+            </div>
+            <div class="col-sm-1 col-lg-1">
+                <div class="sign font-yellow-gold"><i class="fad fa-circle"></i></div>
+            </div>
+            <div class="col-md-9">
+                <div class="item-value font-blue">@Model.ContainerSize</div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="item-value font-blue-steel">@Model.TaxId</div>
+                <div class="item-value-sm font-blue">@Model.Name</div>
+                <div class="item-value-sm font-blue">@Model.Address</div>
+            </div>
+        </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ using AVAYardWeb.Repositories;
 using AVAYardWeb.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 
-namespace AVAWeb.Controllers;
+namespace AVAYardWeb.Controllers;
 public class SearchController : Controller
 {
     private readonly DbavayardContext db;

@@ -39,7 +39,8 @@ namespace AVAYardWeb.Components
                             cheque_date = a.ChequeDate,
                             container_no = a.ContainerNo,
                             container_size = b.ContainerSizeName,
-                            doc_type = d.IssueType
+                            doc_type = d.IssueType,
+                            create_time = a.CreateDate
                         }).FirstOrDefaultAsync();
 
             //data.overstay_cost = await db.OrderPaymentDetails.Where(w => w.ReceiptCode == code).FirstOrDefaultAsync();

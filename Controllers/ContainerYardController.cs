@@ -32,8 +32,11 @@ namespace AVAYardWeb.Controllers
             connStr = db.Database.GetConnectionString();
         }
 
-        public IActionResult Drop()
+        public async Task<IActionResult> Drop()
         {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
             return View();
         }
 
@@ -78,7 +81,7 @@ namespace AVAYardWeb.Controllers
                 await connection.OpenAsync();
 
                 var sql = "SELECT order_container.order_code, order_container.container_no, " +
-                "trans_container_size.container_size_name As container_type, order_container.truck_license, " +
+                "trans_container_size.container_size_name As container_size, order_container.truck_license, " +
                 "trans_transportation.transportation_name, " +
                 "order_container.issue_date, issue_type, trans_agent.agent_name, is_receipt, " +
                 "DATEDIFF(DAY, CAST([issue_date] AS DATE), CAST(GETDATE() AS DATE)) AS days_ago, " +
@@ -127,7 +130,7 @@ namespace AVAYardWeb.Controllers
                 await connection.OpenAsync();
 
                 var sql = "SELECT order_container.order_code, order_container.container_no, " +
-                "trans_container_size.container_size_name As container_type, order_container.truck_license, " +
+                "trans_container_size.container_size_name As container_size, order_container.truck_license, " +
                 "trans_agent.agent_name, order_container.is_exchange, order_container.container_size_code, " +
                 "DATEDIFF(DAY, CAST([issue_date] AS DATE), CAST(GETDATE() AS DATE)) AS days_ago, " +
                 "DATEDIFF(DAY, CAST(GETDATE() AS DATE), CAST([detention_date] AS DATE)) AS aging, " +

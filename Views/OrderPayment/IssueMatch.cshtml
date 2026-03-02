@@ -3,11 +3,6 @@
     Layout = "~/Views/Shared/_PartialLayout.cshtml";
     var orderData = (AVAYardWeb.Models.OrderContainerModel)ViewBag.OrderData;
 }
-<style>
-
-</style>
-
-
 <div class="col-md-12 col-lg-12">
     <!-- BEGIN SAMPLE FORM PORTLET-->
     <div class="portlet light bordered">
@@ -23,6 +18,8 @@
             @Html.HiddenFor(m => m.OrderCode)
             @Html.HiddenFor(m => m.ContainerNo)
             @Html.HiddenFor(m => m.ContainerSizeCode)
+            @Html.HiddenFor(m => m.TransportationCode)
+            @Html.HiddenFor(m => m.TruckLicense)
             <div class="portlet-body form">
                 <div class="form-body">
                     <div class="row">
@@ -52,7 +49,7 @@
                                             {
                                                 if (orderData.is_exchange)
                                                 {
-                                                    <span class="label label-sm label-info"> คืนตู้ <i class="fad fa-exchange"><i></span>
+                                                    <span class="label label-sm label-info"> คืนตู้ <i class="fad fa-exchange"></i></span>
                                                 }
                                                 else
                                                 {
@@ -63,7 +60,7 @@
                                             {
                                                 if (orderData.is_exchange)
                                                 {
-                                                    <span class="label label-sm label-danger"> รับตู้ <i class="fad fa-exchange"><i></span>
+                                                    <span class="label label-sm label-danger"> รับตู้ <i class="fad fa-exchange"></i></span>
                                                 }
                                                 else
                                                 {

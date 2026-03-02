@@ -28,14 +28,14 @@ public class AuthenticationController : Controller
     public async Task<IActionResult> SignIn(LoginModel model)
     {
         var _log = new LogRepository(db);
-        var result = db.AccAccounts.Where(w => w.AccUsername == model.Username &&
+        var data = db.AccAccounts.Where(w => w.AccUsername == model.Username &&
                                                 w.AccPassword == this.SaltHash(model.Password)).FirstOrDefault();
-        if (ModelState.IsValid && result != null)
+        if (ModelState.IsValid && data != null)
         {
             var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, model.Username),
-                    new Claim(ClaimTypes.Role, "Admin")
+                    new Claim(ClaimTypes.Role, data.AccGroup)
                 };
 
             ClaimsIdentity userIdentity = new ClaimsIdentity(claims, "login");
@@ -57,7 +57,7 @@ public class AuthenticationController : Controller
     public async Task<IActionResult> logoff()
     {
         await HttpContext.SignOutAsync();
-        return RedirectToAction("Login", "Authentication");
+        return RedirectToAction("SignIn", "Authentication");
     }
 
 

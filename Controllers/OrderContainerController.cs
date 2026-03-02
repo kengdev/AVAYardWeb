@@ -24,13 +24,19 @@ namespace AVAYardWeb.Controllers
             log = _log;
         }
 
-        public IActionResult Drop()
+        public async Task<IActionResult> Drop()
         {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
             return View();
         }
 
-        public IActionResult Match()
+        public async Task<IActionResult> Match()
         {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
             return View();
         }
 
@@ -410,20 +416,20 @@ namespace AVAYardWeb.Controllers
         public async Task<IActionResult> GetDropContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
         {
             var _orderData = await (from a in db.OrderContainers
-                              join d in db.TransTransportations on a.TransportationCode equals d.TransportationCode
-                              join f in db.TransContainerSizes on a.ContainerSizeCode equals f.ContainerSizeCode
-                              where a.IsApprove == false && a.IssueType == "DROP"
-                              select new OrderContainerModel
-                              {
-                                  order_code = a.OrderCode,
-                                  issue_type = a.IssueType,
-                                  container_no = a.ContainerNo,
-                                  container_type = f.ContainerSizeName,
-                                  truck_license = a.TruckLicense,
-                                  transportation_name = d.TransportationName,
-                                  container_status = a.ContainerStatus,
-                                  is_receipt = a.IsReceipt,
-                              }).ToListAsync();
+                                    join d in db.TransTransportations on a.TransportationCode equals d.TransportationCode
+                                    join f in db.TransContainerSizes on a.ContainerSizeCode equals f.ContainerSizeCode
+                                    where a.IsApprove == false && a.IssueType == "DROP"
+                                    select new OrderContainerModel
+                                    {
+                                        order_code = a.OrderCode,
+                                        issue_type = a.IssueType,
+                                        container_no = a.ContainerNo,
+                                        container_type = f.ContainerSizeName,
+                                        truck_license = a.TruckLicense,
+                                        transportation_name = d.TransportationName,
+                                        container_status = a.ContainerStatus,
+                                        is_receipt = a.IsReceipt,
+                                    }).ToListAsync();
 
             var data = _orderData.Where(w => (iFilter.filterName == null || w.container_no.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
                                 (iFilter.filterCustomer == null || w.truck_license.Contains(iFilter.filterCustomer.ToUpper())));
@@ -452,26 +458,26 @@ namespace AVAYardWeb.Controllers
         public async Task<IActionResult> GetMatchContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
         {
             var _orderData = await (from a in db.OrderContainers
-                              join c in db.TransContainerSizes on a.ContainerSizeCode equals c.ContainerSizeCode
-                              join d in db.OrderContainerMatchdetails on a.OrderCode equals d.OrderCode
-                              join e in db.TransTransportations on a.TransportationCode equals e.TransportationCode
-                              join b in db.TransAgents on a.AgentCode equals b.AgentCode
-                              where a.IsApprove == false && a.IssueType == "MATCH" && a.IsEnabled == true
-                              select new OrderContainerModel
-                              {
-                                  order_code = a.OrderCode,
-                                  issue_type = a.IssueType,
-                                  transportation_name = e.TransportationName,
-                                  container_no = a.ContainerNo,
-                                  container_type = c.ContainerSizeName,
-                                  truck_license = a.TruckLicense,
-                                  container_status = a.ContainerStatus,
-                                  match_type = d.MatchType,
-                                  is_exchange = a.IsExchange,
-                                  is_receipt = a.IsReceipt,
-                                  agent_name = b.AgentName,
-                                  payment_stage = a.PaymentStageCode
-                              }).ToListAsync();
+                                    join c in db.TransContainerSizes on a.ContainerSizeCode equals c.ContainerSizeCode
+                                    join d in db.OrderContainerMatchdetails on a.OrderCode equals d.OrderCode
+                                    join e in db.TransTransportations on a.TransportationCode equals e.TransportationCode
+                                    join b in db.TransAgents on a.AgentCode equals b.AgentCode
+                                    where a.IsApprove == false && a.IssueType == "MATCH" && a.IsEnabled == true
+                                    select new OrderContainerModel
+                                    {
+                                        order_code = a.OrderCode,
+                                        issue_type = a.IssueType,
+                                        transportation_name = e.TransportationName,
+                                        container_no = a.ContainerNo,
+                                        container_size = c.ContainerSizeName,
+                                        truck_license = a.TruckLicense,
+                                        container_status = a.ContainerStatus,
+                                        match_type = d.MatchType,
+                                        is_exchange = a.IsExchange,
+                                        is_receipt = a.IsReceipt,
+                                        agent_name = b.AgentName,
+                                        payment_stage = a.PaymentStageCode
+                                    }).ToListAsync();
             var data = _orderData.Where(w => (iFilter.filterName == null || w.container_no.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
                                 (iFilter.filterCustomer == null || w.truck_license.Contains(iFilter.filterCustomer.ToUpper())));
 

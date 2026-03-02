@@ -1,0 +1,286 @@
+﻿@{
+    ViewData["History"] = "active";
+    ViewData["OpenHistory"] = "open";
+    ViewData["listMatch"] = "active";
+}
+@section Styles {
+    <style>
+        table.dataTable td, table.dataTable th {
+            font-size: 13px !important;
+        }
+
+        .form-control {
+            height: 30px !important;
+            padding: 5px;
+            font-size: 13px !important;
+            font-weight: normal;
+        }
+        .status-td{
+            width:50px;
+            text-align:center;
+        }
+    </style>
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="javascript:;">ประวัติการทำรายการ</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="/historycontainer/match">MATCH</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-list"></i>
+                    <span class="caption-subject bold uppercase"> ประวัติการทำรายการตู้สินค้า</span>
+                </div>
+                <div class="actions">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="form-inline pull-right">
+                            <input type="text" class="form-control"
+                                   value="@DateTime.Now.AddDays(-3).ToString(" yyyy/MM/dd")" id="filterDateRangeStart" />
+                            <span style="display:inline-block;" class="daterange-to-text">to</span>
+
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" value="@DateTime.Now.ToString("yyyy/MM/dd")"
+                                       id="filterDateRangeEnd">
+                                <span class="input-group-btn">
+                                    <button class="btn green" onclick="reloadRow()" type="button">ค้นหา</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-order">
+                    <thead>
+                        <tr>
+                            <th style="padding-left:15px;">Order</th>
+                            <th> Container</th>
+                            <th> Size</th>
+                            <th> Type</th>
+                            <th> Agent</th>
+                            <th> License</th>
+                            <th> Transportation</th>
+                            <th> Stage</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr role="row" class="heading">
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterCode" autocomplete="off" /></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterContainerno" autocomplete="off" /></th>
+                            <th class="filter">@Html.DropDownList("ContainerSizeCode", null, "-----เลือก-----", new { @Class = "form-control filterDropdown" })</th>
+                            <th class="filter">
+                                <select class="form-control filterDropdown" id="filterExchangeType">
+                                    <option value="" selected>---เลือก---</option>
+                                    <option value="TRUE">EXCHANGE</option>
+                                    <option value="FALSE">NORMAL</option>
+                                </select>
+                            </th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterAgent" /></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterLicense" /></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterTransportation" /></th>
+                            <th class="filter filterDropdown">
+                                <select class="form-control filterDropdown" id="filterMatchType">
+                                    <option value="" selected>---เลือก---</option>
+                                    <option value="PICKUP">รับตู้</option>
+                                    <option value="RETURN">คืนตู้</option>
+                                </select>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        (function ($) {
+            var oTable = $('#table-order').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "iDisplayLength": 10,
+                "scrollCollapse": false,
+                "order": [[1, "desc"]],
+                "sAjaxSource": "/HistoryContainer/GetMatchContainerList",
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "filterDateRangeStart", "value": $("#filterDateRangeStart").val() });
+                    aoData.push({ "name": "filterDateRangeEnd", "value": $("#filterDateRangeEnd").val() });
+                    aoData.push({ "name": "filterCode", "value": $("#filterCode").val() });
+                    aoData.push({ "name": "filterContainerno", "value": $("#filterContainerno").val() });
+                    aoData.push({ "name": "filterContainerSize", "value": $("#ContainerSizeCode").val() });
+                    aoData.push({ "name": "filterMatchType", "value": $("#filterMatchType").val() });
+                    aoData.push({ "name": "filterExchangeType", "value": $("#filterExchangeType").val() });
+                    aoData.push({ "name": "filterLicense", "value": $("#filterLicense").val() });
+                    aoData.push({ "name": "filterName", "value": $("#filterName").val() });
+                    aoData.push({ "name": "filterAgent", "value": $("#filterAgent").val() });
+                },
+                "fnRowCallback": function (row, aData, index) {
+                    if(aData.is_exchange == true){
+                        $('td', row).eq(3).html('<i class="fad fa-exchange font-green-seagreen"></i><span class="font-xs font-green bold"> EXCHANGE </span>');
+                    }
+                    else{
+                        $('td', row).eq(3).html('<i class="fad fa-circle font-purple-plum"></i><span class="font-xs font-purple-studio bold" > NORMAL </span>');
+                    }
+
+                    if(aData.match_type == 'RETURN'){
+                        $('td', row).eq(7).html('<i class="fa fa-angle-left font-sm font-blue-steel"></i><span class="font-blue font-xs bold" > RETURN </span>');
+                    }
+                    else{
+                        $('td', row).eq(7).html('<span class="font-yellow font-xs bold" > PICKUP </span><i class="fa fa-angle-right font-sm font-yellow-lemon"></i>');
+                    }
+                },
+                "oLanguage": {
+                    "sInfoFiltered": " ",
+                    "sInfo": "แสดงจำนวน _START_ to _END_ รายการ (ทั้งหมด _TOTAL_ รายการ)",
+                    "sSearch": "ค้นหา : ",
+                    "sLengthMenu": 'แสดงจำนวน <select class="form-control">' +
+                            '<option value="10" selected>10</option>' +
+                            '<option value="20">20</option>' +
+                            '<option value="30">30</option>' +
+                            '<option value="40">40</option>' +
+                            '<option value="50">50</option>' +
+                            '<option value="100">100</option>' +
+                            '</select> รายการ'
+                },
+                "columnDefs": [
+                      { className: "container-td text-center", targets: 0 },
+                      { className: "container-td", targets: 1 },
+                      { className: "type-td", targets: 2 },
+                      { className: "type-td", targets: 3 },
+                      { className: "name-td", targets: 4 },
+                      { className: "license-td", targets: 5 },
+                      { className: "name-td", targets: 6 },
+                      { className: "status-td", targets: 7 }
+                ],
+                "columns":
+                [
+                      { "data": "order_code" },
+                      { "data": "container_no" },
+                      { "data": "container_size" },
+                      { "data": "container_type" },
+                      { "data": "agent_name" },
+                      { "data": "truck_license" },
+                      { "data": "transportation_name" },
+                      { "data": "days_ago" }
+                ],
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).find('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+
+            $('#table-order tfoot tr').appendTo('#table-order thead');
+
+            $('.filterText').keyup(function () {
+                $('#table-order').dataTable()._fnAjaxUpdate();
+            });
+
+            $('#filterDateRangeStart').datetimepicker({
+                format: 'Y/m/d',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: jQuery('#filterDateRangeEnd').val() ? jQuery('#filterDateRangeEnd').val() : false
+                    })
+                },
+                timepicker: false
+            });
+
+            $('#filterDateRangeEnd').datetimepicker({
+                format: 'Y/m/d',
+
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: jQuery('#filterDateRangeStart').val() ? jQuery('#filterDateRangeStart').val() : false
+                    })
+                },
+                timepicker: false
+            });
+        }(jQuery));
+
+        function reloadRow() {
+            $("#table-order").DataTable().ajax.reload();
+        }
+
+        function setEdit(code) {
+            var url = '/customer/edit?code=' + code;
+            window.location = url;
+        }
+
+        function setDisabled(code) {
+            $.alert.open('confirm', 'คุณต้องการลบข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+                if (r) {
+                    overLayPage();
+                    $.post("/Customer/Remove",
+                    {
+                        customer_code: code
+                    }, function (data) {
+                        killOverlayPage();
+                        if (data.result == true) {
+                             $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-customer').dataTable()._fnAjaxUpdate();
+                            });
+                        } else {
+                            $.alert.open('error', data.resultMessage);
+                        }
+                    });
+                }
+            });
+        }
+
+        function setActive(code) {
+            $.alert.open('confirm', 'คุณต้องการเปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+                if (r) {
+                    overLayPage();
+                    $.post("/Customer/Active",
+                    {
+                        customer_code: code
+                    }, function (data) {
+                        killOverlayPage();
+                        if (data.result == true) {
+                             $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-customer').dataTable()._fnAjaxUpdate();
+                            });
+                        } else {
+                            $.alert.open('error', data.resultMessage);
+                        }
+                    });
+                }
+            });
+        }
+
+        function setInactive(code) {
+            $.alert.open('confirm', 'คุณต้องการปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+                if (r) {
+                    overLayPage();
+                    $.post("/Customer/Inactive",
+                    {
+                        customer_code: code
+                    }, function (data) {
+                        killOverlayPage();
+                        if (data.result == true) {
+                             $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-customer').dataTable()._fnAjaxUpdate();
+                            });
+                        } else {
+                            $.alert.open('error', data.resultMessage);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

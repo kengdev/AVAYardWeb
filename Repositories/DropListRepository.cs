@@ -62,6 +62,27 @@ public class DropListRepository
         return query;
     }
 
+    public List<DropDownViewModel> GetGroup()
+    {
+        List<DropDownViewModel> list = new List<DropDownViewModel>();
+        var item = new DropDownViewModel();
+        item.key = "Admin";
+        item.label = "Admin";
+        list.Add(item);
+
+        item = new DropDownViewModel();
+        item.key = "Officer";
+        item.label = "Officer";
+        list.Add(item);
+
+        item = new DropDownViewModel();
+        item.key = "POS";
+        item.label = "POS";
+        list.Add(item);
+
+        return list;
+    }
+
     public List<DropDownViewModel> BranchType()
     {
         List<DropDownViewModel> list = new List<DropDownViewModel>();

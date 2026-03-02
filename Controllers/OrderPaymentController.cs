@@ -3,31 +3,36 @@ using AVAYardWeb.Models.Entities;
 using AVAYardWeb.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.Versioning;
+using System.Security.Claims;
 
 namespace AVAYardWeb.Controllers
 {
     public class OrderPaymentController : Controller
     {
         private readonly DbavayardContext db;
+        private readonly IDisplayService displayService;
         private string LoggedInUser => User.Identity.Name;
         private const string KSHOP_TEMPLATE = "0002010102110216478772000245472004155303920002454991531343007640052044640122067749700130810016A00000067701011201150107536000315080214KB0000018904640320KPS004KB00000189046431690016A00000067701011301030040214KB0000018904640420KPS004KB00000189046451430014A0000000041010010641697102111234567890152045631530376454041.005802TH5910NOKKY SHOP6004CITY62240508854304870708420677496304E809";
 
-        public OrderPaymentController(DbavayardContext context)
+        public OrderPaymentController(DbavayardContext context, IDisplayService _displayService)
         {
             db = context;
+            displayService = _displayService;
         }
-
 
         public async Task<IActionResult> IssueDrop(string code)
         {
             var servicePayment = new PaymentRepository(db);
+            var serviceDropDown = new DropListRepository(db);
             var paymentData = await servicePayment.GetDropReceiptDataByOrder(code);
             paymentData.IssueType = "DROP";
 
+            ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
             return View(paymentData);
         }
 
@@ -65,9 +70,14 @@ namespace AVAYardWeb.Controllers
 
             model.OrderPaymentDetail = detail;
 
-            var result = await _service.AddData(model);
-            Thread.Sleep(2000);
-            return Json(result);
+            var res = await _service.AddData(model);
+            if (this.GetGroup() == "POS")
+            {
+                var url = $"https://yardweb.avagloballogistics.com/orderpayment/displaypaymentpos/{res.code}";
+                await  displayService.ShowAsync(url);
+            }
+
+            return Json(res);
         }
 
         [HttpPost]
@@ -75,8 +85,11 @@ namespace AVAYardWeb.Controllers
         {
             var servicePayment = new PaymentRepository(db);
             var response = await servicePayment.Cancel(PaymentCode);
+            if (this.GetGroup() == "POS")
+            {
+                await displayService.HideAsync();
+            }
 
-            Thread.Sleep(2000);
             return Json(response);
         }
 
@@ -85,8 +98,11 @@ namespace AVAYardWeb.Controllers
         {
             var servicePayment = new PaymentRepository(db);
             var response = await servicePayment.Approve(PaymentCode);
+            if (this.GetGroup() == "POS")
+            {
+                await displayService.HideAsync();
+            }
 
-            Thread.Sleep(2000);
             return Json(response);
         }
 
@@ -115,7 +131,12 @@ namespace AVAYardWeb.Controllers
                 RefNo = code,
                 Amount = amount,
                 QrBase64 = base64,
-                Payload = newPayload
+                Payload = newPayload,
+                ContainerNo = orderData.ContainerNo,
+                ContainerSize = orderData.ContainerSizeCodeNavigation.ContainerSizeName,
+                TaxId = orderData.TaxId,
+                Name = orderData.TaxName,
+                Address = orderData.TaxAddress
             };
 
             return View(model);
@@ -171,5 +192,15 @@ namespace AVAYardWeb.Controllers
             return qr.GetGraphic(6);
         }
         #endregion
+
+        private string GetGroup()
+        {
+            var role = User.Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value)
+                .FirstOrDefault();
+
+            return role;
+        }
     }
 }

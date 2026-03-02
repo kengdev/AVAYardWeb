@@ -104,6 +104,29 @@
 
                         <div class="col-md-7">
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="font-sm">
+                                            ทะเบียนรถ
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <input type="text" class="form-control input-sm" id="TruckLicense" name="TruckLicense" autocomplete="off"  />
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="font-sm">
+                                            บริษัทขนส่ง
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.DropDownList("TransportationCode", null, "-----เลือก-----", new { @Class = "form-control input-sm dlList" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="font-sm">วิธีการชำระเงิน</label>

@@ -63,16 +63,13 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="topic" colspan="6">DESCRIPTION</th>
-                        </tr>
-                        <tr>
-                            <th>No</th>
-                            <th>Container No.</th>
-                            <th>Size</th>
-                            <th>Description</th>
-                            <th>Qty</th>
-                            <th>Unit Price</th>
-                            <th class="last">Amount</th>
+                            <th>NO</th>
+                            <th>CONTAINER</th>
+                            <th>SIZE</th>
+                            <th>DESCRIPTION</th>
+                            <th>UNIT PRICE</th>
+                            <th>QTY</th>
+                            <th class="last">AMOUNT</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,8 +78,8 @@
                             <td class="left">@Model.container_no</td>
                             <td class="center" style="vertical-align:middle;">@Model.container_size</td>
                             <td class="center">CONTAINER HANDLING</td>
-                            <td class="right">1 หน่วย</td>
                             <td class="right">@Model.total.ToString("#,##0.00")</td>
+                            <td class="right">1</td>
                             <td class="right last">@Model.total.ToString("#,##0.00")</td>
                         </tr>
                         <tr>
@@ -115,15 +112,16 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th class="right" colspan="6">Sub Total</th>
+                            <th colspan="4" rowspan="3">@this.ChangeCurrencyToText(Model.net_total)</th>
+                            <th class="right" colspan="2">Sub Total</th>
                             <th class="right last">@Model.total.ToString("#,##0.00")</th>
                         </tr>
                         <tr>
-                            <th class="right" colspan="6">Vat 7%</th>
+                            <th class="right" colspan="2">Vat 7%</th>
                             <th class="right last">@Model.vat.ToString("#,##0.00")</th>
                         </tr>
                         <tr>
-                            <th class="right" colspan="6">Grand Total</th>
+                            <th class="right" colspan="2">Grand Total</th>
                             <th class="right last">@Model.net_total.ToString("#,##0.00")</th>
                         </tr>
                     </tfoot>
@@ -235,11 +233,76 @@
             </div>
         </div>
     </div>
+    <div class="timestamp" style="font-size:9px;width:98%;text-align:right;">
+        @Model.create_time.ToString("HH:mm")
+    </div>
+
     @if (pg == 0)
     {
         <div class="cutoff">
             <span>&#9985;</span>
             <div id="cutoff-line"></div>
         </div>
+    }
+}
+
+@functions {
+    private string ChangeCurrencyToText(decimal val)
+    {
+        string bahtTxt, n, bahtTH = "";
+        double amount;
+        try { amount = Convert.ToDouble(val); }
+        catch { amount = 0; }
+        bahtTxt = amount.ToString("####.00");
+        string[] num = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
+        string[] rank = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
+        string[] temp = bahtTxt.Split('.');
+        string intVal = temp[0];
+        string decVal = temp[1];
+        if (Convert.ToDouble(bahtTxt) == 0)
+            bahtTH = "ศูนย์บาทถ้วน";
+        else
+        {
+            for (int i = 0; i < intVal.Length; i++)
+            {
+                n = intVal.Substring(i, 1);
+                if (n != "0")
+                {
+                    if ((i == (intVal.Length - 1)) && (n == "1"))
+                        bahtTH += "เอ็ด";
+                    else if ((i == (intVal.Length - 2)) && (n == "2"))
+                        bahtTH += "ยี่";
+                    else if ((i == (intVal.Length - 2)) && (n == "1"))
+                        bahtTH += "";
+                    else
+                        bahtTH += num[Convert.ToInt32(n)];
+                    bahtTH += rank[(intVal.Length - i) - 1];
+                }
+            }
+            bahtTH += "บาท";
+            if (decVal == "00")
+                bahtTH += "ถ้วน";
+            else
+            {
+                for (int i = 0; i < decVal.Length; i++)
+                {
+                    n = decVal.Substring(i, 1);
+                    if (n != "0")
+                    {
+                        if ((i == decVal.Length - 1) && (n == "1"))
+                            bahtTH += "เอ็ด";
+                        else if ((i == (decVal.Length - 2)) && (n == "2"))
+                            bahtTH += "ยี่";
+                        else if ((i == (decVal.Length - 2)) && (n == "1"))
+                            bahtTH += "";
+                        else
+                            bahtTH += num[Convert.ToInt32(n)];
+                        bahtTH += rank[(decVal.Length - i) - 1];
+                    }
+                }
+                bahtTH += "สตางค์";
+            }
+        }
+        return bahtTH;
     }
 }

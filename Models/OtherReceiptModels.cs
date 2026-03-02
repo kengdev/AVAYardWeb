@@ -26,6 +26,7 @@ public class ContainerHandlingViewModel
     public string branch { get; set; }
     public string cheque_no { get; set; }
     public DateOnly? cheque_date { get; set; }
+    public DateTime create_time { get; set; }
     public int rate_id { get; set; }
     public RateService rate { get; set; }
     public List<OrderReceiptOther> other_cost { get; set; }

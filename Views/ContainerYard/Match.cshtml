@@ -1,8 +1,11 @@
-﻿@{
+﻿@* Views/ContainerYard/Match.cshtml *@
+
+@{
     ViewData["YardContainer"] = "active";
     ViewData["OpenYardContainer"] = "open";
     ViewData["listMatchInyard"] = "active";
 }
+
 @section Styles {
     <style>
         table.dataTable td, table.dataTable th {
@@ -73,17 +76,18 @@
             background: #e30c00 !important;
             pointer-events: none !important
         }
-        
-        a.link{
-            text-decoration:none;
+
+        a.link {
+            text-decoration: none;
         }
 
-        a.link:hover {
-            text-decoration: none;
-            opacity:0.7;
-        }
+            a.link:hover {
+                text-decoration: none;
+                opacity: 0.7;
+            }
     </style>
 }
+
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -95,7 +99,9 @@
         </li>
     </ul>
 </div>
+
 <br />
+
 <div class="row">
     <div class="col-md-12 col-lg-12">
         <div class="portlet light bordered">
@@ -105,49 +111,68 @@
                     <span class="caption-subject bold uppercase"> รายการตู้สินค้าในลาน</span>
                 </div>
             </div>
+
             <div class="portlet-body">
                 <div class="row">
-                    <div class="col-md-6">
-                    </div>
-
-                    <div class="col-md-6">
-
-                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6"></div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-wraper">
                             <table class="table table-striped table-bordered table-hover table-checkable order-column" id="table-match">
                                 <thead>
                                     <tr>
-                                        <th style="color:#403f3f!important;padding-left:10px;"> Container</th>
-                                        <th> Size</th>
-                                        <th> Type</th>
-                                        <th> Receive Date</th>
-                                        <th> Detention</th>
-                                        <th> Agent</th>
-                                        <th> Status</th>
-                                        <th> Payment</th>
-                                        <th> Aging</th>
+                                        <th style="color:#403f3f!important;padding-left:10px;">Container</th>
+                                        <th>Size</th>
+                                        <th>Type</th>
+                                        <th>Receive Date</th>
+                                        <th>Detention</th>
+                                        <th>Agent</th>
+                                        <th>Status</th>
+                                        <th>Payment</th>
+                                        <th>Aging</th>
                                     </tr>
                                 </thead>
+
                                 <tbody></tbody>
+
                                 <tfoot>
                                     <tr role="row" class="heading">
-                                        <th class="filter"><input type="text" class="form-control filterText" id="filterContainerNo" /></th>
                                         <th class="filter">
-                                            @Html.DropDownList("ContainerSizeCode", null, "---เลือก---", new { @Class = "form-control filterDropdown", id="filterContainerSize" })
+                                            <input type="text" class="form-control filterText" id="filterContainerno" />
                                         </th>
+
                                         <th class="filter">
-                                            <select class="form-control filterDropdown" id="filterMatchType">
+                                            @Html.DropDownList(
+                                            "ContainerSizeCode",
+                                                                                        null,
+                                                                                        "---เลือก---",
+                                                                                        new { @Class = "form-control filterDropdown", id = "filterContainerSize" }
+                                                                                        )
+                                        </th>
+
+                                        <th class="filter">
+                                            <select class="form-control filterDropdown" id="filterExchangeType">
                                                 <option value="">---เลือก---</option>
                                                 <option value="TRUE">Exchange</option>
                                                 <option value="FALSE">Normal</option>
                                             </select>
                                         </th>
-                                        <th class="filter"><input type="text" class="form-control filterText datepicker" id="filterDate" autocomplete="off"/></th>
-                                        <th class="filter"><input type="text" class="form-control filterText datepicker" id="filterDetention" autocomplete="off" /></th>
-                                        <th class="filter"><input type="text" class="form-control filterText" id="filterName" /></th>
+
+                                        <th class="filter">
+                                            <input type="text" class="form-control filterText datepicker" id="filterDate" autocomplete="off" />
+                                        </th>
+
+                                        <th class="filter">
+                                            <input type="text" class="form-control filterText datepicker" id="filterDetention" autocomplete="off" />
+                                        </th>
+
+                                        <th class="filter">
+                                            <input type="text" class="form-control filterText" id="filterName" />
+                                        </th>
+
                                         <th class="filter">
                                             <select class="form-control filterDropdown" id="filterStatusRepair">
                                                 <option value="">---เลือก---</option>
@@ -156,6 +181,7 @@
                                                 <option value="D">พร้อมจำหน่าย</option>
                                             </select>
                                         </th>
+
                                         <th class="filter"></th>
                                         <th class="filter"></th>
                                     </tr>
@@ -164,13 +190,13 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
-@section scripts
-{
+@section scripts {
     <script type="text/javascript">
         (function ($) {
             var oTableMatch = $('#table-match').DataTable({
@@ -178,65 +204,65 @@
                 "serverSide": true,
                 "iDisplayLength": 10,
                 "scrollCollapse": false,
-                "order": [[3, "asc"]],
+                "order": [[4, "asc"]],
                 "sAjaxSource": "/ContainerYard/GetMatchContainerList",
                 "fnServerParams": function (aoData) {
-                    aoData.push({ "name": "filterContainerNo", "value": $("#filterContainerNo").val() });
+                    aoData.push({ "name": "filterContainerno", "value": $("#filterContainerno").val() });
                     aoData.push({ "name": "filterContainerSize", "value": $("#filterContainerSize").val() });
-                    aoData.push({ "name": "filterMatchType", "value": $("#filterMatchType").val() });
+                    aoData.push({ "name": "filterExchangeType", "value": $("#filterExchangeType").val() });
                     aoData.push({ "name": "filterDate", "value": $("#filterDate").val() });
                     aoData.push({ "name": "filterDetention", "value": $("#filterDetention").val() });
                     aoData.push({ "name": "filterName", "value": $("#filterName").val() });
                     aoData.push({ "name": "filterStatusRepair", "value": $("#filterStatusRepair").val() });
                 },
                 "fnRowCallback": function (row, aData, index) {
-                    if(aData.is_exchange)
-                    {
-                        $('td', row).eq(2).html('<i class="fa fa-exchange font-blue"></i> <span class="font-blue">Exchange </span>');
+                    if (aData.is_exchange == true) {
+                        $('td', row).eq(2).html('<i class="fad fa-exchange font-green-seagreen"></i><span class="font-xs font-green bold"> EXCHANGE </span>');
                     }
-                    else{
-                        $('td', row).eq(2).html('<span class="font-blue">Normal </span>');
+                    else {
+                        $('td', row).eq(2).html('<i class="fad fa-circle font-purple-plum"></i><span class="font-xs font-purple-studio bold" > NORMAL </span>');
                     }
 
                     var days = '';
-                    if(aData.aging < 0){
+                    if (aData.aging < 0) {
                         days = 'เกิน ' + Math.abs(aData.aging) + ' วัน';
                         $('td', row).eq(8).addClass('font-white');
                         $('td', row).eq(8).addClass('impact');
                         $('td', row).eq(8).html(days);
                     }
-                    if(aData.aging >= 0 && aData.aging <= 3){
+
+                    if (aData.aging >= 0 && aData.aging <= 3) {
                         days = 'เหลือ ' + aData.aging + ' วัน';
                         $('td', row).eq(8).addClass('font-white');
                         $('td', row).eq(8).addClass('hurry');
                         $('td', row).eq(8).html(days);
                     }
-                    else if(aData.aging > 3 && aData.aging <= 5){
+                    else if (aData.aging > 3 && aData.aging <= 5) {
                         days = 'เหลือ ' + aData.aging + ' วัน';
                         $('td', row).eq(8).addClass('font-white');
                         $('td', row).eq(8).addClass('late');
                         $('td', row).eq(8).html(days);
                     }
-                    else if(aData.aging > 5){
+                    else if (aData.aging > 5) {
                         days = 'เหลือ ' + aData.aging + ' วัน';
                         $('td', row).eq(8).addClass('normal');
                         $('td', row).eq(8).html(days);
                     }
 
-                    if(aData.repair_stage == 'P'){
-                        $('td', row).eq(6).html('<a href="javascript:;" onclick=changeStage("'+ aData.order_code +'") class="link"><i class="fa fa-dot-circle font-xs font-red"></i> รอซ่อม</a>');
+                    if (aData.repair_stage == 'P') {
+                        $('td', row).eq(6).html('<a href="javascript:;" onclick=changeStage("' + aData.order_code + '") class="link"><i class="fa fa-dot-circle font-xs font-red"></i> รอซ่อม</a>');
                     }
-                    else if(aData.repair_stage == 'W'){
-                        $('td', row).eq(6).html('<a href="javascript:;" onclick=changeStage("'+ aData.order_code +'") class="link"><i class="fa fa-dot-circle font-xs font-yellow"></i> ซ่อมแซม</a>');
+                    else if (aData.repair_stage == 'W') {
+                        $('td', row).eq(6).html('<a href="javascript:;" onclick=changeStage("' + aData.order_code + '") class="link"><i class="fa fa-dot-circle font-xs font-yellow"></i> ซ่อมแซม</a>');
                     }
-                    else if(aData.repair_stage == 'D'){
+                    else if (aData.repair_stage == 'D') {
                         $('td', row).eq(6).html('<span class="font-green-jungle"><i class="fa fa-dot-circle font-xs"></i> พร้อมจำหน่าย</span>');
                     }
 
-                    if(aData.payment_stage == 'B'){
+                    if (aData.payment_stage == 'B') {
                         $('td', row).eq(7).html('<span class="label label-sm label-info">ยังไม่ชำระ</label>');
                     }
-                    else{
+                    else {
                         $('td', row).eq(7).html('<span class="label label-sm label-success">ชำระแล้ว</label>');
                     }
                 },
@@ -245,37 +271,37 @@
                     "sInfo": "แสดงจำนวน _START_ to _END_ รายการ (ทั้งหมด _TOTAL_ รายการ)",
                     "sSearch": "ค้นหา : ",
                     "sLengthMenu": 'แสดงจำนวน <select class="form-control">' +
-                            '<option value="10" selected>10</option>' +
-                            '<option value="20">20</option>' +
-                            '<option value="30">30</option>' +
-                            '<option value="40">40</option>' +
-                            '<option value="50">50</option>' +
-                            '<option value="100">100</option>' +
-                            '</select> รายการ'
+                        '<option value="10" selected>10</option>' +
+                        '<option value="20">20</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="40">40</option>' +
+                        '<option value="50">50</option>' +
+                        '<option value="100">100</option>' +
+                        '</select> รายการ'
                 },
                 "columnDefs": [
-                      { className: "container-td font-blue bold", targets: 0 },
-                      { className: "size-td", targets: 1 },
-                      { className: "code-td", targets: 2 },
-                      { className: "code-td", targets: 3 },
-                      { className: "date-td", targets: 4 },
-                      { className: "name-td", targets: 5 },
-                      { className: "code-td", targets: 6 },
-                      { className: "code-td", targets: 7 },
-                      { className: "code-td", targets: 8 }
+                    { className: "container-td font-blue bold", targets: 0 },
+                    { className: "size-td", targets: 1 },
+                    { className: "code-td", targets: 2 },
+                    { className: "code-td", targets: 3 },
+                    { className: "date-td", targets: 4 },
+                    { className: "name-td", targets: 5 },
+                    { className: "code-td", targets: 6 },
+                    { className: "code-td", targets: 7 },
+                    { className: "code-td", targets: 8 }
                 ],
                 "columns":
-                [
-                      { "data": "container_no" },
-                      { "data": "container_type" },
-                      { "data": "issue_type" },
-                      { "data": "issue_date_str" },
-                      { "data": "detention_date" },
-                      { "data": "agent_name" },
-                      { "data": "container_no" },
-                      { "data": "container_no" },
-                      { "data": "days_ago" }
-                ],
+                    [
+                        { "data": "container_no", "orderable": false },
+                        { "data": "container_size" },
+                        { "data": "issue_type" },
+                        { "data": "issue_date_str" },
+                        { "data": "detention_date" },
+                        { "data": "agent_name" },
+                        { "data": "container_no" },
+                        { "data": "container_no" },
+                        { "data": "days_ago" }
+                    ],
                 "createdRow": function (row, data, dataIndex) {
                     $(row).find('[data-toggle="tooltip"]').tooltip();
                 }
@@ -293,27 +319,26 @@
             $("#table-match").DataTable().ajax.reload();
         }
 
-        function changeStage(code)
-        {
+        function changeStage(code) {
             $.alert.open("confirm", "คุณต้องการเปลี่ยนสถานะงานซ่อม ใช่หรือไม่ ?", function (r) {
-              if (r) {
-                overLayPage();
-                $.post(
-                  "/ContainerYard/ChangeStage", {
-                    order_code: code,
-                  },
-                  function (data) {
-                    killOverlayPage();
-                    if (data.result == true) {
-                      $.alert.open("info", data.resultMessage, function (r) {
-                        reloadRow()
-                      });
-                    } else {
-                      $.alert.open("error", data.resultMessage);
-                    }
-                });
-              }
-          });
+                if (r) {
+                    overLayPage();
+                    $.post(
+                        "/ContainerYard/ChangeStage",
+                        { order_code: code },
+                        function (data) {
+                            killOverlayPage();
+                            if (data.result == true) {
+                                $.alert.open("info", data.resultMessage, function (r) {
+                                    reloadRow()
+                                });
+                            } else {
+                                $.alert.open("error", data.resultMessage);
+                            }
+                        }
+                    );
+                }
+            });
         }
     </script>
 }
