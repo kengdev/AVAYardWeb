@@ -3,6 +3,7 @@ using AVAYardWeb.Models;
 using AVAYardWeb.Repositories;
 using AVAYardWeb.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace AVAYardWeb.Controllers;
 public class SearchController : Controller
@@ -22,7 +23,7 @@ public class SearchController : Controller
     public IActionResult GetCustomerDataList(jQueryDataTableParamModel param)
     {
         var _orderData = (from a in db.TransTransportations
-                          where a.IsActived == true 
+                          where a.IsActived == true
                           select new CustomerModel
                           {
                               customer_code = a.TransportationCode,
@@ -95,23 +96,23 @@ public class SearchController : Controller
         return View();
     }
 
-    public IActionResult GetReceiptContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
+    public async Task<IActionResult> GetReceiptContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
     {
-        var _orderData = (from a in db.OrderContainers
-                          join b in db.OrderContainerLocations on a.OrderCode equals b.OrderCode
-                          join d in db.TransTransportations on a.TransportationCode equals d.TransportationCode
-                          join f in db.TransContainerSizes on a.ContainerSizeCode equals f.ContainerSizeCode
-                          where a.IsReceipt == false && a.IsExchange == false && a.ContainerStatus == "AC"
-                          select new OrderContainerModel
-                          {
-                              order_code = a.OrderCode,
-                              container_no = a.ContainerNo,
-                              container_size = f.ContainerSizeName,
-                              truck_license = a.TruckLicense,
-                              transportation_name = d.TransportationName,
-                              container_status = a.ContainerStatus,
-                              is_receipt = a.IsReceipt,
-                          }).ToList();
+        var _orderData = await (from a in db.OrderContainers
+                                join b in db.OrderContainerLocations on a.OrderCode equals b.OrderCode
+                                join d in db.TransTransportations on a.TransportationCode equals d.TransportationCode
+                                join f in db.TransContainerSizes on a.ContainerSizeCode equals f.ContainerSizeCode
+                                where a.IsReceipt == false && a.IsExchange == false && a.ContainerStatus == "AC"
+                                select new OrderContainerModel
+                                {
+                                    order_code = a.OrderCode,
+                                    container_no = a.ContainerNo,
+                                    container_size = f.ContainerSizeName,
+                                    truck_license = a.TruckLicense,
+                                    transportation_name = d.TransportationName,
+                                    container_status = a.ContainerStatus,
+                                    is_receipt = a.IsReceipt,
+                                }).ToListAsync();
         var data = _orderData.Where(w => (iFilter.filterName == null || w.container_no.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
                             (iFilter.filterCustomer == null || w.truck_license.Contains(iFilter.filterCustomer.ToUpper())));
 
@@ -141,26 +142,28 @@ public class SearchController : Controller
         return View();
     }
 
-    public IActionResult GetMatchContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
+    public async Task<IActionResult> GetMatchContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
     {
-        var _orderData = (from a in db.OrderContainers
-                          join b in db.TransContainerSizes on a.ContainerSizeCode equals b.ContainerSizeCode
-                          join c in db.OrderContainerMatchdetails on a.OrderCode equals c.OrderCode
-                          join e in db.TransAgents on a.AgentCode equals e.AgentCode
-                          join f in db.OrderContainerLocations on a.OrderCode equals f.OrderCode
-                          where a.ContainerStatus == "AC" && a.IsEnabled == true && a.IsApprove == true
-                          select new OrderContainerModel
-                          {
-                              order_code = a.OrderCode,
-                              container_no = a.ContainerNo,
-                              truck_license = a.TruckLicense,
-                              container_status = a.ContainerStatus,
-                              is_receipt = a.IsReceipt,
-                              agent_name = e.AgentName,
-                              container_size = b.ContainerSizeName
-                          }).ToList();
-        var data = _orderData.Where(w => (iFilter.filterName == null || w.container_no.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
-                            (iFilter.filterCustomer == null || w.truck_license.Contains(iFilter.filterCustomer.ToUpper())));
+        var _orderData = await (from a in db.OrderContainers
+                                join b in db.TransContainerSizes on a.ContainerSizeCode equals b.ContainerSizeCode
+                                join c in db.OrderContainerMatchdetails on a.OrderCode equals c.OrderCode
+                                join e in db.TransAgents on a.AgentCode equals e.AgentCode
+                                join f in db.OrderContainerLocations on a.OrderCode equals f.OrderCode
+                                where a.ContainerStatus == "AC" && a.IsEnabled == true && a.IsApprove == true && f.IsIssue == false
+                                select new OrderContainerModel
+                                {
+                                    order_code = a.OrderCode,
+                                    container_no = a.ContainerNo,
+                                    container_status = a.ContainerStatus,
+                                    is_receipt = a.IsReceipt,
+                                    agent_name = e.AgentName,
+                                    container_size = b.ContainerSizeName
+                                }).ToListAsync();
+        var data = _orderData.Where(w => 
+            (param.sSearch == null || w.container_no.ToUpper().Contains(param.sSearch.ToUpper())) ||
+            (param.sSearch == null || w.container_size.ToUpper().Contains(param.sSearch.ToUpper())) ||
+            (param.sSearch == null || w.agent_name.Contains(param.sSearch.ToUpper()))
+        );
 
         IEnumerable<OrderContainerModel> listQuery;
         if (param.sSortDir_0 == "asc")
@@ -182,6 +185,4 @@ public class SearchController : Controller
             aaData = listQuery
         });
     }
-
-
 }

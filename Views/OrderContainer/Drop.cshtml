@@ -118,10 +118,12 @@
                             <tbody></tbody>
                             <tfoot>
                                 <tr role="row" class="heading">
-                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
-                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameEN" /></th>
-                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
-                                    <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" /></th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterContainerNo" /></th>
+                                    <th class="filter">
+                                        @Html.DropDownList("ContainerSizeCode", null, "-----เลือก-----", new { @Class = "form-control input-sm filterDropdown" })
+                                    </th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterLicense" /></th>
+                                    <th class="filter"><input type="text" class="form-control filterText" id="filterName" /></th>
                                     <th class="filter"></th>
                                 </tr>
                             </tfoot>
@@ -145,8 +147,10 @@
                 "order": [[2, "desc"]],
                 "sAjaxSource": "/OrderContainer/GetDropContainerList",
                 "fnServerParams": function (aoData) {
-                    aoData.push({ "name": "filterNameTH", "value": $("#filterNameTH").val() });
-                    aoData.push({ "name": "filterNameEN", "value": $("#filterNameEN").val() });
+                    aoData.push({ "name": "filterContainerNo", "value": $("#filterContainerNo").val() });
+                    aoData.push({ "name": "filterContainerSize", "value": $("#ContainerSizeCode").val() });
+                    aoData.push({ "name": "filterLicense", "value": $("#filterLicense").val() });
+                    aoData.push({ "name": "filterName", "value": $("#filterName").val() });
                 },
                 "fnRowCallback": function (row, aData, index) {
 

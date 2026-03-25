@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Net;
 using System.Runtime.Versioning;
 using System.Security.Claims;
 
@@ -25,21 +27,31 @@ namespace AVAYardWeb.Controllers
             displayService = _displayService;
         }
 
-        public async Task<IActionResult> IssueDrop(string code)
+        public async Task<IActionResult> IssueDropWithVat(string code)
         {
             var servicePayment = new PaymentRepository(db);
             var serviceDropDown = new DropListRepository(db);
-            var paymentData = await servicePayment.GetDropReceiptDataByOrder(code);
+            var paymentData = await servicePayment.GetDropPaymentDataByOrder(code);
             paymentData.IssueType = "DROP";
 
             ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
             return View(paymentData);
         }
 
+        public async Task<IActionResult> IssueDropWithOutVat(string code)
+        {
+            var servicePayment = new PaymentRepository(db);
+            var serviceDropDown = new DropListRepository(db);
+            var paymentData = await servicePayment.GetDropVoucherDataByOrder(code);
+            paymentData.IssueType = "DROP";
+
+            return View(paymentData);
+        }
+
         public async Task<IActionResult> IssueMatch(string code)
         {
             var servicePayment = new PaymentRepository(db);
-            var paymentData = await servicePayment.GetMatchReceiptDataByOrder(code);
+            var paymentData = await servicePayment.GetMatchPaymentDataByOrder(code);
             paymentData.IssueType = "MATCH";
 
             var orderData = await (from a in db.OrderContainers
@@ -58,11 +70,32 @@ namespace AVAYardWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddData(OrderPayment model, OrderPaymentDetail detail)
+        public async Task<IActionResult> AddDataWithoutVat(OrderPaymentVoucher model, OrderPaymentVoucherDetail detail)
         {
             var _service = new PaymentRepository(db);
-            model.Total = detail.ServiceCharge + detail.Cost7Days + detail.Cost10Days;
-            model.IsPaid = true;
+            model.NetTotal = detail.ServiceCharge + detail.Cost7Days + detail.Cost10Days;
+            model.IsPaid = false;
+            model.CreateDate = DateTime.Now;
+            model.CreateBy = this.LoggedInUser;
+            model.PaymentTypeCode = "02";
+            model.OrderPaymentVoucherDetail = detail;
+
+            var res = await _service.AddDataWithoutVat(model);
+            if (this.GetGroup() == "POS")
+            {
+                var url = $"https://yardweb.avagloballogistics.com/orderpayment/displaypaymentpos?code={res.code}&is_vat=FALSE";
+                await displayService.ShowAsync(url);
+            }
+
+            return Json(res);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDataWithVat(OrderPayment model, OrderPaymentDetail detail)
+        {
+            var _service = new PaymentRepository(db);
+            model.Total = detail.ServiceCharge + detail.Cost7Days + detail.Cost10Days + detail.RepairCharge;
+            model.IsPaid = false;
             model.CreateDate = DateTime.Now;
             model.CreateBy = this.LoggedInUser;
             model.OrderPaymentDetail = detail;
@@ -70,11 +103,11 @@ namespace AVAYardWeb.Controllers
 
             model.OrderPaymentDetail = detail;
 
-            var res = await _service.AddData(model);
+            var res = await _service.AddDataWithVat(model);
             if (this.GetGroup() == "POS")
             {
-                var url = $"https://yardweb.avagloballogistics.com/orderpayment/displaypaymentpos/{res.code}";
-                await  displayService.ShowAsync(url);
+                var url = $"https://yardweb.avagloballogistics.com/orderpayment/displaypaymentpos?code={res.code}&is_vat=TRUE";
+                await displayService.ShowAsync(url);
             }
 
             return Json(res);
@@ -94,10 +127,19 @@ namespace AVAYardWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Approve(string PaymentCode)
+        public async Task<IActionResult> Approve(string PaymentCode, bool IsVat)
         {
             var servicePayment = new PaymentRepository(db);
-            var response = await servicePayment.Approve(PaymentCode);
+            var response = new ResponseViewModel();
+            if (IsVat)
+            {
+                response = await servicePayment.ApproveVat(PaymentCode);
+            }
+            else
+            {
+                response = await servicePayment.ApproveWithoutVat(PaymentCode);
+            }
+
             if (this.GetGroup() == "POS")
             {
                 await displayService.HideAsync();
@@ -106,66 +148,100 @@ namespace AVAYardWeb.Controllers
             return Json(response);
         }
 
-
         #region Display payment box
         [AllowAnonymous]
         [SupportedOSPlatform("windows")]
-        public async Task<IActionResult> DisplayPaymentPOS(string code)
+        public async Task<IActionResult> DisplayPaymentPOS(string code, bool is_vat)
+
         {
+            var model = new PaymentViewModel();
             var servicePayment = new PaymentRepository(db);
-            var orderData = await servicePayment.GetPaymentByCode(code);
-            decimal amount = orderData.NetTotal;
+            if (is_vat)
+            {
+                var orderData = await servicePayment.GetPaymentByCode(code);
+                model.ContainerNo = orderData.ContainerNo;
+                model.ContainerSize = orderData.ContainerSizeCodeNavigation.ContainerSizeName;
+                model.TaxId = orderData.TaxId;
+                model.Name = orderData.TaxName;
+                model.Address = orderData.TaxAddress;
+                model.Amount = orderData.NetTotal;
+                model.BankCode = orderData.BankCode;
+                model.IsTaxInvoice = orderData.IsTaxInvoice;
+            }
+            else
+            {
+                var orderData = await servicePayment.GetVoucherByCode(code);
+                model.ContainerNo = orderData.ContainerNo;
+                model.ContainerSize = orderData.ContainerSizeCodeNavigation.ContainerSizeName;
+                model.Name = orderData.TransportationName;
+                model.Amount = orderData.NetTotal;
+                model.BankCode = orderData.BankCode;
+            }
 
-            // 1) สร้าง payload ใหม่จาก template
-            string newPayload =
-                KShopQrTemplateEditor.UpdateAmountAndRebuild(
-                    KSHOP_TEMPLATE,
-                    amount
-                );
-
-            // 2) สร้าง QR เป็น Base64
+            string newPayload = "";
+            if (model.BankCode == "01")
+            {
+                newPayload = SCBShopQrCode.BuildFixedAmountPayload(model.Amount);
+            }
+            else
+            {
+                newPayload =
+                    KShopQrTemplateEditor.UpdateAmountAndRebuild(
+                        KSHOP_TEMPLATE,
+                        model.Amount
+                    );
+                // 2) สร้าง QR เป็น Base64
+            }
             string base64 = CreateQrBase64(newPayload);
 
-            var model = new PaymentViewModel
-            {
-                RefNo = code,
-                Amount = amount,
-                QrBase64 = base64,
-                Payload = newPayload,
-                ContainerNo = orderData.ContainerNo,
-                ContainerSize = orderData.ContainerSizeCodeNavigation.ContainerSizeName,
-                TaxId = orderData.TaxId,
-                Name = orderData.TaxName,
-                Address = orderData.TaxAddress
-            };
+            model.RefNo = code;
+            model.IsVat = is_vat;
+            model.QrBase64 = base64;
 
             return View(model);
         }
 
         [SupportedOSPlatform("windows")]
-        public async Task<IActionResult> DisplayPayment(string code)
+        public async Task<IActionResult> DisplayPayment(string code, bool is_vat)
         {
+            var model = new PaymentViewModel();
             var servicePayment = new PaymentRepository(db);
-            var orderData = await servicePayment.GetPaymentByCode(code);
-            decimal amount = orderData.NetTotal;
+            if (is_vat)
+            {
+                var orderData = await servicePayment.GetPaymentByCode(code);
+                model.TaxId = orderData.TaxId;
+                model.Name = orderData.TaxName;
+                model.Address = orderData.TaxAddress;
+                model.Amount = orderData.NetTotal;
+                model.BankCode = orderData.BankCode;
+            }
+            else
+            {
+                var orderData = await servicePayment.GetVoucherByCode(code);
+                model.Name = orderData.TransportationName;
+                model.Amount = orderData.NetTotal;
+                model.BankCode = orderData.BankCode;
+            }
 
-            // 1) สร้าง payload ใหม่จาก template
-            string newPayload =
-                KShopQrTemplateEditor.UpdateAmountAndRebuild(
-                    KSHOP_TEMPLATE,
-                    amount
-                );
-
-            // 2) สร้าง QR เป็น Base64
+            string newPayload = "";
+            if (model.BankCode == "01")
+            {
+                newPayload = SCBShopQrCode.BuildFixedAmountPayload(model.Amount);
+            }
+            else
+            {
+                newPayload =
+                    KShopQrTemplateEditor.UpdateAmountAndRebuild(
+                        KSHOP_TEMPLATE,
+                        model.Amount
+                    );
+                // 2) สร้าง QR เป็น Base64
+            }
             string base64 = CreateQrBase64(newPayload);
 
-            var model = new PaymentViewModel
-            {
-                RefNo = code,
-                Amount = amount,
-                QrBase64 = base64,
-                Payload = newPayload
-            };
+            model.RefNo = code;
+            model.IsVat = is_vat;
+            model.QrBase64 = base64;
 
             return View(model);
         }

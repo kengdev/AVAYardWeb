@@ -39,7 +39,11 @@ public class TaxController : Controller
                                where a.IsEnabled == true
                                select a).ToListAsync();
 
-        var data = dataAgent.Where(w => (iFilter.filterName == null || w.Name.ToUpper().Contains(iFilter.filterName.ToUpper())));
+        var data = dataAgent.Where(w =>
+            (iFilter.filterTaxId == null || w.TaxId.ToUpper().Contains(iFilter.filterTaxId.ToUpper())) &&
+            (iFilter.filterName == null || w.Name.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
+            (iFilter.filterPhone == null || w.Phone.ToUpper().Contains(iFilter.filterPhone.ToUpper()))
+        );
 
         Func<TaxAddress, string> orderingFunction = (c => param.iSortCol_0 == 1 ? c.Name : c.Name);
 
@@ -122,6 +126,7 @@ public class TaxController : Controller
             var oldTax = await db.TaxAddresses.Where(w => w.TaxId == model.TaxId).AsNoTracking().FirstOrDefaultAsync();
 
             model.Name = model.Name.ToUpper();
+            model.Acronym = model.Acronym.ToUpper();
             db.TaxAddresses.Update(model);
             await db.SaveChangesAsync();
 

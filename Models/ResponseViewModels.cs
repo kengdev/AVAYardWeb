@@ -6,6 +6,8 @@ public class ResponseViewModel
     public string resultMessage { get; set; }
     public string notifMessage { get; set; }
     public Exception errorException { get; set; }
+    public string vat { get; set; }
+    public string net_total { get; set; }
 }
 
 public class ErrorUploadModel

@@ -2,6 +2,8 @@
 using AVAYardWeb.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AVAYardWeb.Components
@@ -27,7 +29,7 @@ namespace AVAYardWeb.Components
                             code = a.ReceiptCode,
                             tax_name = a.TaxName,
                             tax_id = a.TaxId,
-                            tax_address = a.TaxAddress,
+                            tax_address = Regex.Replace(a.TaxAddress, @"\r?\n\s*", " ").Trim(),
                             receipt_date = a.ReceiptDate.ToString("dd-MM-yyyy"),
                             total = a.Total,
                             vat = a.Vat,

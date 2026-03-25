@@ -58,11 +58,13 @@ public class avaDataTableParamModel
 
     public string filterName { get; set; }
     public string filterAcronym { get; set; }
+    public string filterAgent { get; set; }
 
     public string filterTaxId { get; set; }
     public string filterPhone { get; set; }
-    public bool? filterMatchType { get; set; }
+    public string filterMatchType { get; set; }
     public bool? filterStatus { get; set; }
+    public bool? filterExchangeType { get; set; }
     public string filterStatusCode { get; set; }
     public string filterStatusRepair { get; set; }
     public string month { get; set; }

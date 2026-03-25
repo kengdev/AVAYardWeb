@@ -60,7 +60,7 @@
                     </tbody>
                     <tfoot>
                         <tr role="row" class="heading">
-                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH"></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterName"></th>
                             <th class="filter"></th>
                         </tr>
                     </tfoot>
@@ -82,7 +82,7 @@
                 "order": [[0, "asc"]],
                 "sAjaxSource": "/Agent/GetAgentDataList",
                 "fnServerParams": function (aoData) {
-                    aoData.push({ "name": "filterNameTH", "value": $("#filterNameTH").val() });
+                    aoData.push({ "name": "filterName", "value": $("#filterName").val() });
                 },
                 "fnRowCallback": function (row, aData, index) {
                     if (!aData.isActived)

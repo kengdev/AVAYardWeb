@@ -121,6 +121,18 @@ namespace AVAYardWeb.Controllers
             };
         }
 
+        public async Task<IActionResult> PrintVoucherByPayment(string code)
+        {
+            var data = await db.OrderPaymentVouchers.Where(w => w.PaymentCode == code).Include(i => i.OrderPaymentVoucherDetail).Include(i => i.ContainerSizeCodeNavigation).FirstOrDefaultAsync();
+            return new ViewAsPdf("_ReceiptVoucher", data)
+            {
+                PageSize = Rotativa.AspNetCore.Options.Size.A5,
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+                PageMargins = { Left = 5, Bottom = 10, Right = 5, Top = 5 },
+                CustomSwitches = "--disable-smart-shrinking"
+            };
+        }
+
         /*public IActionResult ReceiptContainer(string code)
         {
             var data = (from a in db.TransContainerSizes 

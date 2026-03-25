@@ -120,7 +120,7 @@
                                     <th style="color:#403f3f!important;padding-left:10px;">Container</th>
                                     <th>Size</th>
                                     <th>Receive Date</th>
-                                    <th>Transport Company</th>
+                                    <th>Transportation</th>
                                     <th>Age</th>
                                     <th></th>
                                 </tr>
@@ -131,7 +131,7 @@
                             <tfoot>
                                 <tr role="row" class="heading">
                                     <th class="filter">
-                                        <input type="text" class="form-control filterText" id="filterContainerno" autocomplete="off" />
+                                        <input type="text" class="form-control filterText" id="filterContainerNo" autocomplete="off" />
                                     </th>
 
                                     <th class="filter">
@@ -170,7 +170,7 @@
                 "order": [[3, "asc"]],
                 "sAjaxSource": "/ContainerYard/GetDropContainerList",
                 "fnServerParams": function (aoData) {
-                    aoData.push({ "name": "filterContainerno", "value": $("#filterContainerno").val() });
+                    aoData.push({ "name": "filterContainerNo", "value": $("#filterContainerNo").val() });
                     aoData.push({ "name": "filterContainerSize", "value": $("#ContainerSizeCode").val() });
                     aoData.push({ "name": "filterDate", "value": $("#filterDate").val() });
                     aoData.push({ "name": "filterName", "value": $("#filterName").val() });
@@ -197,25 +197,25 @@
                     { className: "code-td", targets: 2 },
                     { className: "name-td", targets: 3 },
                     { className: "currency-td", targets: 4 },
-                    { className: "action-3-td text-center", targets: 5 }
+                    { className: "action-full-td text-center", targets: 5 }
                 ],
                 "columns":
                     [
-                        { "data": "container_no", "orderable": false },
+                        { "data": "container_no" },
                         { "data": "container_size" },
                         { "data": "issue_date_str" },
                         { "data": "transportation_name" },
                         { "data": "days_ago" },
                         {
                             "data": "order_code", "orderable": false, "render": function (data, type, row) {
-                                var receipt = '<a class="btn btn-outline btn-xs purple" href="javascript:;" onclick=setToDrop("' + data + '")>ใบเสร็จ</a>';
-                                var payment = '<a class="btn btn-outline btn-xs blue" href="javascript:;" onclick=setPayment("' + data + '")>ชำระเงิน</a>';
+                                var voucher = '<a class="btn btn-outline btn-xs red" href="javascript:;" onclick=setPayment("' + data + '")>ชำระเงินกำกับภาษี</a>';
+                                var payment = '<a class="btn btn-outline btn-xs blue" href="javascript:;" onclick=setVoucher("' + data + '")>ชำระเงิน</a>';
 
                                 if (!row.is_receipt) {
-                                    return '<div class="row-actions">' + payment + '</div>';
+                                    return '<div class="row-actions">' + payment + voucher + '</div>';
                                 }
                                 else {
-                                    return '<div class="row-actions">' + payment + receipt + '</div>';
+                                    return '';
                                 }
                             }
                         }
@@ -228,11 +228,11 @@
             $('#table-drop tfoot tr').appendTo('#table-drop thead');
 
             $('.filterText').keyup(function () {
-                $('#table-drop').dataTable()._fnAjaxUpdate();
+                reloadRow();
             });
 
-            $('.datepicker .filterDropdown').on('change', function () {
-                $('#table-drop').DataTable().ajax.reload();
+            $('.datepicker').on('change', function () {
+                reloadRow();
             });
         }(jQuery));
 
@@ -247,10 +247,14 @@
         }
 
         function setPayment(code) {
-            //fetch("http://localhost:9001/show?code=" + code).catch(()=>{});
-
-            var url = '/orderpayment/issuedrop/' + code;
+            var url = '/orderpayment/issuedropwithvat/' + code;
             var setting = 'width=1180,height=700';
+            window.open(url, 'drop receipt', setting);
+        }
+
+        function setVoucher(code) {
+            var url = '/orderpayment/issuedropwithoutvat/' + code;
+            var setting = 'width=1080,height=610';
             window.open(url, 'drop receipt', setting);
         }
     </script>

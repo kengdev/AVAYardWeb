@@ -15,8 +15,11 @@
         public string Payload { get; set; }
         public string ContainerNo { get; set; }
         public string ContainerSize { get; set; }
+        public bool IsTaxInvoice { get; set; }
+        public bool IsVat { get; set; }
         public string TaxId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string BankCode { get; set; }
     }
 }

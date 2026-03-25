@@ -55,7 +55,11 @@ public partial class OrderContainer
 
     public virtual OrderContainerRepair? OrderContainerRepair { get; set; }
 
+    public virtual ICollection<OrderPaymentVoucher> OrderPaymentVouchers { get; set; } = new List<OrderPaymentVoucher>();
+
     public virtual ICollection<OrderPayment> OrderPayments { get; set; } = new List<OrderPayment>();
+
+    public virtual ICollection<OrderReceiptVoucher> OrderReceiptVouchers { get; set; } = new List<OrderReceiptVoucher>();
 
     public virtual ICollection<OrderReceipt> OrderReceipts { get; set; } = new List<OrderReceipt>();
 

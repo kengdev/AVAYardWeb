@@ -181,6 +181,7 @@
 </div>
 
 @section scripts {
+    <script src="~/js/site/container-validation.js"></script>
     <script type="text/javascript">
         (function ($) {
             var oTableMatch = $('#table-match').DataTable({
@@ -323,11 +324,9 @@
         }
 
         function setPayment(code) {
-            //fetch("http://localhost:9001/show?code=" + code).catch(()=>{});
-
             var url = '/orderpayment/issuematch/' + code;
             var width = 1180;
-            var height = 648;
+            var height = 670;
 
             var left = (window.screen.width / 2) - (width / 2);
             var top = (window.screen.height / 2) - (height / 2);

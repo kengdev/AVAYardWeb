@@ -6,8 +6,8 @@ using Dapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
@@ -82,10 +82,10 @@ namespace AVAYardWeb.Controllers
 
                 var sql = "SELECT order_container.order_code, order_container.container_no, " +
                 "trans_container_size.container_size_name As container_size, order_container.truck_license, " +
-                "trans_transportation.transportation_name, " +
+                "trans_transportation.transportation_name, trans_container_size.container_size_code As container_size_code," +
                 "order_container.issue_date, issue_type, trans_agent.agent_name, is_receipt, " +
                 "DATEDIFF(DAY, CAST([issue_date] AS DATE), CAST(GETDATE() AS DATE)) AS days_ago, " +
-                "FORMAT(issue_date, 'dd-MM-yyyy') As issue_date_str " +
+                "FORMAT(issue_date, 'yyyy-MM-dd') As issue_date_str " +
                 "FROM order_container INNER JOIN " +
                 "trans_container_size ON order_container.container_size_code = trans_container_size.container_size_code " +
                 "INNER JOIN trans_agent ON order_container.agent_code = trans_agent.agent_code " +
@@ -98,20 +98,37 @@ namespace AVAYardWeb.Controllers
                 _orderData = (await connection.QueryAsync<OrderContainerModel>(sql)).ToList();
             }
 
-            var data = _orderData.Where(w => (iFilter.filterName == null || w.container_no.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
-                                (iFilter.filterCustomer == null || w.truck_license.Contains(iFilter.filterCustomer.ToUpper())));
+            var data = _orderData.Where(w =>
+                (iFilter.filterContainerNo == null || w.container_no.ToUpper().Contains(iFilter.filterContainerNo.ToUpper())) &&
+                (iFilter.filterContainerSize == null || w.container_size_code.ToUpper().Contains(iFilter.filterContainerSize.ToUpper())) &&
+                (iFilter.filterDate == null || w.issue_date_str.Contains(iFilter.filterDate)) &&
+                (iFilter.filterName == null || w.transportation_name.ToUpper().Contains(iFilter.filterName.ToUpper()))
+            );
+
+            Func<OrderContainerModel, string> orderingFunction = (c =>
+                param.iSortCol_0 == 0 ? c.container_no :
+                param.iSortCol_0 == 1 ? c.container_size :
+                param.iSortCol_0 == 2 ? c.issue_date_str :
+                param.iSortCol_0 == 3 ? c.transportation_name : c.container_no);
 
             IEnumerable<OrderContainerModel> listQuery;
-            if (param.sSortDir_0 == "asc")
+            if (param.iSortCol_0 == 4)
             {
-                listQuery = data.Skip(param.iDisplayStart)
-                                .Take(param.iDisplayLength);
+                listQuery = param.sSortDir_0 == "asc" ? data.OrderBy(o => o.aging) : data.OrderByDescending(o => o.aging);
             }
             else
             {
-                listQuery = data.Skip(param.iDisplayStart)
-                                .Take(param.iDisplayLength);
+                if (param.sSortDir_0 == "asc")
+                {
+                    listQuery = data.OrderBy(orderingFunction);
+                }
+                else
+                {
+                    listQuery = data.OrderByDescending(orderingFunction);
+                }
             }
+
+            listQuery = listQuery.Skip(param.iDisplayStart).Take(param.iDisplayLength);
 
             return Json(new
             {
@@ -134,8 +151,8 @@ namespace AVAYardWeb.Controllers
                 "trans_agent.agent_name, order_container.is_exchange, order_container.container_size_code, " +
                 "DATEDIFF(DAY, CAST([issue_date] AS DATE), CAST(GETDATE() AS DATE)) AS days_ago, " +
                 "DATEDIFF(DAY, CAST(GETDATE() AS DATE), CAST([detention_date] AS DATE)) AS aging, " +
-                "FORMAT(issue_date, 'dd-MM-yyyy') As issue_date_str, container_status, " +
-                "FORMAT(detention_date, 'dd-MM-yyyy') As detention_date,payment_stage_code As payment_stage, " +
+                "FORMAT(issue_date, 'yyyy-MM-dd') As issue_date_str, container_status, " +
+                "FORMAT(detention_date, 'yyyy-MM-dd') As detention_date,payment_stage_code As payment_stage, " +
                 "order_container_repair.repair_status_code As repair_stage " +
                 "FROM order_container INNER JOIN " +
                 "trans_container_size ON order_container.container_size_code = trans_container_size.container_size_code " +
@@ -154,23 +171,41 @@ namespace AVAYardWeb.Controllers
 
             var data = _orderData.Where(w => (iFilter.filterContainerNo == null || w.container_no.ToUpper().Contains(iFilter.filterContainerNo.ToUpper())) &&
             (iFilter.filterContainerSize == null || w.container_size_code.ToUpper().Contains(iFilter.filterContainerSize.ToUpper())) &&
-            (iFilter.filterMatchType == null || w.is_exchange == iFilter.filterMatchType) &&
+            (iFilter.filterExchangeType == null || w.is_exchange == iFilter.filterExchangeType) &&
             (iFilter.filterDate == null || w.issue_date_str.ToUpper().Contains(iFilter.filterDate.ToUpper())) &&
             (iFilter.filterDetention == null || w.detention_date.ToUpper().Contains(iFilter.filterDetention.ToUpper())) &&
+            (iFilter.filterAgent == null || w.agent_name.ToUpper().Contains(iFilter.filterAgent.ToUpper())) &&
             (iFilter.filterName == null || w.agent_name.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
             (iFilter.filterStatusRepair == null || w.repair_stage.Contains(iFilter.filterStatusRepair.ToUpper())));
 
+            Func<OrderContainerModel, string> orderingFunction = (c =>
+                param.iSortCol_0 == 0 ? c.container_no :
+                param.iSortCol_0 == 1 ? c.container_size :
+                param.iSortCol_0 == 2 ? c.is_exchange.ToString() :
+                param.iSortCol_0 == 3 ? c.issue_date_str :
+                param.iSortCol_0 == 1 ? c.detention_date :
+                param.iSortCol_0 == 1 ? c.agent_name :
+                param.iSortCol_0 == 2 ? c.repair_stage :
+                param.iSortCol_0 == 3 ? c.payment_stage : c.container_no);
+
             IEnumerable<OrderContainerModel> listQuery;
-            if (param.sSortDir_0 == "asc")
+            if (param.iSortCol_0 == 8)
             {
-                listQuery = data.Skip(param.iDisplayStart)
-                                .Take(param.iDisplayLength);
+                listQuery = param.sSortDir_0 == "asc" ? data.OrderBy(o => o.aging) : data.OrderByDescending(o => o.aging);
             }
             else
             {
-                listQuery = data.Skip(param.iDisplayStart)
-                                .Take(param.iDisplayLength);
+                if (param.sSortDir_0 == "asc")
+                {
+                    listQuery = data.OrderBy(orderingFunction);
+                }
+                else
+                {
+                    listQuery = data.OrderByDescending(orderingFunction);
+                }
             }
+
+            listQuery = listQuery.Skip(param.iDisplayStart).Take(param.iDisplayLength);
 
             return Json(new
             {

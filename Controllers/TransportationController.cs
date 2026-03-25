@@ -39,7 +39,10 @@ public class TransportationController : Controller
                                where a.IsEnabled == true
                                select a).ToListAsync();
 
-        var data = dataAgent.Where(w => (iFilter.filterName == null || w.TransportationName.ToUpper().Contains(iFilter.filterName.ToUpper())));
+        var data = dataAgent.Where(w => 
+            (iFilter.filterAcronym == null || w.TransportationAcronym.ToUpper().Contains(iFilter.filterAcronym.ToUpper())) &&
+            (iFilter.filterName == null || w.TransportationName.ToUpper().Contains(iFilter.filterName.ToUpper()))
+        );
 
         Func<TransTransportation, string> orderingFunction = (c => param.iSortCol_0 == 0 ? c.TransportationAcronym :
                                                                    param.iSortCol_0 == 1 ? c.TransportationName : c.TransportationName);

@@ -2,16 +2,21 @@
 @{
     Layout = "~/Views/Shared/_PartialLayout.cshtml";
 }
-<style>
-    #TaxAddress {
-        resize: none;
-        height: 50px;
-    }
+@section Styles {
+    <link href="~/css/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/bootstrap-editable/inputs-ext/address/address.css" rel="stylesheet" type="text/css" />
+    <style>
+        #TaxAddress {
+            resize: none;
+            height: 50px;
+        }
 
-    .form-md-line-input{
-        margin-block:7px!important
-    }
-</style>
+        .form-md-line-input {
+            margin-block: 7px !important
+        }
+    </style>
+}
 
 <div class="col-md-12 col-lg-12">
     <!-- BEGIN SAMPLE FORM PORTLET-->
@@ -31,6 +36,7 @@
             @Html.HiddenFor(m => m.IssueSession)
             @Html.HiddenFor(m => m.ReceiptDate)
             @Html.HiddenFor(m => m.PaymentType)
+            @Html.HiddenFor(m => m.Description)
             @Html.HiddenFor(m => m.Total)
             @Html.HiddenFor(m => m.Vat)
             @Html.HiddenFor(m => m.NetTotal)
@@ -50,19 +56,34 @@
                         <div class="col-sm-4 col-md-4 col-lg-4">
                             <div class="form-group form-md-line-input">
                                 <input type="text" class="form-control font-green" value="@Model.ReceiptCode" readonly>
-                                <label >เลขที่ใบเสร็จรับเงิน</label>
+                                <label>เลขที่ใบเสร็จรับเงิน</label>
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
                             <div class="form-group form-md-line-input">
-                                <input type="text" class="form-control font-blue" value="@Model.ContainerNo" readonly>
-                                <label >Container No.</label>
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <input type="text" class="form-control edited" id="container-no" value="@Model.ContainerNo" readonly>
+                                        <label for="container-no">Container No.</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <a href="javascript:;" id="editContainerNo" onclick="editContainerNo()" class="btn font-yellow-gold" style="background:none;padding:0;">
+                                            <i class="fad fa-pencil"></i>
+                                        </a>
+                                        <a href="javascript:;" id="cancelContainerNo" class="btn font-red" style="background:none;padding:0;display:none;">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                        <a href="javascript:;" id="saveContainerNo" class="btn font-blue" style="background:none;padding:0;display:none;">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <div class="form-group form-md-line-input">
                                 <input type="text" class="form-control font-blue" value="@Model.ContainerSizeCodeNavigation.ContainerSizeName" readonly>
-                                <label >Container Size.</label>
+                                <label>Container Size.</label>
                             </div>
                         </div>
                     </div>
@@ -70,24 +91,40 @@
                     <div class="row">
                         <div class="col-sm-4 col-md-4 col-lg-4">
                             <div class="form-group form-md-line-input">
-                                <input type="text" class="form-control font-red" value="@Model.Total.ToString("#,##0.00")" readonly>
-                                <label >ยอดเงิน</label>
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <input type="text" class="form-control edited" id="payment-total" value="@Model.Total" readonly>
+                                        <label for="payment-total">จำนวนเงิน</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <a href="javascript:;" id="editTotal" class="btn font-yellow-gold" style="background:none;padding:0;">
+                                            <i class="fad fa-pencil"></i>
+                                        </a>
+                                        <a href="javascript:;" id="cancelTotal" class="btn font-red" style="background:none;padding:0;display:none;">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                        <a href="javascript:;" id="saveTotal" class="btn font-blue" style="background:none;padding:0;display:none;">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
                             <div class="form-group form-md-line-input">
-                                <input type="text" class="form-control font-red" value="@Model.Vat.ToString("#,##0.00")" readonly>
-                                <label >ภาษี</label>
+                                <input type="text" class="form-control font-red" id="payment-vat" value="@Model.Vat.ToString("#,##0.00")" readonly>
+                                <label>ภาษี</label>
                             </div>
                         </div>
+
                         <div class="col-sm-2 col-md-2 col-lg-2">
                             <div class="form-group form-md-line-input">
-                                <input type="text" class="form-control font-red" value="@Model.NetTotal.ToString("#,##0.00")" readonly>
-                                <label >ยอดเงินทั้งสิ้น</label>
+                                <input type="text" class="form-control font-red" id="payment-net-total" value="@Model.NetTotal.ToString("#,##0.00")" readonly>
+                                <label>ยอดเงินทั้งสิ้น</label>
                             </div>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div class="row">
                         <div class="col-sm-4 col-md-4 col-lg-4">
                             <div class="form-group">
@@ -152,6 +189,101 @@
                 } else {
                     $.alert.open('error', data.resultMessage);
                 }
+            });
+
+            $('#cancelTotal').click(function(){
+                var total = $('#Total').val();
+                $('#payment-total').val(total);
+                $('#payment-total').prop('readonly', true);
+                $('#editTotal').show();
+                $('#cancelTotal').hide();
+                $('#saveTotal').hide();
+            });
+
+            $('#editTotal').click(function(){
+                $.post("/yardreceipt/isadmin", function (result) {
+                    if(result)
+                    {
+                        $('#editTotal').hide();
+                        $('#cancelTotal').show();
+                        $('#saveTotal').show();
+
+                        $('#payment-total').prop('readonly', false);
+                        $('#payment-total').focus();
+                    }
+                });
+            });
+
+            $('#saveTotal').click(function(){
+                var code = $('#ReceiptCode').val();
+                var total = $('#payment-total').val();
+                $.post("/yardreceipt/edititem", {
+                    code: code,
+                    decval: total,
+                    item: 'total'
+                }, function (data) {
+                    if (data.result == true) {
+                        $('#Total').val(total);
+                        $('#Vat').val(data.vat);
+                        $('#NetTotal').val(data.net_total);
+
+                        $('#payment-vat').val(data.vat);
+                        $('#payment-net-total').val(data.net_total);
+
+                        $('#payment-total').prop('readonly', true);
+                        $('#editTotal').show();
+                        $('#cancelTotal').hide();
+                        $('#saveTotal').hide();
+                        window.opener.reloadRow();
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
+            });
+
+            $('#cancelContainerNo').click(function(){
+                var container = $('#ContainerNo').val();
+                $('#container-no').val(container);
+                $('#container-no').prop('readonly', true);
+                $('#editContainerNo').show();
+                $('#cancelContainerNo').hide();
+                $('#saveContainerNo').hide();
+            });
+
+            $('#editContainerNo').click(function(){
+                $.post("/yardreceipt/isadmin", function (result) {
+                    if(result)
+                    {
+                        $('#editContainerNo').hide();
+                        $('#cancelContainerNo').show();
+                        $('#saveContainerNo').show();
+
+                        $('#container-no').prop('readonly', false);
+                        $('#container-no').focus();
+                    }
+                });
+            });
+
+            $('#saveContainerNo').click(function(){
+                var code = $('#ReceiptCode').val();
+                var container = $('#container-no').val();
+                $.post("/yardreceipt/edititem", {
+                    code: code,
+                    strval: container,
+                    item: 'container'
+                }, function (data) {
+                    if (data.result == true) {
+                        $('#ContainerNo').val(container);
+                        $('#container-no').prop('readonly', true);
+
+                        $('#editContainerNo').show();
+                        $('#cancelContainerNo').hide();
+                        $('#saveContainerNo').hide();
+                        window.opener.reloadRow();
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
             });
         }(jQuery));
 

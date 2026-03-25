@@ -13,7 +13,6 @@ namespace AVAYardWeb.Models
         public string container_size { get; set; }
         public string container_type { get; set; }
         public string truck_license { get; set; }
-        public string trailer_license { get; set; }
         public string transportation_name { get; set; }
         public string consignee_code { get; set; }
         public string consignee_name { get; set; }
@@ -81,6 +80,23 @@ namespace AVAYardWeb.Models
         public string remark { get; set; }
         public List<OtherContainerCost> other_cost { get; set; }
     }
+
+    public class OrderHistoryModel
+    {
+        public string order_code { get; set; }
+        public string detention_date { get; set; }
+        public string agent_name { get; set; }
+        public string container_no { get; set; }
+        public string container_size { get; set; }
+        public string container_size_code { get; set; }
+        public string seal_no { get; set; }
+        public string return_item { get; set; }
+        public string pickup_item { get; set; }
+        public string match_type { get; set; }
+        public string return_date { get; set; }
+        public string pickup_date { get; set; }
+    }
+
 
     public class OtherContainerCost
     {

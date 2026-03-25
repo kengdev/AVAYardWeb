@@ -16,28 +16,27 @@
         </div>
 
         <br />
-
         <img src="data:image/png;base64,@Model.QrBase64" style="width:300px" />
     </div>
 </div>
 <br />
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-        <button class="btn red" onclick="cancelPayment('@Model.RefNo')">ยกเลิกการชำระเงิน</button>&nbsp;&nbsp;&nbsp;
-        <button class="btn blue" onclick="approvePayment('@Model.RefNo')">ยืนยันการชำระเงิน</button>
+        <button class="btn red" onclick="cancelPayment('@Model.RefNo','@Model.IsVat')">ยกเลิกการชำระเงิน</button>&nbsp;&nbsp;&nbsp;
+        <button class="btn blue" onclick="approvePayment('@Model.RefNo','@Model.IsVat')">ยืนยันการชำระเงิน</button>
     </div>
 </div>
 
 @section scripts
 {
     <script type="text/javascript">
-        function cancelPayment(code) {
+        function cancelPayment(code, is_vat) {
             overLayPage();
             $.ajax({
                 url: "/orderpayment/cancel",
                 type: "POST",
                 dataType: "json",
-                data: { PaymentCode: code },
+                data: { PaymentCode: code, IsVat: is_vat },
 
                 success: function (res) {
                     killOverlayPage();
@@ -58,20 +57,25 @@
             });
         }
 
-        function approvePayment(code) {
+        function approvePayment(code, is_vat) {
             overLayPage();
             $.ajax({
                 url: "/orderpayment/approve",
                 type: "POST",
                 dataType: "json",
-                data: { PaymentCode: code },
+                data: { PaymentCode: code, IsVat: is_vat },
                 success: function (res) {
                     killOverlayPage();
                     if (res.result) {
                         $.alert.open('info', res.resultMessage, function (r) {
                             //navigator.sendBeacon("http://localhost:9001/hide");
                             window.opener.reloadRow();
-                            window.open("/docform/printreceiptbypayment/" + code, "_blank");
+                            if(is_vat == 'True'){
+                                window.open("/docform/printreceiptbypayment/" + code, "_blank");
+                            }
+                            else{
+                                window.open("/docform/printvoucherbypayment/" + code, "_blank");
+                            }
                             window.close();
                         });
 

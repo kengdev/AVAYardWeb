@@ -12,7 +12,7 @@
                 <span class="caption-subject bold uppercase"> ทำรายการใบเสร็จรับเงิน (Container Handling)</span>
             </div>
         </div>
-        @using (Html.BeginForm("AddData", "OrderPayment", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
+        @using (Html.BeginForm("AddDataWithVat", "OrderPayment", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
         {
             @Html.HiddenFor(m => m.IssueType)
             @Html.HiddenFor(m => m.OrderCode)
@@ -101,12 +101,12 @@
                                         <label class="font-sm">การออกใบกำกับภาษี</label>
                                         <div class="mt-radio-inline">
                                             <label class="mt-radio">
-                                                <input type="radio" name="IsTaxInvoice" id="rdoNoneTax" value="FALSE" checked> แยกใบกำกับภาษี
+                                                <input type="radio" name="IsTaxInvoice" id="rdoNoneTax" value="TRUE" checked> แยกใบกำกับภาษี
                                                 <span></span>
                                             </label>
 
                                             <label class="mt-radio">
-                                                <input type="radio" name="IsTaxInvoice" id="rdoTax" value="TRUE"> ไม่แยกใบกำกับภาษี
+                                                <input type="radio" name="IsTaxInvoice" id="rdoTax" value="FALSE"> ไม่แยกใบกำกับภาษี
                                                 <span></span>
                                             </label>
                                         </div>
@@ -153,19 +153,20 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="font-sm">วิธีการชำระเงิน</label>
-                                        <div class="mt-radio-list">
+                                        <label class="font-sm">ชำระเงินไปยัง <span class="required">*</span></label>
+                                        <div class="mt-radio-list" style="padding-bottom:0!important;">
                                             <label class="mt-radio mt-radio-outline">
-                                                เงินสด
-                                                <input type="radio" value="01" name="payment_type" />
+                                                SCB (แม่มณี)
+                                                <input type="radio" value="01" name="BankCode" />
                                                 <span></span>
                                             </label>
                                             <label class="mt-radio mt-radio-outline">
-                                                โอนเข้าบัญชีธนาคาร
-                                                <input type="radio" value="02" name="payment_type" checked />
+                                                KBANK (K-Shop)
+                                                <input type="radio" value="02" name="BankCode" />
                                                 <span></span>
                                             </label>
                                         </div>
+                                        <span class="help-block"></span>
                                     </div>
                                 </div>
                             </div>
@@ -181,7 +182,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            ค่าบริการฝากตู้ <span class="container-no"></span>
+                                            Container Handling <span class="container-no"></span>
                                         </td>
                                         <td rowspan="2" style="vertical-align:middle;text-align:center;">
                                             <span class="container-size">
@@ -261,18 +262,9 @@
                 updater: function (item) {
                     var code = map[item].code;
                     var name = map[item].name;
-                    var branchType = map[item].attr1;
-                    var branchName = map[item].attr2;
                     var address = map[item].address;
 
-                    if(branchType != '01'){
-                        branchName = 'สาขา' + branchName;
-                    }
-                    else{
-                        branchName = 'สำนักงานใหญ่';
-                    }
-
-                    $('#TaxName').val(name + ' (' + branchName + ')');
+                    $('#TaxName').val(name);
                     $('#TaxAddress').val(address);
                     return code;
                 }
@@ -284,7 +276,7 @@
                     $.alert.open('info', data.resultMessage, function(r) {
                         //fetch("http://localhost:9001/show?code=" + code).catch(()=>{});
 
-                        var url = '/orderpayment/displaypayment/' + data.code;
+                        var url = '/orderpayment/displaypayment?code=' + data.code + '&is_vat=TRUE';
                         window.location.href = url;
                     });
                 } else {
@@ -296,9 +288,8 @@
         function OnValidate() {
             var validateRules = {
                 rules: {
-                    TaxId: {
-                      require: { type: "", message: "กรุณาพิมพ์เลขประจำตัวผู้เสียภาษี" }
-                    }
+                    TaxId: { require: { type: "", message: "กรุณาพิมพ์เลขประจำตัวผู้เสียภาษี" } },
+                    BankCode: { radio: { type: "group", message: "กรุณาเลือกธนาคารที่รับเงินโอน" } }
                 }
             };
 
@@ -312,9 +303,7 @@
         }
 
         function setPayment(code){
-            //fetch("http://localhost:9001/show?code=" + code).catch(()=>{});
-
-            var url = '/orderpayment/displaypayment/' + code;
+            var url = '/orderpayment/displaypayment?code=' + data.code + '&is_vat=TRUE';
             var setting = 'width=800,height=550';
 
             window.open(url, 'display payment', setting);

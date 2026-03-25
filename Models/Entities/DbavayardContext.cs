@@ -41,9 +41,15 @@ public partial class DbavayardContext : DbContext
 
     public virtual DbSet<OrderPaymentType> OrderPaymentTypes { get; set; }
 
+    public virtual DbSet<OrderPaymentVoucher> OrderPaymentVouchers { get; set; }
+
+    public virtual DbSet<OrderPaymentVoucherDetail> OrderPaymentVoucherDetails { get; set; }
+
     public virtual DbSet<OrderReceipt> OrderReceipts { get; set; }
 
     public virtual DbSet<OrderReceiptType> OrderReceiptTypes { get; set; }
+
+    public virtual DbSet<OrderReceiptVoucher> OrderReceiptVouchers { get; set; }
 
     public virtual DbSet<OrderRepairStatus> OrderRepairStatuses { get; set; }
 
@@ -342,6 +348,7 @@ public partial class DbavayardContext : DbContext
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
+            entity.Property(e => e.IsIssue).HasColumnName("is_issue");
             entity.Property(e => e.LocationStatus)
                 .HasMaxLength(2)
                 .IsUnicode(false)
@@ -447,6 +454,11 @@ public partial class DbavayardContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("payment_code");
+            entity.Property(e => e.BankCode)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("bank_code");
             entity.Property(e => e.ContainerNo)
                 .HasMaxLength(13)
                 .IsUnicode(false)
@@ -601,6 +613,108 @@ public partial class DbavayardContext : DbContext
                 .HasColumnName("payment_type_name");
         });
 
+        modelBuilder.Entity<OrderPaymentVoucher>(entity =>
+        {
+            entity.HasKey(e => e.PaymentCode);
+
+            entity.ToTable("order_payment_voucher");
+
+            entity.Property(e => e.PaymentCode)
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("payment_code");
+            entity.Property(e => e.BankCode)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("bank_code");
+            entity.Property(e => e.ContainerNo)
+                .HasMaxLength(13)
+                .IsUnicode(false)
+                .HasColumnName("container_no");
+            entity.Property(e => e.ContainerSizeCode)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("container_size_code");
+            entity.Property(e => e.CreateBy)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("create_by");
+            entity.Property(e => e.CreateDate)
+                .HasColumnType("datetime")
+                .HasColumnName("create_date");
+            entity.Property(e => e.IsPaid).HasColumnName("is_paid");
+            entity.Property(e => e.IssueType)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("issue_type");
+            entity.Property(e => e.NetTotal)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("net_total");
+            entity.Property(e => e.OrderCode)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("order_code");
+            entity.Property(e => e.PaymentTypeCode)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("payment_type_code");
+            entity.Property(e => e.TransportationName)
+                .HasMaxLength(250)
+                .HasColumnName("transportation_name");
+            entity.Property(e => e.TruckLicense)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("truck_license");
+
+            entity.HasOne(d => d.ContainerSizeCodeNavigation).WithMany(p => p.OrderPaymentVouchers)
+                .HasForeignKey(d => d.ContainerSizeCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_order_payment_voucher_trans_container_size");
+
+            entity.HasOne(d => d.OrderCodeNavigation).WithMany(p => p.OrderPaymentVouchers)
+                .HasForeignKey(d => d.OrderCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_order_payment_voucher_order_container");
+        });
+
+        modelBuilder.Entity<OrderPaymentVoucherDetail>(entity =>
+        {
+            entity.HasKey(e => e.PaymentCode);
+
+            entity.ToTable("order_payment_voucher_detail");
+
+            entity.Property(e => e.PaymentCode)
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("payment_code");
+            entity.Property(e => e.Cost10Days)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("cost_10_days");
+            entity.Property(e => e.Cost7Days)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("cost_7_days");
+            entity.Property(e => e.Overstay10Days).HasColumnName("overstay_10_days");
+            entity.Property(e => e.Overstay7Days).HasColumnName("overstay_7_days");
+            entity.Property(e => e.RepairCharge)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("repair_charge");
+            entity.Property(e => e.ServiceCharge)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("service_charge");
+            entity.Property(e => e.StayDays).HasColumnName("stay_days");
+
+            entity.HasOne(d => d.PaymentCodeNavigation).WithOne(p => p.OrderPaymentVoucherDetail)
+                .HasForeignKey<OrderPaymentVoucherDetail>(d => d.PaymentCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_order_payment_voucher_detail_order_payment_voucher");
+        });
+
         modelBuilder.Entity<OrderReceipt>(entity =>
         {
             entity.HasKey(e => e.ReceiptCode);
@@ -608,7 +722,7 @@ public partial class DbavayardContext : DbContext
             entity.ToTable("order_receipt");
 
             entity.Property(e => e.ReceiptCode)
-                .HasMaxLength(13)
+                .HasMaxLength(15)
                 .IsUnicode(false)
                 .UseCollation("Thai_CI_AS")
                 .HasColumnName("receipt_code");
@@ -732,6 +846,95 @@ public partial class DbavayardContext : DbContext
                 .IsUnicode(false)
                 .UseCollation("Thai_CI_AS")
                 .HasColumnName("receipt_type_name");
+        });
+
+        modelBuilder.Entity<OrderReceiptVoucher>(entity =>
+        {
+            entity.HasKey(e => e.ReceiptCode);
+
+            entity.ToTable("order_receipt_voucher");
+
+            entity.Property(e => e.ReceiptCode)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .UseCollation("Thai_CI_AS")
+                .HasColumnName("receipt_code");
+            entity.Property(e => e.BankBranchName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .UseCollation("Thai_CI_AS")
+                .HasColumnName("bank_branch_name");
+            entity.Property(e => e.BankName)
+                .HasMaxLength(70)
+                .IsUnicode(false)
+                .UseCollation("Thai_CI_AS")
+                .HasColumnName("bank_name");
+            entity.Property(e => e.ChequeDate).HasColumnName("cheque_date");
+            entity.Property(e => e.ChequeNo)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .UseCollation("Thai_CI_AS")
+                .HasColumnName("cheque_no");
+            entity.Property(e => e.ContainerNo)
+                .HasMaxLength(13)
+                .IsUnicode(false)
+                .HasColumnName("container_no");
+            entity.Property(e => e.ContainerSizeCode)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("container_size_code");
+            entity.Property(e => e.CreateBy)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .UseCollation("Thai_CI_AS")
+                .HasColumnName("create_by");
+            entity.Property(e => e.CreateDate)
+                .HasColumnType("datetime")
+                .HasColumnName("create_date");
+            entity.Property(e => e.IsEnabled).HasColumnName("is_enabled");
+            entity.Property(e => e.IssueSession)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("issue_session");
+            entity.Property(e => e.NetTotal)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("net_total");
+            entity.Property(e => e.OrderCode)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("order_code");
+            entity.Property(e => e.PaymentCode)
+                .HasMaxLength(9)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("payment_code");
+            entity.Property(e => e.PaymentType)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .UseCollation("Thai_CI_AS")
+                .HasColumnName("payment_type");
+            entity.Property(e => e.Remark)
+                .HasColumnType("text")
+                .HasColumnName("remark");
+            entity.Property(e => e.VoucherDate).HasColumnName("voucher_date");
+
+            entity.HasOne(d => d.ContainerSizeCodeNavigation).WithMany(p => p.OrderReceiptVouchers)
+                .HasForeignKey(d => d.ContainerSizeCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_order_receipt_voucher_trans_container_size");
+
+            entity.HasOne(d => d.OrderCodeNavigation).WithMany(p => p.OrderReceiptVouchers)
+                .HasForeignKey(d => d.OrderCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_order_receipt_voucher_order_container");
+
+            entity.HasOne(d => d.PaymentCodeNavigation).WithMany(p => p.OrderReceiptVouchers)
+                .HasForeignKey(d => d.PaymentCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_order_receipt_voucher_order_payment_voucher");
         });
 
         modelBuilder.Entity<OrderRepairStatus>(entity =>

@@ -148,11 +148,6 @@
                                         Match Container
                                     </a>
                                 </li>
-                                <li class="nav-item @ViewData["listHistory"]">
-                                    <a href="/historycontainer/" class="nav-link ">
-                                        <span class="title">ประวัติการทำรายการ</span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         <li class="nav-item start @ViewData["Receipt"]">
@@ -161,6 +156,26 @@
                                 <span class="title">ใบเสร็จรับเงิน</span>
                                 <span class="selected"></span>
                             </a>
+                        </li>
+                        <li class="nav-item @ViewData["History"]">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fad fa-history"></i>
+                                <span class="title">ประวัติการทำรายการ</span>
+                                <span class="selected"></span>
+                                <span class="arrow @ViewData["OpenHistory"]"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item @ViewData["listDrop"]">
+                                    <a href="/historycontainer/drop" class="nav-link">
+                                        Drop Container
+                                    </a>
+                                </li>
+                                <li class="nav-item @ViewData["listMatch"]">
+                                    <a href="/historycontainer/match" class="nav-link">
+                                        Match Container
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item start @ViewData["Account"]">

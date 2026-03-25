@@ -1,0 +1,370 @@
+﻿@model AVAYardWeb.Models.Entities.OrderPaymentVoucher
+@{
+    Layout = null;
+}
+<link href="~/css/site/form.css" rel="stylesheet" type="text/css" media="print">
+<style>
+    .page {
+        font: 10pt "Tahoma", Times, serif;
+        z-index: 1000;
+        width: 100%;
+    }
+
+    .header-col-1 {
+        width: 150px;
+        float: left;
+        display: inline-block;
+    }
+
+    .header-col-3 {
+        text-align: center;
+        margin-top:20px;
+    }
+
+    .header-col-6 {
+        width: 400px;
+        float: left;
+        display: inline-block;
+    }
+
+    .doc-name {
+        font-size: 21px;
+        font-weight: bold;
+    }
+
+    .receiver {
+        margin-top: 10px;
+        width: 100%;
+        padding: 10px;
+    }
+
+    div.clear-float {
+        clear: both;
+    }
+
+    .receiver div {
+        margin-top: 5px;
+    }
+
+    .wrap-content {
+        display: inline-block;
+    }
+
+    .name-content {
+        border-bottom: 1px #717170 dashed;
+        min-width: 350px;
+        display: inline-block;
+        padding-left: 5px;
+    }
+
+    .license-content {
+        border-bottom: 1px #717170 dashed;
+        width: 90px;
+        display: inline-block;
+        padding-left: 5px;
+    }
+
+    .left-10 {
+        margin-left: 10px;
+    }
+
+    .payment-content table.table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid black;
+    }
+
+
+        .payment-content table.table th {
+            border: 1px solid black;
+            text-align: center;
+            font-size: 13px;
+            font-style: normal;
+            line-height: 20px !important;
+        }
+
+        .payment-content table.table td {
+            font-size: 11px;
+            border: 1px solid black;
+            line-height: 15px !important;
+            padding-right: 3px;
+        }
+
+            .payment-content table.table td.amount {
+                width: 90px;
+                text-align: center;
+            }
+
+            .payment-content table.table td.price, .payment-content table.table td.total {
+                width: 90px;
+                text-align: right;
+            }
+            .text-amount{
+                text-align:center;
+                font-weight:bold;
+            }
+
+    .footer {
+        width: 100% !important;
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .payment-payer {
+        display: inline-block;
+    }
+
+    .payment-receiver {
+        display: inline-block;
+        margin-left: 100px;
+    }
+
+    .payment-payer .topic {
+    }
+
+    .payment-payer .sign, .payment-receiver .sign {
+        display: inline-block;
+        width: 200px;
+        border-bottom: 1px dashed #ccc;
+    }
+
+    @@media all {
+        .page-break {
+            display: block;
+            page-break-after: always !important;
+        }
+    }
+
+    @@media print {
+        html, body {
+            height: 99%;
+        }
+    }
+
+    @@media print {
+        .page-break {
+            display: block;
+            page-break-after: always !important;
+        }
+    }
+</style>
+<div class="page">
+    <div class="form-content">
+        <div class="top-header">
+            @{
+                Html.RenderPartial("HeaderPdf");
+            }
+            <div class="clear-float"></div>
+            <div class="header-col-3 bold">
+                <div class="owner-doc-wrapper">
+                    <div class="doc-name">
+                        <div>ใบสำคัญรับเงิน</div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .header-col-right{
+                    text-align:right;
+                }
+                    .wrapper-header-col .topic {
+                        display:inline-block;
+                        font-weight:bold;
+                    }
+
+                .wrapper-header-col .detail {
+                    display:inline-block;
+                    padding-left:10px;
+                    width:90px;
+                }
+            </style>
+            <div class="header-col-right">
+                <div class="wrapper-header-col">
+                    <div class="topic">วันที่</div>
+                    <div class="detail">@Model.CreateDate.ToString("dd-MM-yyyy")</div>
+                </div>
+                <div class="wrapper-header-col">
+                    <div class="topic">เลขที่</div>
+                    <div class="detail">@Model.PaymentCode</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="receiver">
+            <div>
+                <div class="wrap-content">
+                    <label>บริษัท</label>
+                    <div class="name-content">@Model.TransportationName</div>
+                </div>
+                <div class="wrap-content left-10">
+                    <label>ทะเบียนรถ</label>
+                    <div class="license-content">@Model.TruckLicense</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="description">
+            <div class="payment-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>รายการ</th>
+                            <th>จำนวน</th>
+                            <th>ราคา</th>
+                            <th>ยอดรวม</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ค่า Drop ตู้ @Model.ContainerNo (@Model.ContainerSizeCodeNavigation.ContainerSizeName)</td>
+                            <td class="amount">1</td>
+                            <td class="price">@Model.OrderPaymentVoucherDetail.ServiceCharge.ToString("#,##0.00")</td>
+                            <td class="total">@Model.OrderPaymentVoucherDetail.ServiceCharge.ToString("#,##0.00")</td>
+                        </tr>
+                        @if (Model.OrderPaymentVoucherDetail.Cost7Days > 0)
+                        {
+                            <tr>
+                                <td>ฝากตู้เกิน 7 วัน</td>
+                                <td class="amount">@Model.OrderPaymentVoucherDetail.Overstay7Days</td>
+                                <td class="price">50.00</td>
+                                <td class="total">@Model.OrderPaymentVoucherDetail.Cost7Days.ToString("#,##0.00")</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                        @if (Model.OrderPaymentVoucherDetail.Cost10Days > 0)
+                        {
+                            <tr>
+                                <td>ฝากตู้เกิน 10</td>
+                                <td class="amount">@Model.OrderPaymentVoucherDetail.Overstay10Days วัน</td>
+                                <td class="price">100.00</td>
+                                <td class="total">@Model.OrderPaymentVoucherDetail.Cost10Days.ToString("#,##0.00")</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="text-amount">@this.ChangeCurrencyToText(Model.NetTotal)</td>
+                            <td colspan="2" style="text-align:right;">รวมทั้งสิ้น</td>
+                            <td class="total">@Model.NetTotal.ToString("#,##0.00")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="payment-payer">
+                <label class="topic">ลงชื่อ</label>
+                <div class="sign"></div>
+                <label class="topic">ผู้ชำระเงิน</label>
+            </div>
+
+            <div class="payment-receiver">
+                <label class="topic">ลงชื่อ</label>
+                <div class="sign"></div>
+                <label class="topic">ผู้รับเงิน</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@functions {
+    private string ChangeCurrencyToText(decimal val)
+    {
+        string bahtTxt, n, bahtTH = "";
+        double amount;
+        try { amount = Convert.ToDouble(val); }
+        catch { amount = 0; }
+        bahtTxt = amount.ToString("####.00");
+        string[] num = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
+        string[] rank = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
+        string[] temp = bahtTxt.Split('.');
+        string intVal = temp[0];
+        string decVal = temp[1];
+        if (Convert.ToDouble(bahtTxt) == 0)
+            bahtTH = "ศูนย์บาทถ้วน";
+        else
+        {
+            for (int i = 0; i < intVal.Length; i++)
+            {
+                n = intVal.Substring(i, 1);
+                if (n != "0")
+                {
+                    if ((i == (intVal.Length - 1)) && (n == "1"))
+                        bahtTH += "เอ็ด";
+                    else if ((i == (intVal.Length - 2)) && (n == "2"))
+                        bahtTH += "ยี่";
+                    else if ((i == (intVal.Length - 2)) && (n == "1"))
+                        bahtTH += "";
+                    else
+                        bahtTH += num[Convert.ToInt32(n)];
+                    bahtTH += rank[(intVal.Length - i) - 1];
+                }
+            }
+            bahtTH += "บาท";
+            if (decVal == "00")
+                bahtTH += "ถ้วน";
+            else
+            {
+                for (int i = 0; i < decVal.Length; i++)
+                {
+                    n = decVal.Substring(i, 1);
+                    if (n != "0")
+                    {
+                        if ((i == decVal.Length - 1) && (n == "1"))
+                            bahtTH += "เอ็ด";
+                        else if ((i == (decVal.Length - 2)) && (n == "2"))
+                            bahtTH += "ยี่";
+                        else if ((i == (decVal.Length - 2)) && (n == "1"))
+                            bahtTH += "";
+                        else
+                            bahtTH += num[Convert.ToInt32(n)];
+                        bahtTH += rank[(decVal.Length - i) - 1];
+                    }
+                }
+                bahtTH += "สตางค์";
+            }
+        }
+        return bahtTH;
+    }
+}

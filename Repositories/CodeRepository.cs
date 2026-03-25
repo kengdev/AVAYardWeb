@@ -63,6 +63,50 @@ public class CodeRepository
         return code;
     }
 
+    public async Task<string> GetVoucherCode()
+    {
+        string code = "";
+        string prefix_year = DateTime.Now.ToString("yy") + DateTime.Now.ToString("MM");
+        string prefix = prefix_year + "V";
+
+        var query = await db.GenerateCodes
+            .FromSqlRaw("SELECT gen_code, gen_type, create_date FROM generate_code WITH (UPDLOCK, ROWLOCK) WHERE gen_type = 'Without vat payment'")
+            .AsNoTracking()
+            .OrderByDescending(o => o.GenCode)
+            .FirstOrDefaultAsync();
+
+        if (query != null)
+        {
+            string id = query.GenCode;
+            string preinitial = id.Substring(0, 5);
+            string initial = id.Substring(5, 4);
+            if (prefix == preinitial)
+            {
+                id = (int.Parse(initial) + 1).ToString();
+                id = id.PadLeft(4, '0');
+
+                code = prefix + id;
+            }
+            else
+            {
+                code = prefix + "0001";
+            }
+        }
+        else
+        {
+            code = prefix + "0001";
+        }
+
+        GenerateCode genData = new GenerateCode();
+        genData.GenCode = code;
+        genData.GenType = "Without vat payment";
+        genData.CreateDate = DateTime.Now;
+
+        db.GenerateCodes.Add(genData);
+        await db.SaveChangesAsync();
+        return code;
+    }
+
     public async Task<string> GetReceiptCode(int round)
     {
         string code = "";

@@ -182,6 +182,9 @@ namespace AVAYardWeb.Controllers
                     matchDetail.DetentionDate = DateOnly.FromDateTime(DateTime.Now);
                     matchDetail.MatchType = "PICKUP";
                     model.OrderContainerMatchdetail = matchDetail;
+
+                    var locationData = await db.OrderContainerLocations.FirstOrDefaultAsync(w => w.ContainerNo == model.ContainerNo);
+                    locationData.IsIssue = true;
                 }
 
                 db.OrderContainers.Add(model);
@@ -431,18 +434,30 @@ namespace AVAYardWeb.Controllers
                                         is_receipt = a.IsReceipt,
                                     }).ToListAsync();
 
-            var data = _orderData.Where(w => (iFilter.filterName == null || w.container_no.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
-                                (iFilter.filterCustomer == null || w.truck_license.Contains(iFilter.filterCustomer.ToUpper())));
+            var data = _orderData.Where(w =>
+                (iFilter.filterContainerNo == null || w.container_no.ToUpper().Contains(iFilter.filterContainerNo.ToUpper())) &&
+                (iFilter.filterContainerSize == null || w.container_size_code.Contains(iFilter.filterContainerSize.ToUpper())) &&
+                (iFilter.filterLicense == null || w.truck_license.Contains(iFilter.filterLicense.ToUpper())) &&
+                (iFilter.filterName == null || w.transportation_name.Contains(iFilter.filterName.ToUpper()))
+            );
+
+            Func<OrderContainerModel, string> orderingFunction = (c =>
+                param.iSortCol_0 == 0 ? c.container_no :
+                param.iSortCol_0 == 1 ? c.container_size :
+                param.iSortCol_0 == 2 ? c.truck_license :
+                param.iSortCol_0 == 3 ? c.transportation_name : c.container_no);
 
             IEnumerable<OrderContainerModel> listQuery;
             if (param.sSortDir_0 == "asc")
             {
-                listQuery = data.Skip(param.iDisplayStart)
+                listQuery = data.OrderBy(orderingFunction)
+                                .Skip(param.iDisplayStart)
                                 .Take(param.iDisplayLength);
             }
             else
             {
-                listQuery = data.Skip(param.iDisplayStart)
+                listQuery = data.OrderByDescending(orderingFunction)
+                                .Skip(param.iDisplayStart)
                                 .Take(param.iDisplayLength);
             }
 
@@ -470,6 +485,7 @@ namespace AVAYardWeb.Controllers
                                         transportation_name = e.TransportationName,
                                         container_no = a.ContainerNo,
                                         container_size = c.ContainerSizeName,
+                                        container_size_code = c.ContainerSizeCode,
                                         truck_license = a.TruckLicense,
                                         container_status = a.ContainerStatus,
                                         match_type = d.MatchType,
@@ -478,18 +494,37 @@ namespace AVAYardWeb.Controllers
                                         agent_name = b.AgentName,
                                         payment_stage = a.PaymentStageCode
                                     }).ToListAsync();
-            var data = _orderData.Where(w => (iFilter.filterName == null || w.container_no.ToUpper().Contains(iFilter.filterName.ToUpper())) &&
-                                (iFilter.filterCustomer == null || w.truck_license.Contains(iFilter.filterCustomer.ToUpper())));
+            var data = _orderData.Where(w =>
+                (iFilter.filterContainerNo == null || w.container_no.ToUpper().Contains(iFilter.filterContainerNo.ToUpper())) &&
+                (iFilter.filterContainerSize == null || w.container_size_code.Contains(iFilter.filterContainerSize.ToUpper())) &&
+                (iFilter.filterMatchType == null || w.match_type == iFilter.filterMatchType) &&
+                (iFilter.filterExchangeType == null || w.is_exchange == iFilter.filterExchangeType) &&
+                (iFilter.filterAgent == null || w.agent_name.Contains(iFilter.filterAgent.ToUpper())) &&
+                (iFilter.filterLicense == null || w.truck_license.Contains(iFilter.filterLicense.ToUpper())) &&
+                (iFilter.filterName == null || w.transportation_name.Contains(iFilter.filterName.ToUpper()))
+            );
+
+            Func<OrderContainerModel, string> orderingFunction = (c =>
+                param.iSortCol_0 == 0 ? c.container_no :
+                param.iSortCol_0 == 1 ? c.container_size :
+                param.iSortCol_0 == 2 ? c.match_type :
+                param.iSortCol_0 == 3 ? (c.is_exchange ? (c.is_exchange ? "1" : "0") : "") :
+                param.iSortCol_0 == 4 ? c.agent_name :
+                param.iSortCol_0 == 5 ? c.truck_license :
+                param.iSortCol_0 == 6 ? c.transportation_name :
+                param.iSortCol_0 == 8 ? c.payment_stage : c.container_no);
 
             IEnumerable<OrderContainerModel> listQuery;
             if (param.sSortDir_0 == "asc")
             {
-                listQuery = data.Skip(param.iDisplayStart)
+                listQuery = data.OrderBy(orderingFunction)
+                                .Skip(param.iDisplayStart)
                                 .Take(param.iDisplayLength);
             }
             else
             {
-                listQuery = data.Skip(param.iDisplayStart)
+                listQuery = data.OrderByDescending(orderingFunction)
+                                .Skip(param.iDisplayStart)
                                 .Take(param.iDisplayLength);
             }
 
@@ -531,6 +566,7 @@ namespace AVAYardWeb.Controllers
                         locationData.OrderCode = orderData.OrderCode;
                         locationData.ContainerNo = orderData.ContainerNo;
                         locationData.ContainerSizeCode = orderData.ContainerSizeCode;
+                        locationData.IsIssue = false;
                         locationData.CreateDate = DateTime.Now;
                         db.OrderContainerLocations.Add(locationData);
 
@@ -563,6 +599,7 @@ namespace AVAYardWeb.Controllers
                         locationData.OrderCode = orderData.OrderCode;
                         locationData.ContainerNo = orderData.ContainerNo;
                         locationData.ContainerSizeCode = orderData.ContainerSizeCode;
+                        locationData.IsIssue = false;
                         locationData.CreateDate = DateTime.Now;
                         db.OrderContainerLocations.Add(locationData);
                     }

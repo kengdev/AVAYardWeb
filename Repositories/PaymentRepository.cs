@@ -21,7 +21,54 @@ public class PaymentRepository
         db = context;
     }
 
-    public async Task<OrderPayment> GetDropReceiptDataByOrder(string order_code)
+    public async Task<OrderPaymentVoucher> GetDropVoucherDataByOrder(string order_code)
+    {
+        var model = new OrderPaymentVoucher();
+        var orderDetail = new OrderPaymentVoucherDetail();
+
+        var orderData = await (from a in db.OrderContainers
+                               join b in db.TransContainerSizes on a.ContainerSizeCode equals b.ContainerSizeCode
+                               join c in db.RateDropServices on b.ContainerTypeCode equals c.ContainerTypeCode
+                               where a.OrderCode == order_code
+                               select new
+                               {
+                                   a.OrderCode,
+                                   a.ContainerNo,
+                                   b.ContainerSizeCode,
+                                   b.ContainerSizeName,
+                                   b.ContainerTypeCode,
+                                   c.RateServiceCharge,
+                                   a.IssueDate
+                               }).FirstOrDefaultAsync();
+
+        model.ContainerNo = orderData.ContainerNo;
+        model.ContainerSizeCode = orderData.ContainerSizeCode;
+        model.NetTotal = orderData.RateServiceCharge;
+        model.OrderCode = orderData.OrderCode;
+        model.CreateDate = orderData.IssueDate;
+        model.ContainerSizeCodeNavigation = await db.TransContainerSizes.Where(w => w.ContainerSizeCode == orderData.ContainerSizeCode).FirstOrDefaultAsync();
+
+        orderDetail.ServiceCharge = orderData.RateServiceCharge;
+        orderDetail.StayDays = (DateTime.Now.Date - orderData.IssueDate.Date).Days;
+
+        if (orderDetail.StayDays > 7 && orderDetail.StayDays <= 10)
+            orderDetail.Overstay7Days = (orderDetail.StayDays - 7);
+        orderDetail.Cost7Days = orderDetail.Overstay7Days * 50;
+
+        if (orderDetail.StayDays > 7 && orderDetail.StayDays > 10)
+        {
+            orderDetail.Overstay7Days = 3;
+            orderDetail.Cost7Days = 150;
+            orderDetail.Overstay10Days = (orderDetail.StayDays - 10);
+            orderDetail.Cost10Days = (orderDetail.StayDays - 10) * 100;
+        }
+
+        model.OrderCodeNavigation = await db.OrderContainers.Where(w => w.OrderCode == orderData.OrderCode).FirstOrDefaultAsync();
+        model.OrderPaymentVoucherDetail = orderDetail;
+        return model;
+    }
+
+    public async Task<OrderPayment> GetDropPaymentDataByOrder(string order_code)
     {
         var model = new OrderPayment();
         var orderDetail = new OrderPaymentDetail();
@@ -70,7 +117,7 @@ public class PaymentRepository
         return model;
     }
 
-    public async Task<OrderPayment> GetMatchReceiptDataByOrder(string order_code)
+    public async Task<OrderPayment> GetMatchPaymentDataByOrder(string order_code)
     {
         var paymentData = new OrderPayment();
         var paymentDetail = new OrderPaymentDetail();
@@ -93,7 +140,7 @@ public class PaymentRepository
                                          ContainerTypeCode = r.ContainerTypeCode,
                                          AgentCode = r.AgentCode
                                      }
-                               where m.OrderCode == order_code
+                               where m.OrderCode == order_code && r.IsEnabled == true
                                select new
                                {
                                    m.OrderCode,
@@ -130,15 +177,15 @@ public class PaymentRepository
         return paymentData;
     }
 
-    public async Task<ResponseViewModel> AddData(OrderPayment model)
+    public async Task<ResponseViewModel> AddDataWithVat(OrderPayment model)
     {
-        var log = new LogRepository(db);
         var serviceCode = new CodeRepository(db);
         var serviceReceipt = new YardReceiptRepository(db);
         ResponseViewModel response = new ResponseViewModel();
         using var tr = await db.Database.BeginTransactionAsync();
         try
         {
+            model.TaxName = model.TaxName.ToUpper();
             model.PaymentCode = await serviceCode.GetPaymentCode();
             model.Total = (model.Total * 100m) / 107m;
             model.Vat = (model.Total * 7m) / 100m;
@@ -164,9 +211,45 @@ public class PaymentRepository
         return response;
     }
 
+    public async Task<ResponseViewModel> AddDataWithoutVat(OrderPaymentVoucher model)
+    {
+        var serviceCode = new CodeRepository(db);
+        var serviceReceipt = new YardReceiptRepository(db);
+        ResponseViewModel response = new ResponseViewModel();
+        using var tr = await db.Database.BeginTransactionAsync();
+        try
+        {
+            model.PaymentCode = await serviceCode.GetVoucherCode();
+
+            db.OrderPaymentVouchers.Add(model);
+
+            await db.SaveChangesAsync();
+            await tr.CommitAsync();
+            response.code = model.PaymentCode;
+            response.result = true;
+            response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+        }
+        catch (Exception ex)
+        {
+            await tr.RollbackAsync();
+            await tr.DisposeAsync();
+            response.result = false;
+            response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+            response.errorException = ex.InnerException;
+        }
+
+        return response;
+    }
+
     public async Task<OrderPayment> GetPaymentByCode(string code)
     {
         var paymentData = await db.OrderPayments.Where(w => w.PaymentCode == code).Include(i => i.ContainerSizeCodeNavigation).FirstOrDefaultAsync();
+        return paymentData;
+    }
+
+    public async Task<OrderPaymentVoucher> GetVoucherByCode(string code)
+    {
+        var paymentData = await db.OrderPaymentVouchers.Where(w => w.PaymentCode == code).Include(i => i.ContainerSizeCodeNavigation).FirstOrDefaultAsync();
         return paymentData;
     }
 
@@ -199,7 +282,41 @@ public class PaymentRepository
         return response;
     }
 
-    public async Task<ResponseViewModel> Approve(string code)
+    public async Task<ResponseViewModel> ApproveWithoutVat(string code)
+    {
+        ResponseViewModel response = new ResponseViewModel();
+        using var tr = await db.Database.BeginTransactionAsync();
+        try
+        {
+            var voucherData = await db.OrderPaymentVouchers.FirstOrDefaultAsync(w => w.PaymentCode == code);
+            voucherData.IsPaid = true;
+
+            var orderData = await db.OrderContainers.FirstOrDefaultAsync(w => w.OrderCode == voucherData.OrderCode);
+            orderData.IsApprove = true;
+            orderData.IsReceipt = true;
+            orderData.ContainerStatus = "DO";
+
+            var locationData = await db.OrderContainerLocations.FirstOrDefaultAsync(w => w.ContainerNo == voucherData.ContainerNo);
+            db.OrderContainerLocations.Remove(locationData);
+
+            await db.SaveChangesAsync();
+            await tr.CommitAsync();
+            response.result = true;
+            response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+        }
+        catch (Exception ex)
+        {
+            await tr.RollbackAsync();
+            await tr.DisposeAsync();
+            response.result = false;
+            response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+            response.errorException = ex.InnerException;
+        }
+
+        return response;
+    }
+
+    public async Task<ResponseViewModel> ApproveVat(string code)
     {
         var log = new LogRepository(db);
         var serviceCode = new CodeRepository(db);
@@ -210,12 +327,13 @@ public class PaymentRepository
         {
             var receiptEntity = new OrderReceipt();
             var paymentData = await db.OrderPayments.Where(w => w.PaymentCode == code).Include(i => i.OrderPaymentDetail).AsNoTracking().FirstOrDefaultAsync();
+            var paymentDetail = await db.OrderPaymentDetails.Where(w => w.PaymentCode == code).AsNoTracking().FirstOrDefaultAsync();
             var orderData = await db.OrderContainers.FirstOrDefaultAsync(w => w.OrderCode == paymentData.OrderCode);
             var orderMatch = await db.OrderContainerMatchdetails.Where(w => w.OrderCode == paymentData.OrderCode).FirstOrDefaultAsync();
 
-            var balance = paymentData.NetTotal;
-            int loopCount = (int)Math.Ceiling(paymentData.NetTotal / 1000);
-            if (!paymentData.IsTaxInvoice)
+            var balance = paymentDetail.ServiceCharge + paymentDetail.Cost7Days + paymentDetail.Cost10Days;
+            int loopCount = (int)Math.Ceiling(balance / 1000);
+            if (paymentData.IsTaxInvoice)
             {
                 for (int i = 0; i < loopCount; i++)
                 {
@@ -224,7 +342,7 @@ public class PaymentRepository
                     receiptEntity.ReceiptCode = await serviceCode.GetReceiptCode(1);
                     if (loopCount == 1)
                     {
-                        receiptEntity.Total = (paymentData.NetTotal * 100m) / 107m;
+                        receiptEntity.Total = (balance * 100m) / 107m;
                     }
                     else
                     {
@@ -260,7 +378,6 @@ public class PaymentRepository
                     db.OrderReceipts.Add(receiptEntity);
                     await db.SaveChangesAsync();
                 }
-
             }
             else
             {
@@ -277,7 +394,7 @@ public class PaymentRepository
                 receiptEntity.IssueSession = paymentData.IssueType;
                 receiptEntity.OrderCode = paymentData.OrderCode;
                 receiptEntity.IssueSession = paymentData.IssueType;
-                receiptEntity.Total = paymentData.Total;
+                receiptEntity.Total = balance;
                 receiptEntity.Vat = (receiptEntity.Total * 7m) / 100m;
                 receiptEntity.NetTotal = receiptEntity.Total + receiptEntity.Vat;
 

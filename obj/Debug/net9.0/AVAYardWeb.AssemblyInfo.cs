@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AVAYardWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29b594d726a367a1574902ade5a5c3e28626f206")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c4a53d10ccb69c5070e23766439bb2dec3bfcf7")]
 [assembly: System.Reflection.AssemblyProductAttribute("AVAYardWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AVAYardWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

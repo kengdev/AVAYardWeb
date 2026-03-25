@@ -21,6 +21,8 @@ public partial class OrderPayment
 
     public string PaymentTypeCode { get; set; } = null!;
 
+    public string BankCode { get; set; } = null!;
+
     public string TaxId { get; set; } = null!;
 
     public string TaxName { get; set; } = null!;

@@ -13,6 +13,8 @@ public partial class OrderContainerLocation
 
     public string LocationStatus { get; set; } = null!;
 
+    public bool IsIssue { get; set; }
+
     public DateTime CreateDate { get; set; }
 
     public virtual TransContainerSize ContainerSizeCodeNavigation { get; set; } = null!;

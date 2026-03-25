@@ -20,6 +20,9 @@
             width: 50px;
             text-align: center;
         }
+        .license-td{
+            width:110px!important;
+        }
     </style>
 }
 <div class="page-bar">
@@ -70,10 +73,10 @@
                             <th style="padding-left:15px;">Order</th>
                             <th> Container</th>
                             <th> Size</th>
-                            <th> License</th>
-                            <th> Transportation</th>
-                            <th> Stage</th>
-
+                            <th> วันที่คืน</th>
+                            <th> คืนตู้</th>
+                            <th> วันที่รับ</th>
+                            <th> รับตู้</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -81,9 +84,10 @@
                             <th class="filter"><input type="text" class="form-control filterText" id="filterCode" autocomplete="off" /></th>
                             <th class="filter"><input type="text" class="form-control filterText" id="filterContainerno" autocomplete="off" /></th>
                             <th class="filter">@Html.DropDownList("ContainerSizeCode", null, "-----เลือก-----", new { @Class = "form-control filterDropdown" })</th>
+                            <th class="filter"></th>
                             <th class="filter"><input type="text" class="form-control filterText" id="filterLicense" autocomplete="off" /></th>
+                            <th class="filter"></th>
                             <th class="filter"><input type="text" class="form-control filterText" id="filterName" autocomplete="off" /></th>
-                            <th class="filter"><input type="text" class="form-control filterText" id="filterStatus" autocomplete="off" /></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -111,15 +115,12 @@
                     aoData.push({ "name": "filterContainerSize", "value": $("#ContainerSizeCode").val() });
                     aoData.push({ "name": "filterLicense", "value": $("#filterLicense").val() });
                     aoData.push({ "name": "filterName", "value": $("#filterName").val() });
-                    aoData.push({ "name": "filterStatus", "value": $("#filterStatus").val() });
                 },
                 "fnRowCallback": function (row, aData, index) {
-                    if(aData.match_type == 'RETURN'){
-                        $('td', row).eq(5).html('<i class="fa fa-angle-left font-sm font-blue-steel"></i><span class="font-blue font-xs bold" > RETURN </span>');
-                    }
-                    else{
-                        $('td', row).eq(5).html('<span class="font-yellow font-xs bold" > PICKUP </span><i class="fa fa-angle-right font-sm font-yellow-lemon"></i>');
-                    }
+                    var return_item = ' ' + aData.return_item;
+                    var pickup_item = ' ' + aData.pickup_item;
+                    $('td', row).eq(4).html('<i class="fad fa-circle font-sm font-blue-steel"></i><span class="font-blue font-sm bold" >'+ return_item +'</span>');
+                    $('td', row).eq(6).html('<i class="fad fa-circle font-sm font-yellow-gold"></i><span class="font-yellow-gold font-sm bold" >' + pickup_item + ' </span>');
                 },
                 "oLanguage": {
                     "sInfoFiltered": " ",
@@ -137,19 +138,21 @@
                 "columnDefs": [
                       { className: "container-td text-center", targets: 0 },
                       { className: "container-td", targets: 1 },
-                      { className: "license-td", targets: 2 },
-                      { className: "license-td", targets: 3 },
+                      { className: "type-td", targets: 2 },
+                      { className: "date-td", targets: 3 },
                       { className: "name-td", targets: 4 },
-                      { className: "status-td", targets: 5 }
+                      { className: "date-td", targets: 5 },
+                      { className: "name-td", targets: 6 },
                 ],
                 "columns":
                 [
                       { "data": "order_code" },
                       { "data": "container_no" },
                       { "data": "container_size" },
-                      { "data": "truck_license" },
-                      { "data": "transportation_name" },
-                      { "data": "match_type" }
+                      { "data": "return_date" },
+                      { "data": "return_item" },
+                      { "data": "return_date" },
+                      { "data": "pickup_item" }
                 ],
                 "createdRow": function (row, data, dataIndex) {
                     $(row).find('[data-toggle="tooltip"]').tooltip();
@@ -157,10 +160,6 @@
             });
 
             $('#table-order tfoot tr').appendTo('#table-order thead');
-
-            $('.filterText').keyup(function () {
-                $('#table-order').dataTable()._fnAjaxUpdate();
-            });
 
             $('#filterDateRangeStart').datetimepicker({
                 format: 'Y/m/d',

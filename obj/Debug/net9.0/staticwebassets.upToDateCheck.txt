@@ -225,6 +225,48 @@ wwwroot\js\autocomplete\bootstrap3-typeahead.min.js
 wwwroot\js\autocomplete\jquery.easy-autocomplete.js
 wwwroot\js\autocomplete\jquery.typeahead.js
 wwwroot\js\autocomplete\jquery.typeahead.min.js
+wwwroot\js\bootstrap-editable\bootstrap-editable.js
+wwwroot\js\bootstrap-editable\bootstrap-editable.min.js
+wwwroot\js\bootstrap-editable\form-editable.min.js
+wwwroot\js\bootstrap-editable\inputs-ext\address\address.css
+wwwroot\js\bootstrap-editable\inputs-ext\address\address.js
+wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.css
+wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.js
+wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.min.js
+wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.js
+wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.min.js
+wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysiwyg-color.css
+wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\wysihtml5.js
+wwwroot\js\bootstrap-wysihtml5\bootstrap-wysihtml5.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ar-AR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.bg-BG.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ca-CT.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.cs-CZ.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.da-DK.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.de-DE.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.el-GR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.es-AR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.es-ES.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.fr-FR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.hr-HR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.it-IT.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ja-JP.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ko-KR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.lt-LT.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.mo-MD.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.nb-NB.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.nl-NL.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.pl-PL.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.pt-BR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ru-RU.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.sk-SK.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.sv-SE.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.tr-TR.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ua-UA.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.zh-CN.js
+wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.zh-TW.js
+wwwroot\js\bootstrap-wysihtml5\locales\th.min.js
+wwwroot\js\bootstrap-wysihtml5\wysihtml5-0.3.0.js
 wwwroot\js\bootstrap\bootstrap-switch.min.js
 wwwroot\js\bootstrap\bootstrap-table-fixed-columns.min.js
 wwwroot\js\bootstrap\bootstrap-table.min.js
@@ -309,6 +351,7 @@ wwwroot\js\jquery\jquery.cubeportfolio.min.js
 wwwroot\js\jquery\jquery.datetimepicker.js
 wwwroot\js\jquery\jquery.form.js
 wwwroot\js\jquery\jquery.min.js
+wwwroot\js\jquery\jquery.mockjax.js
 wwwroot\js\jquery\jQuery.print.js
 wwwroot\js\jquery\jquery.simplemodal.js
 wwwroot\js\jquery\jquery.slimscroll.min.js
@@ -326,6 +369,7 @@ wwwroot\js\site\app-scripts.js
 wwwroot\js\site\app.min.js
 wwwroot\js\site\calendar.min.js
 wwwroot\js\site\components-select2.min.js
+wwwroot\js\site\container-validation.js
 wwwroot\js\site\croppie.js
 wwwroot\js\site\demo.min.js
 wwwroot\js\site\index.global.min.js
@@ -779,3 +823,47 @@ D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroo
 D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.slim.min.js
 D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\dist\jquery.slim.min.map
 D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\lib\jquery\LICENSE.txt
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\bootstrap-editable.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\bootstrap-editable.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\jquery\jquery.mockjax.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\address\address.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\address\address.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\bootstrap-wysihtml5-0.0.2\wysiwyg-color.css
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\inputs-ext\wysihtml5\wysihtml5.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\bootstrap-wysihtml5.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ar-AR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.bg-BG.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ca-CT.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.cs-CZ.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.da-DK.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.de-DE.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.el-GR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.es-AR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.es-ES.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.fr-FR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.hr-HR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.it-IT.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ja-JP.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ko-KR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.lt-LT.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.mo-MD.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.nb-NB.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.nl-NL.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.pl-PL.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.pt-BR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ru-RU.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.sk-SK.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.sv-SE.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.tr-TR.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.ua-UA.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.zh-CN.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\bootstrap-wysihtml5.zh-TW.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\locales\th.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-wysihtml5\wysihtml5-0.3.0.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\bootstrap-editable\form-editable.min.js
+D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\wwwroot\js\site\container-validation.js

@@ -9,10 +9,13 @@
         <div class="portlet-title">
             <div class="caption">
                 <i class="fad fa-plus-circle"></i>
-                <span class="caption-subject bold uppercase"> ทำรายการใบเสร็จรับเงิน (Container Handling)</span>
+                <span class="caption-subject bold uppercase">
+                    ทำรายการใบเสร็จรับเงิน (Container Handling)
+                </span>
             </div>
         </div>
-        @using (Html.BeginForm("AddData", "OrderPayment", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
+
+        @using (Html.BeginForm("AddDataWithVat", "OrderPayment", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
         {
             @Html.HiddenFor(m => m.IssueType)
             @Html.HiddenFor(m => m.OrderCode)
@@ -53,12 +56,12 @@
                                         <label class="font-sm">การออกใบกำกับภาษี</label>
                                         <div class="mt-radio-inline">
                                             <label class="mt-radio">
-                                                <input type="radio" name="IsTaxInvoice" id="rdoNoneTax" value="FALSE" checked> แยกใบกำกับภาษี
+                                                <input type="radio" name="IsTaxInvoice" id="rdoNoneTax" value="TRUE" checked> แยกใบกำกับภาษี
                                                 <span></span>
                                             </label>
 
                                             <label class="mt-radio">
-                                                <input type="radio" name="IsTaxInvoice" id="rdoTax" value="TRUE"> ไม่แยกใบกำกับภาษี
+                                                <input type="radio" name="IsTaxInvoice" id="rdoTax" value="FALSE"> ไม่แยกใบกำกับภาษี
                                                 <span></span>
                                             </label>
                                         </div>
@@ -102,6 +105,7 @@
                             </div>
                         </div>
 
+                        <!-- Right -->
                         <div class="col-md-7">
                             <div class="row">
                                 <div class="col-md-4">
@@ -110,7 +114,7 @@
                                             ทะเบียนรถ
                                             <span class="required"> * </span>
                                         </label>
-                                        <input type="text" class="form-control input-sm" id="TruckLicense" name="TruckLicense" autocomplete="off"  />
+                                        <input type="text" class="form-control input-sm" id="TruckLicense" name="TruckLicense" autocomplete="off" />
                                         <span class="help-block"></span>
                                     </div>
                                 </div>
@@ -126,22 +130,24 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="font-sm">วิธีการชำระเงิน</label>
-                                        <div class="mt-radio-list">
+                                        <label class="font-sm">ชำระเงินไปยัง <span class="required">*</span></label>
+                                        <div class="mt-radio-list" style="padding-bottom:0!important;">
                                             <label class="mt-radio mt-radio-outline">
-                                                เงินสด
-                                                <input type="radio" value="01" name="payment_type" />
+                                                SCB (แม่มณี)
+                                                <input type="radio" value="01" name="BankCode" />
                                                 <span></span>
                                             </label>
                                             <label class="mt-radio mt-radio-outline">
-                                                โอนเข้าบัญชีธนาคาร
-                                                <input type="radio" value="02" name="payment_type" checked />
+                                                KBANK (K-Shop)
+                                                <input type="radio" value="02" name="BankCode" />
                                                 <span></span>
                                             </label>
                                         </div>
+                                        <span class="help-block"></span>
                                     </div>
                                 </div>
                             </div>
@@ -157,58 +163,37 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            ค่าบริการฝากตู้ <span class="container-no"></span>
-                                        </td>
+                                        <td>Container Handling <span class="container-no">@Model.ContainerNo</span></td>
                                         <td rowspan="3" style="vertical-align:middle;text-align:center;">
-                                            <span class="container-size">
-                                                @Model.ContainerSizeCodeNavigation.ContainerSizeName
-                                            </span>
+                                            <span class="container-size">@Model.ContainerSizeCodeNavigation.ContainerSizeName</span>
                                         </td>
-                                        <td style="width:100px;text-align:center">
+                                        <td style="text-align:center">
                                             <span id="over_stay"></span>
                                         </td>
-                                        <td style="width:130px;">
+                                        <td>
                                             @Html.Hidden("StayDays", Model.OrderPaymentDetail.StayDays)
                                             @Html.TextBox("ServiceCharge", Model.Total, new { @Class = "form-control input-sm", autocomplete = "Off" })
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <td>ค่าบริการฝากตู้เกิน 7 วัน วันละ 50 บาท</td>
-                                        <td style="width:90px;text-align:center">
-                                            @Html.Hidden("Overstay7Days", Model.OrderPaymentDetail.Overstay7Days)
-                                            @if (Model.OrderPaymentDetail.Overstay7Days > 0)
-                                            {
-                                                <span>
-                                                    @Model.OrderPaymentDetail.Overstay7Days วัน
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
+                                        <td style="text-align:center">
+                                            <span id="Overstay7DaysLabel">@Model.OrderPaymentDetail.Overstay7Days วัน</span>
                                         </td>
                                         <td>
+                                            <input type="hidden" id="Overstay7Days" name="Overstay7Days" value="@Model.OrderPaymentDetail.Overstay7Days" />
                                             @Html.TextBox("Cost7Days", Model.OrderPaymentDetail.Cost7Days, new { @Class = "form-control input-sm", autocomplete = "Off" })
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <td>ค่าบริการฝากตู้เกิน 10 วัน วันละ 100 บาท</td>
-                                        <td style="width:90px;text-align:center">
-                                            @Html.Hidden("Overstay10Days", Model.OrderPaymentDetail.Overstay10Days)
-                                            @if (Model.OrderPaymentDetail.Overstay10Days > 0)
-                                            {
-                                                <span>
-                                                    @Model.OrderPaymentDetail.Overstay10Days วัน
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                <span>-</span>
-                                            }
+                                        <td style="text-align:center">
+                                            <span id="Overstay10DaysLabel">@Model.OrderPaymentDetail.Overstay7Days วัน</span>
                                         </td>
                                         <td>
-
+                                            <input type="hidden" id="Overstay10Days" name="Overstay10Days" value="@Model.OrderPaymentDetail.Overstay10Days" />
                                             @Html.TextBox("Cost10Days", Model.OrderPaymentDetail.Cost10Days, new { @Class = "form-control input-sm", autocomplete = "Off" })
                                         </td>
                                     </tr>
@@ -216,12 +201,10 @@
                             </table>
 
                             <div class="form-group">
-                                <label>
-                                    หมายเหตุ
-                                </label>
-                                @Html.TextBox("remark", null, new { @Class = "form-control" })
-                                <span class="help-block"></span>
+                                <label>หมายเหตุ</label>
+                                <input type="text" id="remark" name="remark" class="form-control" />
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -236,6 +219,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         }
     </div>
@@ -245,88 +229,60 @@
 {
     <script src="~/js/autocomplete/bootstrap3-typeahead.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        (function($) {
-            var d = new Date();
-            var currDate = d.getDate();
-            var currMonth = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
-            var currYear = d.getFullYear();
-            var startDate = currYear + '-' + currMonth + '-' + currDate;
+        (function ($) {
+          var map = {};
+          $('#TaxId').typeahead({
+            minLength: 1,
+            source: function (query, process) {
+              var list = [];
+              map = {};
+              return $.post('/AutoComplete/TaxAddress', { term: query }, function (data) {
+                $.each(data, function (i, item) {
+                  map[item.title] = item;
+                  list.push(item.title);
+                });
+                process(list);
+              });
+            },
+            updater: function (item) {
+              var name = map[item].name;
+              var address = map[item].address;
 
-            $('#TaxId').typeahead({
-                minLength: 1,
-                source: function (query, process) {
-                    var list = [];
-                    map = {};
-                    return $.post('/AutoComplete/TaxAddress', {
-                        term: query
-                    }, function (data) {
-                        $.each(data, function (i, item) {
-                            map[item.title] = item;
-                            list.push(item.title);
-                        });
-                        process(list);
-                    });
-                },
-                updater: function (item) {
-                    var code = map[item].code;
-                    var name = map[item].name;
-                    var branchType = map[item].attr1;
-                    var branchName = map[item].attr2;
-                    var address = map[item].address;
+              $('#TaxName').val(name);
+              $('#TaxAddress').val(address);
+              return map[item].code;
+            }
+          });
 
-                    if(branchType != '01'){
-                        branchName = 'สาขา' + branchName;
-                    }
-                    else{
-                        branchName = 'สำนักงานใหญ่';
-                    }
+          $("#frmAdd").ajaxForm(function (data) {
+            killOverlayForm();
+            if (data.result == true) {
+              var url = '/orderpayment/displaypayment?code=' + data.code + '&is_vat=TRUE';
+              window.location.href = url;
+            } else {
+              $.alert.open('error', data.resultMessage);
+            }
+          });
 
-                    $('#TaxName').val(name + ' (' + branchName + ')');
-                    $('#TaxAddress').val(address);
-                    return code;
-                }
-            });
-
-            $("#frmAdd").ajaxForm(function(data) {
-                killOverlayForm();
-                if (data.result == true) {
-                    $.alert.open('info', data.resultMessage, function(r) {
-                        //fetch("http://localhost:9001/show?code=" + code).catch(()=>{});
-
-                        var url = '/orderpayment/displaypayment/' + data.code;
-                        window.location.href = url;
-                    });
-                } else {
-                    $.alert.open('error', data.resultMessage);
-                }
-            });
         }(jQuery));
 
         function OnValidate() {
-            var validateRules = {
-                rules: {
-                    TaxId: {
-                      require: { type: "", message: "กรุณาพิมพ์เลขประจำตัวผู้เสียภาษี" }
-                    }
-                }
-            };
-
-            var ok = $("#frmAdd").validate(validateRules);
-
-            if (ok) {
-                overLayForm();
-                return true;
+          var rules = {
+            rules: {
+              TaxId: { require: { type: "", message: "กรุณาพิมพ์เลขประจำตัวผู้เสียภาษี" } },
+              TruckLicense: { require: { type: "", message: "กรุณาพิมพ์ทะเบียนรถ" } },
+              TransportationCode: { selected: { type: "", message: "กรุณาเลือกบริษัทขนส่ง" } },
+              BankCode: { radio: { type: "group", message: "กรุณาเลือกธนาคารที่รับเงินโอน" } }
             }
-            return false;
-        }
+          };
 
-        function setPayment(code){
-            //fetch("http://localhost:9001/show?code=" + code).catch(()=>{});
+          var ok = $("#frmAdd").validate(rules);
 
-            var url = '/orderpayment/displaypayment/' + code;
-            var setting = 'width=800,height=550';
-
-            window.open(url, 'display payment', setting);
+          if (ok) {
+            overLayForm();
+            return true;
+          }
+          return false;
         }
     </script>
 }
