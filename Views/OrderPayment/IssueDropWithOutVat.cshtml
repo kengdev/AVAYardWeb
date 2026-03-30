@@ -1,0 +1,236 @@
+@model AVAYardWeb.Models.Entities.OrderPaymentVoucher
+@{
+    Layout = "~/Views/Shared/_PartialLayout.cshtml";
+}
+
+<div class="col-md-12 col-lg-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fad fa-plus-circle"></i>
+                <span class="caption-subject bold uppercase">
+                    ทำรายการไม่รับใบกำกับภาษี (Container Handling)
+                </span>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("AddDataWithoutVat", "OrderPayment", FormMethod.Post, new { id = "frmAdd", onsubmit = "return OnValidate()" }))
+        {
+            @Html.HiddenFor(m => m.IssueType)
+            @Html.HiddenFor(m => m.OrderCode)
+            @Html.HiddenFor(m => m.ContainerNo)
+            @Html.HiddenFor(m => m.ContainerSizeCode)
+            <div class="portlet-body form">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="font-sm">
+                                            เบอร์ตู้
+                                        </label>
+                                        <div class="input-group input-group-sm">
+                                            @Model.ContainerNo
+                                        </div>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="font-sm">
+                                            วันที่รับฝาก
+                                        </label>
+                                        <div class="input-group input-group-sm">
+                                            @Model.OrderCodeNavigation.IssueDate.ToString("dd-MM-yyyy")
+                                        </div>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="font-sm">
+                                            ทะเบียนรถ
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.TruckLicense, new { @Class = "form-control input-sm", Autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="font-sm">
+                                            บริษัทขนส่ง
+                                            <span class="required"> * </span>
+                                        </label>
+                                        @Html.TextBoxFor(m => m.TransportationName, new { @Class = "form-control input-sm", Autocomplete = "Off" })
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right -->
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="font-sm">ชำระเงินไปยัง <span class="required">*</span></label>
+                                        <div class="mt-radio-list" style="padding-bottom:0!important;">
+                                            <label class="mt-radio mt-radio-outline">
+                                                SCB (แม่มณี)
+                                                <input type="radio" value="01" name="BankCode" />
+                                                <span></span>
+                                            </label>
+                                            <label class="mt-radio mt-radio-outline">
+                                                KBANK (K-Shop)
+                                                <input type="radio" value="02" name="BankCode" />
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered" id="drop-table">
+                                <thead>
+                                    <tr>
+                                        <th>รายการ</th>
+                                        <th>ขนาด</th>
+                                        <th>ฝากเกิน</th>
+                                        <th>จำนวนเงิน (บาท)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Container Handling <span class="container-no">@Model.ContainerNo</span></td>
+                                        <td rowspan="3" style="vertical-align:middle;text-align:center;">
+                                            <span class="container-size">@Model.ContainerSizeCodeNavigation.ContainerSizeName</span>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <span id="over_stay"></span>
+                                        </td>
+                                        <td>
+                                            @Html.Hidden("StayDays", Model.OrderPaymentVoucherDetail.StayDays)
+                                            @Html.TextBox("ServiceCharge", Model.NetTotal, new { @Class = "form-control input-sm", autocomplete = "Off" })
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>ค่าบริการฝากตู้เกิน 7 วัน วันละ 50 บาท</td>
+                                        <td style="text-align:center">
+                                            <span id="Overstay7DaysLabel">@Model.OrderPaymentVoucherDetail.Overstay7Days วัน</span>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="Overstay7Days" name="Overstay7Days" value="@Model.OrderPaymentVoucherDetail.Overstay7Days" />
+                                            @Html.TextBox("Cost7Days", Model.OrderPaymentVoucherDetail.Cost7Days, new { @Class = "form-control input-sm", autocomplete = "Off" })
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>ค่าบริการฝากตู้เกิน 10 วัน วันละ 100 บาท</td>
+                                        <td style="text-align:center">
+                                            <span id="Overstay10DaysLabel">@Model.OrderPaymentVoucherDetail.Overstay7Days วัน</span>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="Overstay10Days" name="Overstay10Days" value="@Model.OrderPaymentVoucherDetail.Overstay10Days" />
+                                            @Html.TextBox("Cost10Days", Model.OrderPaymentVoucherDetail.Cost10Days, new { @Class = "form-control input-sm", autocomplete = "Off" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-group">
+                                <label>หมายเหตุ</label>
+                                <input type="text" id="remark" name="remark" class="form-control" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            <div class="tools-action">
+                                <a href="javascript:;" onclick="window.close()">ปิด</a> |
+                                <button type="submit" class="btn green">บันทึกข้อมูล</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/js/autocomplete/bootstrap3-typeahead.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        (function ($) {
+          var map = {};
+          $('#TaxId').typeahead({
+            minLength: 1,
+            source: function (query, process) {
+              var list = [];
+              map = {};
+              return $.post('/AutoComplete/TaxAddress', { term: query }, function (data) {
+                $.each(data, function (i, item) {
+                  map[item.title] = item;
+                  list.push(item.title);
+                });
+                process(list);
+              });
+            },
+            updater: function (item) {
+              var name = map[item].name;
+              var address = map[item].address;
+
+              $('#TaxName').val(name);
+              $('#TaxAddress').val(address);
+              return map[item].code;
+            }
+          });
+
+          $("#frmAdd").ajaxForm(function (data) {
+            killOverlayForm();
+            if (data.result == true) {
+              var url = '/orderpayment/displaypayment?code=' + data.code + '&is_vat=FALSE';
+              window.location.href = url;
+            } else {
+              $.alert.open('error', data.resultMessage);
+            }
+          });
+
+        }(jQuery));
+
+        function OnValidate() {
+          var rules = {
+            rules: {
+              TaxId: { require: { type: "", message: "กรุณาพิมพ์เลขประจำตัวผู้เสียภาษี" } },
+              TruckLicense: { require: { type: "", message: "กรุณาพิมพ์ทะเบียนรถ" } },
+              TransportationCode: { selected: { type: "", message: "กรุณาเลือกบริษัทขนส่ง" } },
+              BankCode: { radio: { type: "group", message: "กรุณาเลือกธนาคารที่รับเงินโอน" } }
+            }
+          };
+
+          var ok = $("#frmAdd").validate(rules);
+
+          if (ok) {
+            overLayForm();
+            return true;
+          }
+          return false;
+        }
+    </script>
+}

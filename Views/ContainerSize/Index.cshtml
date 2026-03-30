@@ -1,0 +1,237 @@
+﻿@{
+    ViewBag.TopActive = "Base";
+    ViewBag.MidActive = "agent";
+    ViewBag.Title = "ข้อมูลเอเจนท์";
+}
+@section Styles{
+<style>
+    table.dataTable td,
+    table.dataTable th {
+        font-size: 13px !important;
+    }
+
+    .cancelItem {
+        text-decoration: line-through;
+        text-decoration-color: red;
+        color: #b4b4b4;
+    }
+
+    .form-control {
+        height: 30px !important;
+        padding: 5px;
+        font-size: 13px !important;
+        font-weight: normal;
+    }
+</style>
+}
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="javascript:;">ข้อมูลหลัก</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <a href="javascript:;">ข้อมูลเอเจนท์</a>
+        </li>
+    </ul>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fad fa-list"></i>
+                    <span class="caption-subject bold uppercase"> รายการเอเจนท์</span>
+                </div>
+                <div class="actions">
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-inline pull-right">
+                            <button type="button" class="btn btn-sm red" onclick="setAdd()">เพิ่มข้อมูล</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column"
+                    id="table-container">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th> รายการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr role="row" class="heading">
+                            <th class="filter"></th>
+                            <th class="filter"><input type="text" class="form-control filterText" id="filterNameTH" />
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script type="text/javascript">
+    (function ($) {
+        var oTable = $('#table-container').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "iDisplayLength": 20,
+            "scrollCollapse": false,
+            "order": [[1, "desc"]],
+                "sAjaxSource": "/ContainerType/GetContainerTypeDataList",
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "filterNameTH", "value": $("#filterNameTH").val() });
+            },
+            "fnRowCallback": function (row, aData, index) {
+                if (!aData.isActived)
+                    $(row).addClass('inactive');
+            },
+            "oLanguage": {
+                "sInfoFiltered": " ",
+                "sInfo": "แสดงจำนวน _START_ to _END_ รายการ (ทั้งหมด _TOTAL_ รายการ)",
+                "sSearch": "ค้นหา : ",
+                "sLengthMenu": 'แสดงจำนวน <select class="form-control">' +
+                    '<option value="10">10</option>' +
+                    '<option value="20" selected>20</option>' +
+                    '<option value="30">30</option>' +
+                    '<option value="40">40</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="100">100</option>' +
+                    '</select> รายการ'
+            },
+            "columnDefs": [
+                { className: "action-3-td text-center", targets: 0 },
+                { className: "name-td", targets: 1 },
+            ],
+            "columns":
+                [
+                    {
+                        "data": "containerTypeCode", "orderable": false, "render": function (data, type, row) {
+                            var modify =
+                                '<a class="btn btn-xs yellow" href="javascript:;" data-title="แก้ไขข้อมูล"  data-toggle="tooltip" data-trigger="hover" onclick=setEdit("' +
+                                data + '")><i class="fad fa-pencil-alt"></i></a>';
+                            var remove =
+                                '<a class="btn btn-xs red" href="javascript:;" data-title="ลบข้อมูล"  data-toggle="tooltip" data-trigger="hover" onclick=setDisabled("' +
+                                data + '")><i class="fad fa-trash-alt"></i></a>';
+                            var active =
+                                '<a class="btn btn-xs green-jungle" href="javascript:;" data-title="เปิดใช้งาน"  data-toggle="tooltip" data-trigger="hover" onclick=setActive("' +
+                                data + '")><i class="fa fa-check"></i></a>';
+                            var inactive =
+                                '<a class="btn btn-xs grey" href="javascript:;" data-title="ปิดใช้งาน"  data-toggle="tooltip" data-trigger="hover" onclick=setInactive("' +
+                                data + '")><i class="fa fa-times"></i></a>';
+
+                            if (row.isActived) {
+                                return inactive + remove + modify;
+                            } else {
+                                return active + remove;
+                            }
+                        }
+                    },
+                    { "data": "containerTypeName" },
+                ],
+            "createdRow": function (row, data, dataIndex) {
+                $(row).find('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+
+        $('#table-container tfoot tr').appendTo('#table-container thead');
+
+        $('.filterText').keyup(function () {
+            $('#table-container').dataTable()._fnAjaxUpdate();
+        });
+    }(jQuery));
+
+    function reloadRow() {
+        $("#table-container").DataTable().ajax.reload();
+    }
+
+    function setAdd(code) {
+        var url = '/containertype/add';
+        window.location = url;
+    }
+
+    function setEdit(code) {
+        var url = '/containertype/edit/' + code;
+        window.location = url;
+    }
+
+    function setDisabled(code) {
+        $.alert.open('confirm', 'คุณต้องการลบข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+            if (r) {
+                overLayPage();
+                $.post("/ContainerType/Remove", {
+                    code: code
+                }, function (data) {
+                    killOverlayPage();
+                    if (data.result == true) {
+                        $.alert.open('info', data.resultMessage, function (r) {
+                            $('#table-agent').dataTable()._fnAjaxUpdate();
+                        });
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
+            }
+        });
+    }
+
+    function setActive(code) {
+        $.alert.open('confirm', 'คุณต้องการเปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+            if (r) {
+                overLayPage();
+                    $.post("/ContainerType/Active", {
+                    code: code
+                }, function (data) {
+                    killOverlayPage();
+                    if (data.result == true) {
+                        $.alert.open('info', data.resultMessage, function (r) {
+                            $('#table-container').dataTable()._fnAjaxUpdate();
+                        });
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
+            }
+        });
+    }
+
+    function setInactive(code) {
+        $.alert.open('confirm', 'คุณต้องการปิดใช้งานข้อมูลดังกล่าวนี้ ใช่หรือไม่ ?', function (r) {
+            if (r) {
+                overLayPage();
+                    $.post("/ContainerType/Inactive", {
+                    code: code
+                }, function (data) {
+                    killOverlayPage();
+                    if (data.result == true) {
+                        $.alert.open('info', data.resultMessage, function (r) {
+                                $('#table-container').dataTable()._fnAjaxUpdate();
+                        });
+                    } else {
+                        $.alert.open('error', data.resultMessage);
+                    }
+                });
+            }
+        });
+    }
+</script>
+}

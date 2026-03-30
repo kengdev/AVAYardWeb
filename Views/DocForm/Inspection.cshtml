@@ -1,0 +1,142 @@
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="~/css/print/printform.css" media="print">
+    <style>
+        body {
+            background: #fff;
+        }
+
+        label {
+            font-size: 13px;
+        }
+
+        .page {
+            padding: 0.5cm;
+            font: 10pt "Tahoma", Times, serif;
+            z-index: 1000;
+            width: 100%;
+        }
+        .header{
+            text-align:center;
+        }
+        .row{
+            padding-top:10px;
+        }
+        .col-3{
+            width:15%;
+            display:inline-block;
+            vertical-align:top;
+        }
+        .col-4{
+            width:20%;
+            display:inline-block;
+            vertical-align:top;
+        }
+        .col-6{
+            width:48%;
+            display:inline-block;
+            vertical-align:top;
+        }
+        .col-12{
+            width:100%;
+        }
+        .text-line{
+            width:250px;
+            height:20px;
+            border-bottom:1px solid #000;
+            display:inline-block
+        }
+        .item-box {
+            border: 1px solid #000;
+            width: 60px;
+            height: 20px;
+            text-align: center;
+            display: inline-block;
+        }
+        div.topic{
+            display:inline-block;
+            width:70px;
+        }
+    </style>
+    <div class="page">
+        <div class="header">
+            CONTAINER / TRUCK INSPECTION CHECKLIST
+        </div>
+        <div class="header">
+            货柜/卡车检查清单
+        </div>
+
+        <div class="form-content">
+            <div class="row">
+                <div class="col-6">
+                    <span class="topic">Forwarder name / 货柜供应商名称</span>
+                    <div class="text-line"></div>
+                </div>
+                <div class="col-6">
+                    <span class="topic">Container No. / 柜号/คอนเทนเนอร์ ：</span>
+                    <div class="text-line"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <span class="topic">Container/Truck size&type</span>
+                    <div>货柜/卡车的类型 / ขนาดตู้สินค้า:</div>
+                    <br/>
+                    <span class="topic">Qty of Desiccant Pads / 粘有干燥剂的纸板的数量 </span>
+                    <div>จำนวนแผ่นของสารดูดความชื้น</div>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <div class="topic">20'C 平柜</div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-4 </div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-3 </div><div class="item-box"></div>
+                    </div>
+                    <div>
+                        <div class="topic"> Pad-2 </div><div class="item-box"></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <div class="topic">40'C 平柜</div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-4 </div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-3 </div><div class="item-box"></div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div>
+                        <div class="topic">40'HC 高柜</div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-4 </div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-3 </div><div class="item-box"></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div>
+                        <div class="topic">Truck 卡车</div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-4 </div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-3 </div><div class="item-box"></div>
+                    </div>
+                    <div>
+                         <div class="topic">Pad-2 </div><div class="item-box"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

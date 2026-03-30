@@ -1,0 +1,638 @@
+﻿using AVAYardWeb.Models;
+using AVAYardWeb.Models.Entities;
+using AVAYardWeb.Repositories;
+using AVAYardWeb.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.Transactions;
+
+namespace AVAYardWeb.Controllers
+{
+    [Authorize]
+    public class OrderContainerController : Controller
+    {
+        private readonly ILogService log;
+        private readonly DbavayardContext db;
+        private string LoggedInUser => User.Identity.Name;
+
+        public OrderContainerController(DbavayardContext _context, ILogService _log)
+        {
+            db = _context;
+            log = _log;
+        }
+
+        public async Task<IActionResult> Drop()
+        {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            return View();
+        }
+
+        public async Task<IActionResult> Match()
+        {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            return View();
+        }
+
+        public async Task<IActionResult> DropIssue()
+        {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            ViewData["AgentCode"] = from a in await serviceDropDown.GetAgent() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+
+            return View();
+        }
+
+        public async Task<IActionResult> IssueMatchPickup()
+        {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            ViewData["AgentCode"] = from a in await serviceDropDown.GetAgent() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+
+            return View();
+        }
+
+        public async Task<IActionResult> IssueMatchReturn()
+        {
+            var serviceDropDown = new DropListRepository(db);
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            ViewData["AgentCode"] = from a in await serviceDropDown.GetAgent() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+            ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label };
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDropData(OrderContainer model)
+        {
+            var serviceCode = new CodeRepository(db);
+            ResponseViewModel response = new ResponseViewModel();
+            using var tr = await db.Database.BeginTransactionAsync();
+            try
+            {
+                model.OrderCode = await serviceCode.GetOrderContainerCode();
+                model.IssueType = "DROP";
+                model.ContainerStatus = "PN";
+                model.ContainerNo = model.ContainerNo.ToUpper();
+                model.IssueDate = DateTime.Now;
+                model.AgentCode = "001";
+                model.SealNo = "-";
+                model.TareWeight = 0;
+                model.PaymentStageCode = "B";
+
+                model.IsReceipt = false;
+                model.IsEnabled = true;
+                model.CreateDate = DateTime.Now;
+                model.CreateBy = this.LoggedInUser;
+
+                OrderContainerMatchdetail matchDetail = new OrderContainerMatchdetail();
+                matchDetail.OrderCode = model.OrderCode;
+                matchDetail.DetentionDate = DateOnly.FromDateTime(DateTime.Now);
+                matchDetail.MatchType = "RETURN";
+                model.OrderContainerMatchdetail = matchDetail;
+
+                db.OrderContainers.Add(model);
+                await db.SaveChangesAsync();
+                await tr.CommitAsync();
+
+                log.AddLog("AddDrop", "OrderContainer", model.OrderCode, null, model, this.LoggedInUser);
+                await log.SaveAsync(); response.result = true;
+                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+            }
+            catch (Exception ex)
+            {
+                await tr.RollbackAsync();
+                await db.DisposeAsync();
+                response.result = false;
+                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+                response.errorException = ex;
+            }
+
+            return Json(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMatchData(OrderContainer model, OrderContainerMatchdetail matchDetail)
+        {
+            var serviceCode = new CodeRepository(db);
+            ResponseViewModel response = new ResponseViewModel();
+            using var tr = await db.Database.BeginTransactionAsync();
+            try
+            {
+                if (matchDetail.MatchType == "RETURN")
+                {
+                    model.OrderCode = await serviceCode.GetOrderContainerCode();
+                    model.IssueType = "MATCH";
+                    model.ContainerStatus = "PN";
+                    model.PaymentStageCode = model.IsExchange == true ? model.PaymentStageCode : "A";
+                    model.ContainerNo = model.ContainerNo.ToUpper();
+                    model.IssueDate = DateTime.Now;
+                    model.SealNo = model.SealNo != null ? model.SealNo : "-";
+                    model.TransportationCode = model.TransportationCode != null ? model.TransportationCode : "25000";
+                    model.TareWeight = model.TareWeight != null ? model.TareWeight : 0;
+
+                    model.IsReceipt = false;
+                    model.IsEnabled = true;
+                    model.CreateDate = DateTime.Now;
+                    model.CreateBy = this.LoggedInUser;
+
+                    matchDetail.OrderCode = model.OrderCode;
+                    model.OrderContainerMatchdetail = matchDetail;
+                }
+                else
+                {
+                    var reuseData = await (from a in db.OrderContainers
+                                           join b in db.OrderContainerLocations on a.OrderCode equals b.OrderCode
+                                           where b.ContainerNo == model.ContainerNo
+                                           select a).FirstOrDefaultAsync();
+
+                    model.OrderCode = await serviceCode.GetOrderContainerCode();
+                    model.IssueType = "MATCH";
+                    model.ContainerStatus = "PN";
+                    model.ContainerNo = model.ContainerNo.ToUpper();
+                    model.IssueDate = DateTime.Now;
+                    model.SealNo = model.SealNo != null ? model.SealNo : "-";
+                    model.TransportationCode = model.TransportationCode != null ? model.TransportationCode : "25000";
+                    if (model.IsExchange)
+                    {
+                        model.PaymentStageCode = reuseData.PaymentStageCode == "A" ? "B" : "A";
+                    }
+                    else
+                    {
+                        model.PaymentStageCode = reuseData.PaymentStageCode = "A";
+                    }
+
+                    model.IsReceipt = false;
+                    model.IsEnabled = true;
+                    model.CreateDate = DateTime.Now;
+                    model.CreateBy = this.LoggedInUser;
+
+                    matchDetail.OrderCode = model.OrderCode;
+                    matchDetail.DetentionDate = DateOnly.FromDateTime(DateTime.Now);
+                    matchDetail.MatchType = "PICKUP";
+                    model.OrderContainerMatchdetail = matchDetail;
+
+                    var locationData = await db.OrderContainerLocations.FirstOrDefaultAsync(w => w.ContainerNo == model.ContainerNo);
+                    locationData.IsIssue = true;
+                }
+
+                db.OrderContainers.Add(model);
+                await db.SaveChangesAsync();
+
+                log.AddLog("Add", "OrderContainer", model.OrderCode, null, model, this.LoggedInUser);
+                await log.SaveAsync();
+
+                await tr.CommitAsync();
+                response.result = true;
+                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+            }
+            catch (Exception ex)
+            {
+                await tr.RollbackAsync();
+                await db.DisposeAsync();
+                response.result = false;
+                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+                response.errorException = ex;
+            }
+
+            return Json(response);
+        }
+
+        public async Task<IActionResult> EditMatchPickup(string code)
+        {
+            var serviceDropDown = new DropListRepository(db);
+            var orderData = await db.OrderContainers.Where(w => w.OrderCode == code).Include(i => i.AgentCodeNavigation).Include(i => i.TransportationCodeNavigation).Include(i => i.ContainerSizeCodeNavigation).FirstOrDefaultAsync();
+            orderData.OrderContainerMatchdetail = await db.OrderContainerMatchdetails.Where(w => w.OrderCode == code).FirstOrDefaultAsync();
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == orderData.ContainerSizeCode };
+            ViewData["AgentCode"] = from a in await serviceDropDown.GetAgent() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == orderData.AgentCode };
+            ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == orderData.TransportationCode };
+
+            return View(orderData);
+        }
+
+        public async Task<IActionResult> EditMatchReturn(string code)
+        {
+            var serviceDropDown = new DropListRepository(db);
+            var orderData = await db.OrderContainers.Where(w => w.OrderCode == code).Include(i => i.AgentCodeNavigation).Include(i => i.TransportationCodeNavigation).FirstOrDefaultAsync();
+            orderData.OrderContainerMatchdetail = await db.OrderContainerMatchdetails.Where(w => w.OrderCode == code).FirstOrDefaultAsync();
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == orderData.ContainerSizeCode };
+            ViewData["AgentCode"] = from a in await serviceDropDown.GetAgent() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == orderData.AgentCode };
+            ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == orderData.TransportationCode };
+
+            return View(orderData);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditMatchData(OrderContainer model, OrderContainerMatchdetail matchDetail)
+        {
+            var serviceCode = new CodeRepository(db);
+            ResponseViewModel response = new ResponseViewModel();
+            using var tr = await db.Database.BeginTransactionAsync();
+            try
+            {
+                var oldOrder = await db.OrderContainers.Where(w => w.OrderCode == model.OrderCode).Include(i => i.OrderContainerMatchdetail).AsNoTracking().FirstOrDefaultAsync();
+
+                if (matchDetail.MatchType == "PICKUP")
+                {
+                    model.BookingNo = model.BookingNo.ToUpper();
+                    model.SealNo = model.SealNo.ToUpper();
+                }
+
+                db.OrderContainers.Update(model);
+                await db.SaveChangesAsync();
+
+                log.AddLog("Edit", "OrderContainer", model.OrderCode, oldOrder, model, this.LoggedInUser);
+                await log.SaveAsync();
+                await tr.CommitAsync();
+                response.result = true;
+                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+            }
+            catch (Exception ex)
+            {
+                await tr.RollbackAsync();
+                await db.DisposeAsync();
+                response.result = false;
+                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+                response.errorException = ex;
+            }
+
+            return Json(response);
+        }
+
+        public async Task<IActionResult> DropEdit(string code)
+        {
+            var serviceDropDown = new DropListRepository(db);
+            var model = db.OrderContainers.Where(w => w.OrderCode == code).FirstOrDefault();
+
+            ViewData["ContainerSizeCode"] = from a in await serviceDropDown.GetContainerSize() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == model.ContainerSizeCode };
+            ViewData["AgentCode"] = from a in await serviceDropDown.GetAgent() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == model.AgentCode };
+            ViewData["TransportationCode"] = from a in await serviceDropDown.GetTransportation() select new SelectListItem { Value = a.key.ToString(), Text = a.label, Selected = a.key == model.TransportationCode };
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> DropEditData(OrderContainer model)
+        {
+            var serviceCode = new CodeRepository(db);
+            ResponseViewModel response = new ResponseViewModel();
+            using var tr = await db.Database.BeginTransactionAsync();
+            try
+            {
+                var oldOrder = await db.OrderContainers.Where(w => w.OrderCode == model.OrderCode).Include(i => i.OrderContainerMatchdetail).AsNoTracking().FirstOrDefaultAsync();
+
+                model.ContainerNo = model.ContainerNo.ToUpper();
+                model.SealNo = model.SealNo != null ? model.SealNo : "-";
+                model.TransportationCode = model.TransportationCode != null ? model.TransportationCode : "25000";
+                model.AgentCode = model.AgentCode != null ? model.AgentCode : "001";
+                model.TareWeight = model.TareWeight != null ? model.TareWeight : 0;
+                db.OrderContainers.Update(model);
+                await db.SaveChangesAsync();
+
+                log.AddLog("Edit", "OrderContainer", model.OrderCode, oldOrder, model, this.LoggedInUser);
+                await log.SaveAsync();
+                await tr.CommitAsync();
+                response.result = true;
+                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+            }
+            catch (Exception ex)
+            {
+                await tr.RollbackAsync();
+                await db.DisposeAsync();
+                response.result = false;
+                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+                response.errorException = ex;
+            }
+
+            return Json(response);
+        }
+
+        public async Task<IActionResult> MatchEditData(OrderContainer model, OrderContainerMatchdetail matchDetail)
+        {
+            var serviceCode = new CodeRepository(db);
+            ResponseViewModel response = new ResponseViewModel();
+            using var tr = await db.Database.BeginTransactionAsync();
+            try
+            {
+                var oldOrder = await db.OrderContainers.Where(w => w.OrderCode == model.OrderCode).Include(i => i.OrderContainerMatchdetail).AsNoTracking().FirstOrDefaultAsync();
+
+                model.ContainerNo = model.ContainerNo.ToUpper();
+                model.SealNo = model.SealNo != null ? model.SealNo : "-";
+                model.PaymentStageCode = model.IsExchange == true ? model.PaymentStageCode : "C";
+                model.TransportationCode = model.TransportationCode != null ? model.TransportationCode : "25000";
+                model.AgentCode = model.AgentCode != null ? model.AgentCode : "001";
+                model.TareWeight = model.TareWeight != null ? model.TareWeight : 0;
+
+                matchDetail.OrderCode = model.OrderCode;
+                model.OrderContainerMatchdetail = matchDetail;
+
+                db.OrderContainers.Update(model);
+                await db.SaveChangesAsync();
+
+                log.AddLog("Edit", "OrderContainer", model.OrderCode, oldOrder, model, this.LoggedInUser);
+                await log.SaveAsync();
+                await tr.CommitAsync();
+                response.result = true;
+                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+            }
+            catch (Exception ex)
+            {
+                await tr.RollbackAsync();
+                await db.DisposeAsync();
+                response.result = false;
+                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+                response.errorException = ex;
+            }
+
+            return Json(response);
+        }
+
+        public async Task<IActionResult> SetToDrop(string code)
+        {
+            var serviceCode = new CodeRepository(db);
+            ResponseViewModel response = new ResponseViewModel();
+            using var tr = await db.Database.BeginTransactionAsync();
+            try
+            {
+                var data = await db.OrderContainers.FirstOrDefaultAsync(w => w.OrderCode == code);
+                data.IsApprove = true;
+                await db.SaveChangesAsync();
+
+                var newOrder = data;
+                newOrder.OrderCode = await serviceCode.GetOrderContainerCode();
+                newOrder.IssueType = "DROP";
+                newOrder.IsApprove = false;
+                newOrder.ContainerStatus = "PN";
+                db.OrderContainers.Add(newOrder);
+
+                await db.SaveChangesAsync();
+                await tr.CommitAsync();
+                response.result = true;
+                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+            }
+            catch (Exception ex)
+            {
+                await tr.RollbackAsync();
+                await db.DisposeAsync();
+                response.result = false;
+                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+                response.errorException = ex;
+            }
+
+            return Json(response);
+        }
+
+        public async Task<IActionResult> GetMatchContainer(string order_code)
+        {
+            var containerData = await (from a in db.OrderContainers
+                                       join b in db.TransContainerSizes on a.ContainerSizeCode equals b.ContainerSizeCode
+                                       join c in db.OrderContainerMatchdetails on a.OrderCode equals c.OrderCode
+                                       join d in db.TransAgents on a.AgentCode equals d.AgentCode
+                                       where a.OrderCode == order_code
+                                       select new
+                                       {
+                                           container_no = a.ContainerNo,
+                                           container_size_code = a.ContainerSizeCode,
+                                           container_size_name = b.ContainerSizeName,
+                                           agent_code = a.AgentCode,
+                                           agent_name = d.AgentName,
+                                           is_exchange = a.IsExchange,
+                                           is_paid = a.PaymentStageCode,
+                                           tareweight = a.TareWeight
+                                       }).FirstOrDefaultAsync();
+
+            return Json(containerData);
+        }
+
+        public async Task<IActionResult> GetDropContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
+        {
+            var _orderData = await (from a in db.OrderContainers
+                                    join d in db.TransTransportations on a.TransportationCode equals d.TransportationCode
+                                    join f in db.TransContainerSizes on a.ContainerSizeCode equals f.ContainerSizeCode
+                                    where a.IsApprove == false && a.IssueType == "DROP"
+                                    select new OrderContainerModel
+                                    {
+                                        order_code = a.OrderCode,
+                                        issue_type = a.IssueType,
+                                        container_no = a.ContainerNo,
+                                        container_type = f.ContainerSizeName,
+                                        truck_license = a.TruckLicense,
+                                        transportation_name = d.TransportationName,
+                                        container_status = a.ContainerStatus,
+                                        is_receipt = a.IsReceipt,
+                                    }).ToListAsync();
+
+            var data = _orderData.Where(w =>
+                (iFilter.filterContainerNo == null || w.container_no.ToUpper().Contains(iFilter.filterContainerNo.ToUpper())) &&
+                (iFilter.filterContainerSize == null || w.container_size_code.Contains(iFilter.filterContainerSize.ToUpper())) &&
+                (iFilter.filterLicense == null || w.truck_license.Contains(iFilter.filterLicense.ToUpper())) &&
+                (iFilter.filterName == null || w.transportation_name.Contains(iFilter.filterName.ToUpper()))
+            );
+
+            Func<OrderContainerModel, string> orderingFunction = (c =>
+                param.iSortCol_0 == 0 ? c.container_no :
+                param.iSortCol_0 == 1 ? c.container_size :
+                param.iSortCol_0 == 2 ? c.truck_license :
+                param.iSortCol_0 == 3 ? c.transportation_name : c.container_no);
+
+            IEnumerable<OrderContainerModel> listQuery;
+            if (param.sSortDir_0 == "asc")
+            {
+                listQuery = data.OrderBy(orderingFunction)
+                                .Skip(param.iDisplayStart)
+                                .Take(param.iDisplayLength);
+            }
+            else
+            {
+                listQuery = data.OrderByDescending(orderingFunction)
+                                .Skip(param.iDisplayStart)
+                                .Take(param.iDisplayLength);
+            }
+
+            return Json(new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = data.Count(),
+                iTotalDisplayRecords = data.Count(),
+                aaData = listQuery
+            });
+        }
+
+        public async Task<IActionResult> GetMatchContainerList(jQueryDataTableParamModel param, avaDataTableParamModel iFilter)
+        {
+            var _orderData = await (from a in db.OrderContainers
+                                    join c in db.TransContainerSizes on a.ContainerSizeCode equals c.ContainerSizeCode
+                                    join d in db.OrderContainerMatchdetails on a.OrderCode equals d.OrderCode
+                                    join e in db.TransTransportations on a.TransportationCode equals e.TransportationCode
+                                    join b in db.TransAgents on a.AgentCode equals b.AgentCode
+                                    where a.IsApprove == false && a.IssueType == "MATCH" && a.IsEnabled == true
+                                    select new OrderContainerModel
+                                    {
+                                        order_code = a.OrderCode,
+                                        issue_type = a.IssueType,
+                                        transportation_name = e.TransportationName,
+                                        container_no = a.ContainerNo,
+                                        container_size = c.ContainerSizeName,
+                                        container_size_code = c.ContainerSizeCode,
+                                        truck_license = a.TruckLicense,
+                                        container_status = a.ContainerStatus,
+                                        match_type = d.MatchType,
+                                        is_exchange = a.IsExchange,
+                                        is_receipt = a.IsReceipt,
+                                        agent_name = b.AgentName,
+                                        payment_stage = a.PaymentStageCode
+                                    }).ToListAsync();
+            var data = _orderData.Where(w =>
+                (iFilter.filterContainerNo == null || w.container_no.ToUpper().Contains(iFilter.filterContainerNo.ToUpper())) &&
+                (iFilter.filterContainerSize == null || w.container_size_code.Contains(iFilter.filterContainerSize.ToUpper())) &&
+                (iFilter.filterMatchType == null || w.match_type == iFilter.filterMatchType) &&
+                (iFilter.filterExchangeType == null || w.is_exchange == iFilter.filterExchangeType) &&
+                (iFilter.filterAgent == null || w.agent_name.Contains(iFilter.filterAgent.ToUpper())) &&
+                (iFilter.filterLicense == null || w.truck_license.Contains(iFilter.filterLicense.ToUpper())) &&
+                (iFilter.filterName == null || w.transportation_name.Contains(iFilter.filterName.ToUpper()))
+            );
+
+            Func<OrderContainerModel, string> orderingFunction = (c =>
+                param.iSortCol_0 == 0 ? c.container_no :
+                param.iSortCol_0 == 1 ? c.container_size :
+                param.iSortCol_0 == 2 ? c.match_type :
+                param.iSortCol_0 == 3 ? (c.is_exchange ? (c.is_exchange ? "1" : "0") : "") :
+                param.iSortCol_0 == 4 ? c.agent_name :
+                param.iSortCol_0 == 5 ? c.truck_license :
+                param.iSortCol_0 == 6 ? c.transportation_name :
+                param.iSortCol_0 == 8 ? c.payment_stage : c.container_no);
+
+            IEnumerable<OrderContainerModel> listQuery;
+            if (param.sSortDir_0 == "asc")
+            {
+                listQuery = data.OrderBy(orderingFunction)
+                                .Skip(param.iDisplayStart)
+                                .Take(param.iDisplayLength);
+            }
+            else
+            {
+                listQuery = data.OrderByDescending(orderingFunction)
+                                .Skip(param.iDisplayStart)
+                                .Take(param.iDisplayLength);
+            }
+
+            return Json(new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = data.Count(),
+                iTotalDisplayRecords = data.Count(),
+                aaData = listQuery
+            });
+        }
+
+        public async Task<IActionResult> GetTransportationByCode(string code)
+        {
+            var data = await db.TransTransportations.Where(w => w.TransportationCode == code).FirstOrDefaultAsync();
+            return Json(data);
+        }
+
+        public async Task<IActionResult> Approve(string code)
+        {
+            var serviceCode = new CodeRepository(db);
+
+            ResponseViewModel response = new ResponseViewModel();
+            using var tr = await db.Database.BeginTransactionAsync();
+            try
+            {
+                var orderData = await db.OrderContainers.Include(i => i.OrderContainerMatchdetail).FirstOrDefaultAsync(w => w.OrderCode == code);
+                if (orderData.IssueType == "MATCH")
+                {
+                    if (orderData.OrderContainerMatchdetail.MatchType == "RETURN")
+                    {
+                        orderData.IsApprove = true;
+                        orderData.IsReceipt = true;
+                        orderData.ContainerStatus = "AC";
+
+                        OrderContainerLocation locationData = new OrderContainerLocation();
+                        locationData.OrderCode = code;
+                        locationData.LocationStatus = "IN";
+                        locationData.OrderCode = orderData.OrderCode;
+                        locationData.ContainerNo = orderData.ContainerNo;
+                        locationData.ContainerSizeCode = orderData.ContainerSizeCode;
+                        locationData.IsIssue = false;
+                        locationData.CreateDate = DateTime.Now;
+                        db.OrderContainerLocations.Add(locationData);
+
+                        OrderContainerRepair repairData = new OrderContainerRepair();
+                        repairData.OrderCode = orderData.OrderCode;
+                        repairData.ContainerNo = orderData.ContainerNo;
+                        repairData.RepairStatusCode = "P";
+                        db.OrderContainerRepairs.Add(repairData);
+                    }
+                    else
+                    {
+                        orderData.IsApprove = true;
+                        orderData.IsReceipt = true;
+                        orderData.ContainerStatus = "DO";
+
+                        var locationData = await db.OrderContainerLocations.FirstOrDefaultAsync(w => w.ContainerNo == orderData.ContainerNo);
+                        db.OrderContainerLocations.Remove(locationData);
+                    }
+                }
+                else
+                {
+                    if (orderData.OrderContainerMatchdetail.MatchType == "RETURN")
+                    {
+                        orderData.IsApprove = true;
+                        orderData.ContainerStatus = "AC";
+
+                        OrderContainerLocation locationData = new OrderContainerLocation();
+                        locationData.OrderCode = code;
+                        locationData.LocationStatus = "IN";
+                        locationData.OrderCode = orderData.OrderCode;
+                        locationData.ContainerNo = orderData.ContainerNo;
+                        locationData.ContainerSizeCode = orderData.ContainerSizeCode;
+                        locationData.IsIssue = false;
+                        locationData.CreateDate = DateTime.Now;
+                        db.OrderContainerLocations.Add(locationData);
+                    }
+                    else
+                    {
+                        orderData.IsApprove = true;
+                        orderData.IsReceipt = true;
+                        orderData.ContainerStatus = "DO";
+
+                        var locationData = await db.OrderContainerLocations.FirstOrDefaultAsync(w => w.ContainerNo == orderData.ContainerNo);
+                        db.OrderContainerLocations.Remove(locationData);
+                    }
+                }
+
+                await db.SaveChangesAsync();
+
+                log.AddLog("Approve", "OrderContainer", code, null, null, this.LoggedInUser);
+                await log.SaveAsync();
+                await tr.CommitAsync();
+                response.result = true;
+                response.resultMessage = "บันทึกข้อมูลเรียบร้อยแล้ว";
+            }
+            catch (Exception ex)
+            {
+                await tr.RollbackAsync();
+                await db.DisposeAsync();
+                response.result = false;
+                response.resultMessage = "<div>เกิดข้อผิดพลาดระหว่างการทำงาน</div><div style='margin-top:-30px'> กรุณาลองใหม่อีกครั้ง หรือติดต่อผู้ดูแลระบบ</div>";
+                response.errorException = ex.InnerException;
+            }
+
+            Thread.Sleep(2000);
+            return Json(response);
+        }
+    }
+}

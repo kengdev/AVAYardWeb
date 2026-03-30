@@ -1,0 +1,115 @@
+﻿html {
+    font-size: 10px;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #333;
+}
+.table{
+    border:1px solid #ccc;
+}
+.table th {
+    text-align:left;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: #5a5a5a;
+    color: #fff;
+}
+
+.table td{
+    width:50%!important;
+    padding-left:20px!important;
+    padding-right:20px!important;
+}
+label{
+    font-size:13px;
+}
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857;
+    vertical-align: top;
+    border-top: 1px solid #e7ecf1;
+}
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #e7ecf1;
+}
+.form-wrap{
+    padding:7px;
+}
+.form-detail{
+    border-bottom:1px solid #ccc;
+    font-size:14px;
+}
+.col-3{
+    width:30%;
+    display:inline-block;
+}
+.col-4{
+    width:40%;
+    display:inline-block;
+}
+.col-6{
+    width:60%;
+    display:inline;
+}
+.col-8{
+    width:80%;
+    display:inline;
+}
+.col-10{
+    width:100%;
+}
+@page {
+    size:A4;
+    margin:0.5cm;
+}
+    .page-break { display:block;height:1px; page-break-before:always; }  
+    .page-break-no{ display:block;height:1px; page-break-after:avoid; } 
+
+    table.job-order-topic{
+        width:100%;
+		font:10pt "Times New Roman", Times, serif;
+        border:none;
+	}
+@media all  
+{  
+    .page-break { display:none; }  
+    .page-break-no{ display:none; }  
+}  
+@media print  
+{  
+    .page-break { height:1px; page-break-before:always; }  
+    .page-break-no{ height:1px; page-break-after:avoid; }   
+}
+
+P {
+            page-break-after: always;
+        }
+
+table.job-order {
+    width:100%;
+    font:10pt "Times New Roman", Times, serif;
+    border-collapse:collapse;
+}
+    table.job-order  tr, table.job-order  td, table.job-order  th {
+        border:1px solid #808080
+    }
+    table.job-order th {
+        text-align:center;
+    }
+    table.job-order td {
+        padding-left:3px;
+        padding-right:3px;
+    }
+.topic-header {
+        font-size:16px;
+    }
