@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "DisplayController",
+    "Method": "Hide",
+    "RelativePath": "api/display/hide",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DisplayController",
+    "Method": "Show",
+    "RelativePath": "api/display/show",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "DisplayController\u002BShowReq",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

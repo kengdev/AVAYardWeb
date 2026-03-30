@@ -1,0 +1,742 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.partial-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.dashboard-stat {
+    cursor: default !important;
+}
+
+.logo-default {
+    margin-top: 15px !important;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {}
+
+.table-wrapper {
+    padding-right: 23px;
+}
+
+#modal-calendar-content {
+    display: none;
+}
+
+#calendar-content {
+    width: 1024px;
+    height: 804px;
+}
+
+#basic-modal-content {
+    display: none;
+}
+
+/* Overlay */
+#simplemodal-overlay {
+    background-color: #000;
+}
+
+/* Container */
+#simplemodal-container {
+    color: #bbb;
+    background-color: #f6f6f6;
+    border-radius: 7px !important;
+}
+
+#simplemodal-container .simplemodal-data {
+    padding: 0px;
+}
+
+.modal-wrapper-content-title {
+    background-color: #fff;
+    border-top-left-radius: 7px !important;
+    border-top-right-radius: 7px !important;
+}
+
+.title-modal {
+    width: 100%;
+    height: 32px;
+    background-color: #C49F47;
+    padding-left: 7px;
+    padding-top: 7px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    border-top-left-radius: 7px !important;
+    border-top-right-radius: 7px !important;
+    text-align: left;
+}
+
+.actions-modal {
+    color: rgb(88, 88, 88) !important;
+    font-weight: lighter !important;
+}
+
+.actions-modal a {
+    color: rgb(136, 136, 136) !important;
+    font-weight: bold !important;
+}
+
+#simplemodal-container code {
+    background: #141414;
+    border-left: 3px solid #65B43D;
+    color: #bbb;
+    display: block;
+    font-size: 12px;
+    margin-bottom: 12px;
+    padding: 4px 6px 6px;
+}
+
+#simplemodal-container a {
+    color: #ddd;
+}
+
+#simplemodal-container a.modalCloseImg {
+    background: url(../images/x.png) no-repeat;
+    width: 25px;
+    height: 29px;
+    display: inline;
+    z-index: 3200;
+    position: absolute;
+    top: -5px;
+    right: -16px;
+    cursor: pointer;
+}
+
+#spin-item {
+    display: none;
+    margin-top: 7px;
+    margin-right: 20px
+}
+
+#simplemodal-container h3 {
+    color: #84b8d9;
+}
+
+.actions-modal {
+    text-align: right;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    border-bottom-left-radius: 7px !important;
+    border-bottom-right-radius: 7px !important;
+    height: 61px;
+    padding: 15px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.partial-body-container {
+    margin-top: 10px !important;
+}
+
+.form-actions {
+    height: 70px;
+}
+
+.tools-loading {
+    margin-right: 50px;
+    text-align: right;
+}
+
+.topic-total {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.value-total {
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+}
+
+.dashboard-helper {
+    font-size: 12px;
+    font-weight: normal;
+    color: #d3d3d3;
+    text-transform: lowercase;
+}
+
+.help-block {
+    font-size: 13px !important;
+}
+
+.help-radio {
+    color: #e73d4a;
+    margin-top: -20px !important;
+}
+
+.help-group,
+.help-filter {
+    color: #e73d4a;
+}
+
+.has-error-filter {
+    border: 1px solid #e73d4a !important
+}
+
+#container-back-detail {
+    margin-top: -20px;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50% !important;
+    width: 2em;
+    height: 2em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+}
+
+.required {
+    color: red;
+}
+
+#overlay-form {
+    text-align: center;
+}
+
+.loader {
+    color: #4bf0d8;
+    font-size: 10px;
+    margin: 80px auto;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+
+.loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.loader:after {
+    left: 3.5em;
+}
+
+@-webkit-keyframes load7 {
+
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+
+@keyframes load7 {
+
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+
+/*-----------------------------------Customize DataTables----------------------------------------*/
+.dataTables_filter {
+    display: none !important;
+}
+/* บังคับให้ dropdown ลอยเหนือทุกอย่าง */
+.dropdown-menu {
+    z-index: 999999 !important;
+}
+
+/* ถ้าอยู่ใน container ที่ตัด overflow ให้ปล่อยให้แสดงได้ */
+.table-scrollable,
+.portlet-body,
+.dataTables_wrapper,
+.dataTables_wrapper .table-responsive {
+    overflow: visible !important;
+}
+
+.table tbody td{
+    vertical-align:middle!important;
+}
+
+    .table tbody td.action-full-td .row-actions, .table tbody td.action-td .row-actions, .table tbody td.dropdown-td .row-actions, .table tbody td.action-3-td .row-actions {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none; /* กันคลิกตอนซ่อน */
+        transition: opacity .15s ease;
+    }
+
+/* hover แถวไหน ค่อยโชว์ action ของแถวนั้น */
+.table tbody tr:hover td.action-full-td .row-actions, .table tbody tr:hover td.action-td .row-actions, .table tbody tr:hover td.dropdown-td .row-actions, .table tbody tr:hover td.action-3-td .row-actions {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* (ทางเลือก) จัดระยะปุ่มนิดหน่อย */
+.table tbody td.action-full-td .action-btn, .table tbody td.action-td .row-actions, .table tbody td.dropdown-td .action-btn, .table tbody td.action-3-td .action-btn {
+    margin: 0 2px;
+}
+
+
+.inactive td {
+    color: #ccc;
+}
+
+.daterange-to-text {
+    color: #989898;
+    font-weight: normal;
+}
+
+th.filter {
+    border-bottom: 2px solid #e7ecf1 !important;
+    background: #fff !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    vertical-align: top !important;
+}
+
+.rate-td {
+    width: 150px !important;
+}
+
+.inactive td {
+    color: #ccc;
+}
+
+.dropdown-td {
+    width: 80px!important;
+    padding-left:27px!important;
+}
+
+.action-td {
+    width: 90px !important;
+}
+
+.action-2-td {
+    width: 80px !important;
+}
+
+.action-3-td {
+    width: 120px !important;
+}
+
+.action-4-td {
+    width: 152px !important;
+    padding-left: 7px !important;
+    padding-right: 5px !important;
+}
+
+.rate-size-td {
+    text-align: right;
+    width: 170px !important;
+}
+
+.action-full-td {
+    text-align: center!important;
+    width: 180px !important;
+}
+
+.container-td {
+    min-width: 130px !important;
+}
+.name-td {
+    text-align: left;
+    font-size: 9px !important;
+    min-width: 150px !important;
+}
+
+.agent-td {
+    text-align: left;
+    font-size: 9px !important;
+    width: 150px !important;
+}
+
+.currency-td {
+    text-align: right;
+    width: 90px !important;
+    font-size: 11px !important;
+}
+
+.size-td {
+    width: 70px !important;
+}
+
+.code-td {
+    width: 90px !important;
+}
+
+.type-td {
+    width: 80px !important;
+}
+
+.phone-td{
+    width: 130px !important;
+}
+.tax-td {
+    width: 150px !important;
+}
+
+.code-td,
+.type-td {
+    font-size: 11px !important;
+    text-align: center !important;
+}
+
+.invoice-td {
+    width: 100px !important;
+    font-size: 9px !important;
+    text-align: center !important;
+}
+
+.container-kind-td {
+    width: 50px !important;
+    text-align: center !important;
+}
+
+.container-td {
+    width: 90px !important;
+    text-align: center !important;
+}
+
+.date-td {
+    width: 80px !important;
+    text-align: center !important;
+}
+
+.datetime-td {
+    width: 100px !important;
+    text-align: center !important;
+}
+
+.datetime-filter-td {
+    width: 180px !important;
+    text-align: center !important;
+}
+
+.booking-td {
+    width: 120px !important;
+    font-size: 18px !important;
+    text-align: center !important;
+}
+
+.license-td {
+    width: 70px !important;
+    text-align: center !important;
+}
+
+.acronym-td {
+    width: 150px !important;
+}
+
+.status-td {
+    width: 70px !important;
+    text-align: center !important;
+}
+
+.amount-td {
+    width: 90px !important;
+    text-align: center;
+}
+
+.customer-td {
+    width: 70px !important;
+    font-size: 9px !important;
+}
+
+.mission-td {
+    width: 110px !important;
+    font-size: 9px !important;
+}
+
+.supplyer-td {
+    width: 60px !important;
+    font-size: 11px !important;
+}
+
+.filterDateRangeEnd {
+    margin-top: 3px !important;
+}
+
+.table tr:hover td.OR {
+    background: #d5d5d5 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.ST {
+    background: #4fb5ff !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.WP {
+    background: #fbe35b !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.PU {
+    background: #fc8129 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.AR {
+    background: #c64ff6 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.FN {
+    background: #6affb2 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.DO {
+    background: #5ba300 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.BO {
+    background: #402cf7 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.PN {
+    background: #654a01 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.pending {
+    background: #e1de04 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.approved {
+    background: #5ba300 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.reject {
+    background: #e73d4a !important;
+    pointer-events: none !important
+}
+
+.or-content {
+    font-weight: bold;
+    color: #654a01;
+}
+
+.st-content {
+    font-weight: bold;
+    color: #4fb5ff;
+}
+
+.wp-content {
+    font-weight: bold;
+    color: #fbe35b;
+}
+
+.pu-content {
+    font-weight: bold;
+    color: #fc8129;
+}
+
+.ar-content {
+    font-weight: bold;
+    color: #c64ff6;
+}
+
+.fn-content {
+    font-weight: bold;
+    color: #1f4d03;
+}
+
+.do-content {
+    font-weight: bold;
+    color: #5ba300;
+}
+
+.bo-content {
+    font-weight: bold;
+    color: #402cf7;
+}
+
+
+.OR {
+    font-weight: bold;
+    color: #3d3d3d;
+    background-color: #d5d5d5;
+    text-align: center;
+}
+
+.PN {
+    font-weight: bold;
+    color: #fff;
+    background-color: #654a01;
+    text-align: center;
+}
+
+.ST {
+    font-weight: bold;
+    color: #fff;
+    background-color: #4fb5ff;
+    text-align: center;
+}
+
+.WP {
+    font-weight: bold;
+    color: #000;
+    background-color: #fbe35b;
+    text-align: center;
+}
+
+.PU {
+    font-weight: bold;
+    color: #fff;
+    background-color: #fc8129;
+    text-align: center;
+}
+
+.AR {
+    font-weight: bold;
+    color: #fff;
+    background-color: #c64ff6;
+    text-align: center;
+}
+
+.FN {
+    font-weight: bold;
+    color: #1f4d03;
+    background-color: #6affb2;
+    text-align: center;
+}
+
+.DO {
+    font-weight: bold;
+    color: #fff;
+    background-color: #5ba300;
+    text-align: center;
+    width: 60px;
+}
+
+.BO {
+    font-weight: bold;
+    color: #fff;
+    background-color: #402cf7;
+    text-align: center;
+    width: 60px;
+}
+
+.table tr:hover td.mix {
+    background: #3598dc !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.transport {
+    background: #32c5d2 !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.advance {
+    background: #e73d4a !important;
+    pointer-events: none !important
+}
+
+.table tr:hover td.other {
+    background: #8e44ad !important;
+    pointer-events: none !important
+}
+
+.mix {
+    font-weight: bold;
+    color: #fff;
+    background-color: #3598dc;
+    text-align: center;
+}
+
+.transport {
+    font-weight: bold;
+    color: #fff;
+    background-color: #32c5d2;
+    text-align: center;
+}
+
+.advance {
+    font-weight: bold;
+    color: #fff;
+    background-color: #e73d4a;
+    text-align: center;
+}
+
+.other {
+    font-weight: bold;
+    color: #fff;
+    background-color: #8e44ad;
+    text-align: center;
+}
+
+.pending {
+    font-weight: bold;
+    color: #fff;
+    background-color: #e1de04;
+    text-align: center;
+}
+
+.approved {
+    font-weight: bold;
+    color: #fff;
+    background-color: #5ba300;
+    text-align: center;
+    width: 60px;
+}
+
+.reject {
+    font-weight: bold;
+    color: #fff;
+    background-color: #e73d4a;
+    text-align: center;
+    width: 60px;
+}
+
+.file-true {
+    padding-left: 10px;
+}
+
+.inline-action {
+    width: 100%;
+    border: 1px solid red;
+}

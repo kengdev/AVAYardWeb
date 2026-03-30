@@ -1,0 +1,273 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AVAYardWeb
+build_property.RootNamespace = AVAYardWeb
+build_property.ProjectDir = D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Job\Coding\Net Core\Net 9.0\AVA Global Logistics\AVAYardWeb\AVAYardWeb
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Account/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Account/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Agent/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWdlbnRcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Agent/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWdlbnRcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Agent/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWdlbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Authentication/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVudGljYXRpb25cQWNjZXNzRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Authentication/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVudGljYXRpb25cTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Authentication/SignIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVudGljYXRpb25cU2lnbkluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/ContainerSize/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFpbmVyU2l6ZVxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/ContainerSize/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFpbmVyU2l6ZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/ContainerSize/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFpbmVyU2l6ZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/ContainerYard/Drop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFpbmVyWWFyZFxEcm9wLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/ContainerYard/Match.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFpbmVyWWFyZFxNYXRjaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/Components/ReceiptDrop/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxDb21wb25lbnRzXFJlY2VpcHREcm9wXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/HeaderPdf.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxIZWFkZXJQZGYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/PrintListReceipt.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxQcmludExpc3RSZWNlaXB0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/PrintReceipt.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxQcmludFJlY2VpcHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/ReceiptContainer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxSZWNlaXB0Q29udGFpbmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/ReceiptContainerList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxSZWNlaXB0Q29udGFpbmVyTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/StampChutimaPdf.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxTdGFtcENodXRpbWFQZGYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/_ContainerCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxfQ29udGFpbmVyQ2hlY2suY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/_ContainerKeep.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxfQ29udGFpbmVyS2VlcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/_ReceiptDrop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxfUmVjZWlwdERyb3AuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/DocForm/_ReceiptVoucher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jRm9ybVxfUmVjZWlwdFZvdWNoZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/HistoryContainer/Drop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yeUNvbnRhaW5lclxEcm9wLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/HistoryContainer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yeUNvbnRhaW5lclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/HistoryContainer/Match.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yeUNvbnRhaW5lclxNYXRjaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/Drop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcRHJvcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/DropEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcRHJvcEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/DropIssue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcRHJvcElzc3VlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/EditMatchPickup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcRWRpdE1hdGNoUGlja3VwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/EditMatchReturn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcRWRpdE1hdGNoUmV0dXJuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/IssueMatchPickup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcSXNzdWVNYXRjaFBpY2t1cC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/IssueMatchReturn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcSXNzdWVNYXRjaFJldHVybi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderContainer/Match.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJDb250YWluZXJcTWF0Y2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderPayment/DisplayPayment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJQYXltZW50XERpc3BsYXlQYXltZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderPayment/DisplayPaymentPOS.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJQYXltZW50XERpc3BsYXlQYXltZW50UE9TLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderPayment/IssueDropWithOutVat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJQYXltZW50XElzc3VlRHJvcFdpdGhPdXRWYXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderPayment/IssueDropWithVat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJQYXltZW50XElzc3VlRHJvcFdpdGhWYXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/OrderPayment/IssueMatch.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJQYXltZW50XElzc3VlTWF0Y2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Search/Container.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoXENvbnRhaW5lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Search/Customer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoXEN1c3RvbWVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Search/MatchContainer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoXE1hdGNoQ29udGFpbmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Search/Transportation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VhcmNoXFRyYW5zcG9ydGF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Shared/_AuthenLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BdXRoZW5MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Shared/_LoginLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Shared/_PartialLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYXJ0aWFsTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Tax/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4XEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Tax/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Tax/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Transportation/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNwb3J0YXRpb25cQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Transportation/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNwb3J0YXRpb25cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Transportation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNwb3J0YXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/YardReceipt/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWWFyZFJlY2VpcHRcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/YardReceipt/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWWFyZFJlY2VpcHRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Job/Coding/Net Core/Net 9.0/AVA Global Logistics/AVAYardWeb/AVAYardWeb/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-6t7eemgs2u
